@@ -1,0 +1,11 @@
+
+.my-jumbotron{
+    background-color: #212121;
+    color: white;
+    border: gray 1px solid;
+}
+.my-panel-default{
+	background-color: #212121;
+    color: white;
+    border: gray 1px solid;
+}
