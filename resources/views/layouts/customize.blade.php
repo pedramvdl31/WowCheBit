@@ -310,10 +310,14 @@
                     <input type="text" class="form-control" placeholder="Enter Your Email" id="user_email">
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" placeholder="Message" style="width:100%" id="user_message">  </textarea>
+                    <textarea class="form-control" placeholder="Message" style="width:100%" id="user_message"></textarea>
                 </div>
                 <div class="form-group">
-                        <button class="btn btn-success btn-sm pull-right" id="send_message">Send</button>
+                    <button class="btn btn-success btn-sm pull-right" id="send_message">Send</button>
+                    <img id="email_loading" class="hide" style="float:right;    
+                            margin-top: 4px;
+                            margin-right: 5px;" 
+                    src="/assets/images/icons/gif/loading1.gif" width="20px">
                 </div>
           </div> <!-- /.col-md-12 -->
           
@@ -383,5 +387,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/assets/js/application.js"></script>
+    <script src="/assets/js/layouts/customize.js"></script>
   </body>
 </html>

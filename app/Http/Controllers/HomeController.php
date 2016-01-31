@@ -68,7 +68,7 @@ class HomeController extends Controller
 
         public function getHomePage()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         $pages = Page::take(1)->first();
         if (isset($pages)) {
             $prefered_layout_set = null;
@@ -99,7 +99,7 @@ class HomeController extends Controller
     public function getEvents()
     {
         $events = Event::PrepareEventsForEventPage();
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.events')
         ->with('layout',$layout_title)
         ->with('events',$events);
@@ -107,87 +107,92 @@ class HomeController extends Controller
 
     public function getCalendar()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.calendar')
         ->with('layout',$layout_title);
     }
 
     public function getVideos()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.videos')
         ->with('layout',$layout_title);
     }
 
     public function getPrema()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.prema')
         ->with('layout',$layout_title);
     }
     public function getJo()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.jo')
         ->with('layout',$layout_title);
     }    
     public function getJean()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.jean')
         ->with('layout',$layout_title);
     }    
     public function getBbtr()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.bbtr')
         ->with('layout',$layout_title);
     }
     public function getBbtrSession()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.bbtr_session')
         ->with('layout',$layout_title);
     }
     public function getCocoon()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.cocoon')
         ->with('layout',$layout_title);
     }
     public function getCocoonModality()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.cocoon_modality')
         ->with('layout',$layout_title);
     }
     public function getCocoonMassage()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.cocoon_massage')
         ->with('layout',$layout_title);
     }
 
     public function getGiten()
     {
-        $layout_title = 'layouts.customize_layout';
+        $layout_title = 'layouts.customize';
         return view('pages.website_pages.giten')
         ->with('layout',$layout_title);
     }
 
-        public function postSendEmail()
+    public function postSendEmail()
     {
         if(Request::ajax()){
             $status = 400;
             $email = Input::get('email');
-            $message = Input::get('message');
-            $data = array('status' => 'k');
+            $message_text = Input::get('message');
 
-        Mail::raw('Text to e-mail', function ($message) {
-            $message->from('us@example.com', 'Laravel');
-            $message->to('pedramkhoshnevis666@yahoo.com');
-        });
-
+            if (Mail::send('emails.send_message', array(
+                        'email' => $email,
+                        'message_text' => $message_text
+                    ), function($message) use ($email,$message_text)
+                    {
+                        $message->from('postmaster@webprinciples.com');
+                        $message->to('pedramkhoshnevis666@yahoo.com');
+                        $message->subject('Message from Your Website!');
+                    })) {
+                $status = 200;
+            }
             return Response::json(array(
                 'status' => $status
                 ));
