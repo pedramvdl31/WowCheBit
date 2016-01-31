@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
 
-<head>
-
+    <!-- Meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
+    <meta name="keywords" content="">
     <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/ubu-favicon.png">
+    <meta name="googlebot" content="index,follow">
 
-    <title>UBU Today</title>
+    <!-- Title -->
+    <title>Guri Guri Nyoi &mdash; Bootstrap 3 iPhone App Templates</title>
+
+
+
+      <title>UBU Today</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -20,142 +27,284 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-    <!-- sub menu -->
-    <link rel="stylesheet" href="/packages/bootstrap-submenu/dist/css/bootstrap-submenu.min.css">
-    <!-- Custom CSS -->
-    <link href="/assets/css/pages/website_pages/landing-page.css" rel="stylesheet">
-
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    @yield('stylesheets')
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!-- Templates core CSS -->
+    <link href="/assets/css/application.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
-</head>
+    <!-- Modernizr Scripts -->
+    <script src="/assets/js/modernizr-2.7.1.min.js"></script>
+  </head>
+  <body class="index" id="to-top">
 
-<body 
-@if(!isset($is_home))
- style="background-color:black" 
-@endif
+    <!-- Side nav -->
+    <nav class="side-nav" role="navigation">
 
->
-    @if(isset($is_home))
-      @if($is_home==1)
-<!--         <div id="audio-container"> 
-          <audio autoplay id="intro-song">
-            <source src="/assets/music/intro_song.mp3" type="audio/mpeg">
-          </audio>
-        </div> -->
-      @endif
-    @endif
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img id="pen-logo" class="pull-left" src="/assets/images/brand_image/perm/main-logo.jpg" style="width: 33px;margin-right:9px;">
-                <a class="navbar-brand topnav" href="/">UBU Today</a>
-                @if(isset($is_home))
-                  @if($is_home==1)
-                        <a style="line-height:49px" id="mute-btn" class="sound-btns"> <img class="sound-btns-img" src="/assets/images/icons/mute-icon.png" width="19px" ></a>
-                        <a style="line-height:49px" id="sound-btn"  class="hide sound-btns"> <img class="sound-btns-img" src="/assets/images/icons/sound-icon.png" width="19px" ></a>
-                  @endif
-                @endif
-
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="true">
-                          About<span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                          <li class="dropdown-submenu">
-                            <a tabindex="0">UBU Today</a>
-                            <ul class="dropdown-menu">
-                              <li><a tabindex="0" href="{!!route('get_jo_page')!!}">Jo Morris (Founder)</a></li>
-                              <li><a tabindex="0" target="_blank" href="http://wendyjomorrison.com/">Jo Morris Bio</a></li>
-                            </ul>
-                          </li>
-                          <li class="dropdown-submenu">
-                            <a tabindex="0">Believe - in - Breath (BBTR)</a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{!!route('get_bbtr_page')!!}" tabindex="0">BBTR Bio</a></li>
-                              <li><a href="{!!route('get_giten_page')!!}" tabindex="0">Giten Tonkov (Founder)</a></li>
-                              <li><a href="{!!route('get_bbtr_session_page')!!}" tabindex="0">Biodybamic Breath Session</a></li>
-                            </ul>
-                          </li>
-                          <li class="dropdown-submenu">
-                            <a tabindex="0">Cocoon-US</a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{!!route('get_jean_page')!!}" tabindex="0">Jean Paul Lacroix (Founder)</a></li>
-                              <li><a href="{!!route('get_cocoon_page')!!}" tabindex="0">Cocoon-US Bio</a></li>
-                              <li><a href="{!!route('get_cocoon_modality_page')!!}" tabindex="0">Cocoon Modality</a></li>
-                              <li><a href="{!!route('get_cocoon_massage_page')!!}" tabindex="0">Cocoon Massage</a></li>
-                                
-                            </ul>
-                          </li>
-                          <li><a tabindex="0" href="{!!route('get_prema_page')!!}">Prema Kreever</a></li>
-                        </ul>
-                      </li>
-                    <li>
-                        <a href="{!!route('get-videos')!!}">Media</a>
-                    </li>
-                    <li>
-                        <a href="{!!route('get-calendar')!!}">Events</a>
-                    </li>
-                    <li>
-                        <a href="#contact">Contact</a>
-                    </li>
-
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+      <ul class="nav-side-nav">
+        <li><a class="tooltip-side-nav" href="#section-1" title="" data-original-title="Services" data-placement="left"></a></li>
+        <li><a class="tooltip-side-nav" href="#section-2" title="" data-original-title="Features" data-placement="left"></a></li>
+        <li><a class="tooltip-side-nav" href="#section-3" title="" data-original-title="Subscribe" data-placement="left"></a></li>
+        <li><a class="tooltip-side-nav" href="#to-top" title="" data-original-title="Back" data-placement="left"></a></li>
+      </ul>
+      
+    </nav> <!-- /.side-nav -->
 
 
-    @yield('content')
 
-    <a  name="contact"></a>
-    <div class="banner">
 
-        <div class="container">
+    <!-- Jumbotron -->
+    <header class="jumbotron" role="banner">
 
-            <div class="col-md-8  col-sm-12 col-xs-12">
-                <div class="col-lg-6">
-                    <h2>Connect to UBU Today:</h2>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="list-inline banner-social-buttons">
-                        <li>
-                            <a href="https://www.facebook.com/wendyjomorrison" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
-                        </li>
-                        <li>
-                            <a href="https://twitter.com/ubutoday" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                        </li>
-                        <li>
-                            <a href="https://plus.google.com/+UBUTODAYCocoonMoiUS/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+      <div class="container">
 
-            <div class="col-md-4 col-sm-12 col-xs-12" id="send-message-container">
-                    
+        <div class="row">
+
+          <div class="col-md-7">
+
+            <!-- Logo -->
+            <figure class="text-center">
+              <a href="./index.html">
+                <img class="img-logo" src="/assets/images/logo.png" alt="">
+              </a>
+            </figure> <!-- /.text-center -->
+
+            <!-- Title -->
+            <h1>Your awesome title here</h1>
+
+            <!-- Sub title -->
+            <p>Architecto numquam perspiciatis commodi laboriosam quod debitis placeat maxime quaerat soluta quia porro dicta sunt nemo voluptates!</p>
+
+            <!-- Button -->
+            <p class="btn-app-store">
+              <a class="btn btn-danger btn-lg" href="#fakelinks">
+                <img src="/assets/images/btn-app-store.png" alt="">
+              </a>
+            </p> <!-- /.btn-app-store -->
+
+          </div> <!-- /.col-md-7 -->
+
+          <div class="col-md-5">
+
+            <!-- Images showcase -->
+            <figure>
+              <img class="img-iPhone" src="/assets/images/iphone/2.png" alt="">
+            </figure>
+
+          </div> <!-- /.col-md-5 -->
+          
+        </div> <!-- /.row -->
+        
+      </div> <!-- /.container -->
+
+    </header> <!-- /.jumbotron -->
+
+
+
+
+    <!-- Services -->
+    <section class="services-section" id="section-1">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-4 col-services">
+            
+            <!-- Icons -->
+            <figure>
+              <img class="img-services" src="/assets/images/icons/flag.png" alt="">
+            </figure>
+
+            <!-- Title -->
+            <h4>Flag</h4>
+
+            <!-- Description -->
+            <p>Harum sunt atque quod reprehenderit voluptates dolores nisi quas dolorum ipsa ad consequatur impedit.</p>
+
+          </div> <!-- /.col-md-4 -->
+
+          <div class="col-md-4 col-services">
+            
+            <!-- Icons -->
+            <figure>
+              <img class="img-services" src="/assets/images/icons/search.png" alt="">
+            </figure>
+
+            <!-- Title -->
+            <h4>Search</h4>
+
+            <!-- Description -->
+            <p>Quaerat, quisquam, perspiciatis, ipsam eveniet a ducimus repellat rem nobis similique.</p>
+
+          </div> <!-- /.col-md-4 -->
+
+          <div class="col-md-4 col-services">
+            
+            <!-- Icons -->
+            <figure>
+              <img class="img-services img-margin" src="/assets/images/icons/world-map.png" alt="">
+            </figure>
+
+            <!-- Title -->
+            <h4>World Map</h4>
+
+            <!-- Description -->
+            <p>Aperiam iure doloremque tempora explicabo praesentium eos dicta laudantium corrupti ipsam.</p>
+
+          </div> <!-- /.col-md-4 -->
+          
+        </div> <!-- /.row -->
+        
+      </div> <!-- /.container -->
+      
+    </section> <!-- /.services-section -->
+
+
+
+
+    <!-- Features -->
+    <section class="features-section" id="section-2">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-5 col-features text-center">
+            
+            <!-- Images showcase -->
+            <figure>
+              <img class="img-iPhone" src="/assets/images/iphone/1.png" alt="">
+            </figure>
+
+          </div> <!-- /.col-md-5 -->
+
+          <div class="col-md-7 col-features features-content">
+            
+            <!-- Title -->
+            <h3 id="title-1">First title features</h3>
+
+            <!-- Description -->
+            <p>Omnis, esse quo natus soluta minima facilis ratione dignissimos necessitatibus quod dolorem labore molestiae maxime veritatis laudantium aut odio ullam laboriosam autem!</p>
+
+            <p>
+              <a class="btn btn-danger" href="#title-2">Learn more</a>
+            </p>
+
+          </div> <!-- /.col-md-7 -->
+          
+        </div> <!-- /.row -->
+
+
+
+
+        <div class="row media-screen-800">
+
+          <div class="col-md-7 col-features features-content">
+            
+            <!-- Title -->
+            <h3 id="title-2">Second title features</h3>
+
+            <!-- Description -->
+            <p>Omnis, esse quo natus soluta minima facilis ratione dignissimos necessitatibus quod dolorem labore molestiae maxime veritatis laudantium aut odio ullam laboriosam autem!</p>
+
+            <p>
+              <a class="btn btn-danger" href="./sign-in.html">Sign In</a> &nbsp;
+              <a class="btn btn-danger-border" href="./sign-up.html">Sign Up</a>
+            </p>
+
+          </div> <!-- /.col-md-7 -->
+
+          <div class="col-md-5 col-features text-center">
+            
+            <!-- Images showcase -->
+            <figure>
+              <img class="img-iPhone margin-top margin-screen-800" src="/assets/images/iphone/4.png" alt="">
+            </figure>
+
+          </div> <!-- /.col-md-5 -->
+          
+        </div> <!-- /.row -->
+
+
+
+
+        <div class="row">
+
+          <div class="col-md-5 col-features text-center">
+            
+            <!-- Images showcase -->
+            <figure>
+              <img class="img-iPhone margin-top margin-top-1" src="/assets/images/iphone/3.png" alt="">
+            </figure>
+
+          </div> <!-- /.col-md-5 -->
+
+          <div class="col-md-7 col-features features-content">
+            
+            <!-- Title -->
+            <h3 id="title-3">Third title features</h3>
+
+            <!-- Description -->
+            <p>Omnis, esse quo natus soluta minima facilis ratione dignissimos necessitatibus quod dolorem labore molestiae maxime veritatis laudantium aut odio ullam laboriosam autem!</p>
+
+            <!-- Button -->
+            <p class="btn-app-store">
+              <a class="btn btn-danger btn-lg" href="#fakelinks">
+                <img src="/assets/images/btn-app-store.png" alt="">
+              </a>
+            </p> <!-- /.btn-app-store -->
+
+          </div> <!-- /.col-md-7 -->
+          
+        </div> <!-- /.row -->
+
+      </div> <!-- /.container -->
+
+    </section> <!-- /.features-section -->
+
+
+
+
+    <!-- Subscribe -->
+    <section class="subscribe-section" id="section-3">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-8">
+
+            <!-- Title -->
+            <h2>Subscribe to get delightfully infrequent updates</h2>
+
+            <!-- Subscribe form -->
+            <div class="row">
+
+              <div class="col-md-12 col-subscribe">
+                <form class="subscribe-form form-inline" action="./index.html" role="form">
+                  <!-- Input -->
+                  <div class="form-group">
+                    <label class="sr-only" for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email address">
+                  </div> <!-- /.form-group -->
+                  <!-- Button -->
+                  <button class="btn btn-success" type="submit">Subscribe</button>
+                </form> <!-- /.subscribe-form -->
+                <section class="subscribe-description">
+                  <p>Don't worry. We do not spam :)</p>
+                </section> <!-- /.subscribe-description -->
+              </div> <!-- /.col-md-6 -->
+
+            </div> <!-- /.row -->
+            
+          </div> <!-- /.col-md-12 -->
+          <div class="col-md-4">
                 <div class="form-group">
                     <label for="usr">Send Message:</label>
                     <input type="text" class="form-control" placeholder="Enter Your Email" id="user_email">
@@ -164,51 +313,75 @@
                     <textarea class="form-control" placeholder="Message" style="width:100%" id="user_message">  </textarea>
                 </div>
                 <div class="form-group">
-                        <button class="btn btn-primary btn-sm pull-right" id="send_message">Send</button>
+                        <button class="btn btn-success btn-sm pull-right" id="send_message">Send</button>
                 </div>
+          </div> <!-- /.col-md-12 -->
+          
+        </div> <!-- /.row -->
 
-            </div>
+      </div> <!-- /.container -->
 
-        </div>
-        <!-- /.container -->
+    </section> <!-- /.subscribe-section -->
 
-    </div>
-    <!-- /.banner -->
+
+
+
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="{!!route('get-videos')!!}">Media</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="{!!route('get-calendar')!!}">Events</a>
-                        </li>
+    <footer class="footer-section" role="contentinfo">
 
-                    </ul>
-                    <p class="copyright text-muted small" style="color:white">Copyright &copy; Webprinciples 2016. All Rights Reserved</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-4 col-footer">
+            
+            <!-- Footer 1 -->
+            <section>
+              <p>Made with by WebPrinciples.</p>
+            </section>
+
+          </div> <!-- /.col-md-4 -->
+
+          <div class="col-md-4 col-footer col-padding">
+            
+            <!-- Footer 1 -->
+            <section class="text-center">
+              <p>Be sure to read <a href="#fakelinks">Terms</a> and <a href="#fakelinks">Privacy Policy</a>.</p>
+            </section>
+
+            <!-- Social media links -->
+            <ul class="social-media-links">
+
+              <li><a class="fa fa-twitter tw" href="#fakelinks"></a></li>
+              <li><a class="fa fa-facebook fb" href="#fakelinks"></a></li>
+              <li><a class="fa fa-pinterest pn" href="#fakelinks"></a></li>
+              
+            </ul> <!-- /.social-media-links -->
+
+          </div> <!-- /.col-md-4 -->
+
+          <div class="col-md-4 col-footer">
+            
+            <!-- Footer 1 -->
+            <section>
+              <p><strong>WowCheBit, Inc</strong> <br>Mr John Smith 132, My Street,
+              <br>Bigtown BG23 4YZ, England</p>
+            </section>
+
+          </div> <!-- /.col-md-4 -->
+          
+        </div> <!-- /.row -->
+
+      </div> <!-- /.container -->
+
+    </footer> <!-- /.footer-section -->
 
     <!-- Load js libs only when the page is loaded. -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/packages/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="/packages/Magister3/assets/js/modernizr.custom.72241.js"></script>
-    <script src="/packages/bootstrap-submenu/dist/js/bootstrap-submenu.min.js" defer></script>
-    <script src="/assets/js/pages/website_pages/landing-page.js"></script>
-    @yield('scripts')
-
-</body>
-
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/application.js"></script>
+  </body>
 </html>
