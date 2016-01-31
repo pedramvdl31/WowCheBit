@@ -13,13 +13,10 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
     <meta name="googlebot" content="index,follow">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/ubu-favicon.png">
 
     <!-- Title -->
-    <title>Guri Guri Nyoi &mdash; Bootstrap 3 iPhone App Templates</title>
-
-
-
-      <title>UBU Today</title>
+    <title>WowCheBit &mdash; Bitcoin</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -341,7 +338,7 @@
             
             <!-- Footer 1 -->
             <section>
-              <p>Made with by WebPrinciples.</p>
+              <p>Made with by <a target="_blank" href="http://www.webprinciples.com/">WebPrinciples</a>.</p>
             </section>
 
           </div> <!-- /.col-md-4 -->
