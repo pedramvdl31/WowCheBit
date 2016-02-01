@@ -44,10 +44,10 @@
     <nav class="side-nav" role="navigation">
 
       <ul class="nav-side-nav">
-        <li><a class="tooltip-side-nav" href="#section-1" title="" data-original-title="Services" data-placement="left"></a></li>
-        <li><a class="tooltip-side-nav" href="#section-2" title="" data-original-title="Features" data-placement="left"></a></li>
-        <li><a class="tooltip-side-nav" href="#section-3" title="" data-original-title="Subscribe" data-placement="left"></a></li>
-        <li><a class="tooltip-side-nav" href="#to-top" title="" data-original-title="Back" data-placement="left"></a></li>
+        <li><a class="tooltip-side-nav" href="#section-0" title="" data-original-title="Intro" data-placement="left"></a></li>
+        <li><a class="tooltip-side-nav" href="#section-1" title="" data-original-title="Chart" data-placement="left"></a></li>
+        <li><a class="tooltip-side-nav" href="#section-2" title="" data-original-title="Subscribe" data-placement="left"></a></li>
+        <li><a class="tooltip-side-nav" href="#section-3" title="" data-original-title="Contact" data-placement="left"></a></li>
       </ul>
       
     </nav> <!-- /.side-nav -->
@@ -56,13 +56,13 @@
 
 
     <!-- Jumbotron -->
-    <header class="jumbotron" role="banner">
+    <header class="jumbotron" role="banner" id="section-0">
 
       <div class="container">
 
         <div class="row">
 
-          <div class="col-md-7">
+          <div class="col-md-6">
 
             <!-- Logo -->
             <figure class="text-center">
@@ -72,16 +72,20 @@
             </figure> <!-- /.text-center -->
 
             <!-- Title -->
-            <h1>Your awesome title here</h1>
+            <h1>WowCheBit</h1>
 
             <!-- Sub title -->
-            <p>Architecto numquam perspiciatis commodi laboriosam quod debitis placeat maxime quaerat soluta quia porro dicta sunt nemo voluptates!</p>
+            <p>
+              If you want to buy or sell bitcoins you are in the right place.
+            </p>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px">
+              <a class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm">Buy <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
+              <a class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm">Sell <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
+            </div>
 
             <!-- Button -->
             <p class="btn-app-store">
-              <a class="btn btn-danger btn-lg" href="#fakelinks">
-                <img src="/assets/images/btn-app-store.png" alt="">
-              </a>
+              <iframe frameBorder="0" scrolling="no" src="https://legacy.bigterminal.com/embed/ticker-widget/" width="244" height="100"></iframe>
             </p> <!-- /.btn-app-store -->
 
           </div> <!-- /.col-md-7 -->
@@ -104,8 +108,32 @@
 
 
 
+
     <!-- Services -->
     <section class="services-section" id="section-1">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 col-features text-center">
+            <center style="overflow-y:auto">
+              <iframe frameborder="0" scrolling="no" src="https://legacy.bigterminal.com/embed/chart-widget/?width=510&amp;height=310&amp;color=0cd1aa&amp;series=averageBTCUSD" width="510" height="310" __idm_frm__="8"></iframe>
+            </center> <!-- /.col-md-4 -->
+          </div> <!-- /.col-md-5 -->
+
+          <div class="col-md-5 col-features features-content"style="padding-top:10px;">
+            <h3 id="title-1">Bitcoin 24/7 Live chart</h3>
+            <p>By default, browsers will treat all native form controls (<code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> and <code>&lt;button&gt;</code> elements) inside a <code>&lt;fieldset disabled&gt;</code> as disabled, preventing both keyboard and mouse interactions on them.</p>
+          </div> <!-- /.col-md-7 -->
+          
+        </div> <!-- /.row -->
+
+      </div> <!-- /.container -->
+      
+    </section> <!-- /.services-section -->
+
+
+    <!-- Services -->
+    <section class="" id="section-2" style="background: #f3f4f5;">
 
       <div class="container">
 
@@ -115,14 +143,14 @@
             
             <!-- Icons -->
             <figure>
-              <img class="img-services" src="/assets/images/icons/flag.png" alt="">
+              <img class="img-services" src="/assets/images/icons/search.png" alt="">
             </figure>
 
             <!-- Title -->
-            <h4>Flag</h4>
+            <h4>FAQ</h4>
 
             <!-- Description -->
-            <p>Harum sunt atque quod reprehenderit voluptates dolores nisi quas dolorum ipsa ad consequatur impedit.</p>
+            <p>Here we answer to the top frequently asked questions, to read more click here.</p>
 
           </div> <!-- /.col-md-4 -->
 
@@ -130,7 +158,7 @@
             
             <!-- Icons -->
             <figure>
-              <img class="img-services" src="/assets/images/icons/search.png" alt="">
+              <img class="img-services" src="/assets/images/icons/world-map.png" alt="">
             </figure>
 
             <!-- Title -->
@@ -145,14 +173,14 @@
             
             <!-- Icons -->
             <figure>
-              <img class="img-services img-margin" src="/assets/images/icons/world-map.png" alt="">
+              <img class="img-services img-margin" src="/assets/images/icons/flag.png" alt="">
             </figure>
 
             <!-- Title -->
-            <h4>World Map</h4>
+            <h4>Contact Us</h4>
 
             <!-- Description -->
-            <p>Aperiam iure doloremque tempora explicabo praesentium eos dicta laudantium corrupti ipsam.</p>
+            <p>If you wish to directly ask or report something click <a href="#section-3">here</a>.</p>
 
           </div> <!-- /.col-md-4 -->
           
@@ -166,7 +194,7 @@
 
 
     <!-- Features -->
-    <section class="features-section" id="section-2">
+    <section class="features-section" id="section-2" style="background: white;">
 
       <div class="container">
 
