@@ -5,10 +5,7 @@ $(document).ready(function(){
 });
 cust_layout = {
 	pageLoad: function() {
-		$('#web-img').click(function(){
-			window.location = "/";
-			window.open('http://stackoverflow.com/', '_blank');
-		});
+
 	},
 	events: function() {
 
@@ -35,10 +32,10 @@ cust_layout = {
 		$('.back-to-home').click(function(){
 			window.location = "/";
 		});
-        $(document).on('click','.login-btn',function(){
+        $(document).on('click','#login-btn',function(){
 			$('#login-modal').modal('show');
         });
-        $(document).on('click','.logout-btn',function(){
+        $(document).on('click','#logout-btn',function(){
 			$('#logout-modal').modal('show');
         });
 

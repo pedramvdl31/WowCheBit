@@ -8,7 +8,8 @@ registration = {
 	pageLoad: function() {
 	},
 	events: function() {
-		$('#submit-btn').click(function(){
+
+		$('#submit-btn').click(function(e){
 			var reg_form = $('#reg-form').serialize();
 			request.form_validate(reg_form);
 		});
@@ -91,7 +92,8 @@ request = {
 };
 function reset_errors()
 {
-	$('.error').addClass('hide');
+	$('.form-group').removeClass('has-error has-feedback');
+	$('.form-control-feedback').addClass('hide');
 }
 function view_errors(data)
 {
@@ -102,57 +104,66 @@ function view_errors(data)
  			case "first_name":
  			if (j['status'] == 400) {
  				error_status = true;
- 				 message = j['message'];
- 				 $('.error-first_name').removeClass('hide').html(message);
+ 				 $('.error-first_name').removeClass('hide');
+ 				 $('.error-first_name').parents('.form-group:first')
+ 				 			.addClass('has-error has-feedback');
+
  				}
  			break;
  			case "last_name":
  			if (j['status'] == 400) {
  				error_status = true;
- 				 message = j['message'];
- 				 $('.error-last_name').removeClass('hide').html(message);
+ 				$('.error-last_name').removeClass('hide');
+ 				 $('.error-last_name').parents('.form-group:first')
+ 				 			.addClass('has-error has-feedback');
  				}
  			break;
  			case "phone":
  			if (j['status'] == 400) {
  				error_status = true;
- 				 message = j['message'];
- 				 $('.error-phone').removeClass('hide').html(message);
+ 				$('.error-phone').removeClass('hide');
+ 				 $('.error-phone').parents('.form-group:first')
+ 				 			.addClass('has-error has-feedback');
  				}
  			break;
  			case "age":
 	 			if (j['status'] == 400) {
 	 				error_status = true;
-	 				message = j['message'];
-	 				$('.error-age').removeClass('hide').html(message);
+	 				$('.error-age').removeClass('hide');
+	 				$('.error-age').parents('.form-group:first')
+ 				 			.addClass('has-error has-feedback');
 	 			};
  			break;
  			case "email":
  			if (j['status'] == 400) {
  				error_status = true;
- 				message = j['message'];
- 				$('.error-email').removeClass('hide').html(message);
+ 				$('.error-email').removeClass('hide');
+ 				$('.error-email').parents('.form-group:first')
+ 				 			.addClass('has-error has-feedback');
  			}
  			break;
  			case "username":
  			if (j['status'] == 400) {
  				error_status = true;
- 				message = j['message'];
- 				$('.error-username').removeClass('hide').html(message);
+ 				$('.error-username').removeClass('hide');
+ 				$('.error-username').parents('.form-group:first')
+ 				 			.addClass('has-error has-feedback');
  			}
  			break;
  			case "password":
  			if (j['status'] == 400) {
  				error_status = true;
- 				message = j['message'];
- 				$('.error-password').removeClass('hide').html(message);
+ 				$('.error-password').removeClass('hide');
+ 				$('.error-password').parents('.form-group:first')
+ 				 			.addClass('has-error has-feedback');
  			}
  			break;
  			case "password_again":
  			if (j['status'] == 400) {
  				error_status = true;
- 				message = j['message'];
- 				$('.error-password-again').removeClass('hide').html(message);
+ 				$('.error-password-again').removeClass('hide');
+ 				$('.error-password-again').parents('.form-group:first')
+ 				 			.addClass('has-error has-feedback');
  			}
  			break;
  		}

@@ -71,22 +71,6 @@ class Job extends Model
 
 		return 0;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	static public function dump($results) {
 		if(isset($results)) {
 			echo '<pre>';
@@ -203,15 +187,6 @@ class Job extends Model
 		}
 		return $output;
 	}
-
-
-
-
-
-
-
-
-
 	public static function country_code(){
 	    return array
 	    (
@@ -492,9 +467,9 @@ class Job extends Model
 					break;
 					case 'phone':
 						$error_type = 0;
-						if ( strlen($input_all[$type]) < 1 ) {
+						if ( strlen($input_all[$type]) < 5 ) {
 							$error_type = 1;
-						} elseif (!preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/", $input_all[$type])) {
+						} elseif (!ctype_digit($input_all[$type])) {
 							$error_type = 2;
 						}
 
@@ -503,7 +478,7 @@ class Job extends Model
 								$data_output[$type]['status'] = 200;
 								break;
 							case 1:
-								$data_output[$type]['message'] = 'Please Enter Phone Number';
+								$data_output[$type]['message'] = 'Please Enter Your Phone Number';
 								$data_output[$type]['status'] = 400;
 								break;
 							case 2:

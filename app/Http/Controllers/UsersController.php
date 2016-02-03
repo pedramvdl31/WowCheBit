@@ -48,25 +48,16 @@ class UsersController extends Controller
             $user->roles = 5;
             $user->username = Input::get('username');
             $user->firstname = Input::get('first_name');
-            $user->lastname = Input::get('last_name');
             $user->email = Input::get('email');
             $user->age = Input::get('age');
-            // $user->country = Input::get('country');
-            // $user->city = Input::get('city');
-            // $user->district_gu = Input::get('district');
-            // $user->area_dong = Input::get('area');
-            // $user->unit = Input::get('unit');
-            // $user->apartment = Input::get('apartment');
-            // $user->phone = str_replace("-","",Input::get('phone'));
-            // $user->zipcode = Input::get('zipcode');
-            // $user->company = (Input::get('company'))?Input::get('company'):null;
+            $user->country = Input::get('country');
+            $user->city = Input::get('city');
+            $user->address = Input::get('address');
+            $user->zipcode = Input::get('zipcode');
             $user->password = Hash::make(Input::get('password')); 
-            // $user->address_array = Input::get('address')?json_encode(Input::get('address')):null; 
-
-
             //REFORMATE IMAGE NAME
             if (Input::get('profile-image')) {
-                $imagePath = public_path("assets/images/profile-images/perm/");
+                $imagePath = public_path(DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."profile-images".DIRECTORY_SEPARATOR."perm".DIRECTORY_SEPARATOR);
                 $now_time = time();
                 $imagename = Input::get('profile-image');
                 $image_ex = explode('.', $imagename);
@@ -77,7 +68,6 @@ class UsersController extends Controller
 
             $user->profile_image = Input::get('profile-image')?$final_path.'.'.$image_type:'blank_male.png';           
              if($user->save()) { // Save the user and redirect to owners home
-
                 //ASSIGN LEVEL TWO ACL (GUESTS)
                 $new_rule = new RoleUser;
                 $new_rule->role_id = 5;
@@ -94,8 +84,8 @@ class UsersController extends Controller
                                 "error" => 'Destination Unwritable'
                                 ));
                         } else {
-                            $oldpath = public_path("assets/images/profile-images/tmp/".Input::get('profile-image'));
-                            $newpath = public_path("assets/images/profile-images/perm/".$final_path.'.'.$image_type);
+                            $oldpath = public_path(DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."profile-images".DIRECTORY_SEPARATOR."tmp".DIRECTORY_SEPARATOR.Input::get('profile-image'));
+                            $newpath = public_path(DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."profile-images".DIRECTORY_SEPARATOR."perm".DIRECTORY_SEPARATOR.$final_path.'.'.$image_type);
                             rename($oldpath, $newpath);
                         }
                     }
@@ -245,19 +235,7 @@ public function postValidate()
     }
 }
 
-public function postValidateSales()
-{
-    $reg_form = null;
-    parse_str(Input::get('reg_form'), $reg_form);
 
-    $validation_results = Job::validate_data_sales($reg_form['address_add_user']);
-    if(Request::ajax()){
-        return Response::json(array(
-            'status' => 200,
-            'validation_callback' => $validation_results
-            ));
-    }
-}
 
 public function postUserAuth()
 {
@@ -276,7 +254,7 @@ public function postSendFile()
 {
     if(Request::ajax()){
         $status = 400;
-        $imagePath = public_path("assets/images/profile-images/perm/");
+        $imagePath = public_path(DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."profile-images".DIRECTORY_SEPARATOR."perm".DIRECTORY_SEPARATOR);
         $imagename = $_FILES[0]['name'];
         $imagetemp = $_FILES[0]['tmp_name'];
         $image_ex = explode('.', $imagename);
@@ -313,7 +291,7 @@ public function postSendFile()
                 $user = User::find(Auth::user()->id);
                     //DELETE USERS PREVIOUS IMAGE
                 if ($user->profile_image != 'blank_male.png') {
-                    $old_image = public_path("assets/images/profile-images/perm/".$user->profile_image);
+                    $old_image = public_path(DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."profile-images".DIRECTORY_SEPARATOR."perm".DIRECTORY_SEPARATOR.$user->profile_image);
                     if (file_exists($old_image)) {
                         unlink($old_image);
                     }
@@ -342,7 +320,7 @@ public function postSendFileTemp()
     if(Request::ajax()){
             // $imagePath = "img/tmp/";
         $status = 400;
-        $imagePath = public_path("assets/images/profile-images/tmp/");
+        $imagePath = public_path(DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."profile-images".DIRECTORY_SEPARATOR."tmp".DIRECTORY_SEPARATOR);
         $imagename = $_FILES[0]['name'];
         $imagetemp = $_FILES[0]['tmp_name'];
 

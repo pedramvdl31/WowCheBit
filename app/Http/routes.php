@@ -62,7 +62,7 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 		Route::post('login', 'AdminsController@postLogin');
 		Route::get('logout', 'AdminsController@getLogout');			
 	});
-
+	Route::get('/logout', ['as'=>'logout','uses' =>'UsersController@getLogout']);
 
 	// 	// NO ACL
 	// Route::get('/admins',  ['as'=>'admins_index', 'uses' => 'AdminsController@getIndex']);

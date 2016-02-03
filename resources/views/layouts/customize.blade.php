@@ -24,11 +24,13 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
+    <!-- Custom CSS -->
+    <link href="/assets/css/pages/website_pages/landing-page.css" rel="stylesheet">
     <!-- Templates core CSS -->
     <link href="/assets/css/application.css" rel="stylesheet">
+    {!! Html::style('/assets/css/login_modal.css') !!}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -39,7 +41,52 @@
     <script src="/assets/js/modernizr-2.7.1.min.js"></script>
   </head>
   <body class="index" id="to-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="/">WowCheBit</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="">Buy Bitcoin</a>
+                    </li>
+                    <li>
+                        <a href="">Sell Bitcoin</a>
+                    </li>
+                    <li>
+                        <a href="">FAQ</a>
+                    </li>
+                    <li>
+                       @if(Auth::user())
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{!!Auth::user()->username!!}<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="{!! route('users_profile',Auth::user()->username) !!}">Edit Profile</a></li>
+                              <li><a href="{!! route('logout') !!}">Log Out</a></li>
+                            </ul>
+                        </li>
+                      @else
+                        <li><a id="login-btn">Log In</a>
+                        </li>
+                      @endif
+                    </li>
 
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
     <!-- Side nav -->
     <nav class="side-nav" role="navigation">
 
@@ -82,14 +129,7 @@
               <a class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm">Buy <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
               <a class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm">Sell <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
             </div>
-
-            <!-- Button -->
-            <p class="btn-app-store">
-              <iframe frameBorder="0" scrolling="no" src="https://legacy.bigterminal.com/embed/ticker-widget/" width="244" height="100"></iframe>
-            </p> <!-- /.btn-app-store -->
-
           </div> <!-- /.col-md-7 -->
-
           <div class="col-md-5">
 
             <!-- Images showcase -->
@@ -106,21 +146,17 @@
     </header> <!-- /.jumbotron -->
 
 
-
-
-
     <!-- Services -->
     <section class="services-section" id="section-1">
 
       <div class="container">
         <div class="row">
-          <div class="col-md-7 col-features text-center">
-            <center style="overflow-y:auto">
-              <iframe frameborder="0" scrolling="no" src="https://legacy.bigterminal.com/embed/chart-widget/?width=510&amp;height=310&amp;color=0cd1aa&amp;series=averageBTCUSD" width="510" height="310" __idm_frm__="8"></iframe>
-            </center> <!-- /.col-md-4 -->
+          <div class="col-md-6 col-features text-center">
+            <h3 id="title-1">Bitcoin 24/7 Live chart</h3>
+            <p>By default, browsers will treat all native form controls (<code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> and <code>&lt;button&gt;</code> elements) inside a <code>&lt;fieldset disabled&gt;</code> as disabled, preventing both keyboard and mouse interactions on them.</p>
           </div> <!-- /.col-md-5 -->
 
-          <div class="col-md-5 col-features features-content"style="padding-top:10px;">
+          <div class="col-md-6 col-features features-content"style="padding-top:10px;">
             <h3 id="title-1">Bitcoin 24/7 Live chart</h3>
             <p>By default, browsers will treat all native form controls (<code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> and <code>&lt;button&gt;</code> elements) inside a <code>&lt;fieldset disabled&gt;</code> as disabled, preventing both keyboard and mouse interactions on them.</p>
           </div> <!-- /.col-md-7 -->
@@ -404,7 +440,7 @@
       </div> <!-- /.container -->
 
     </footer> <!-- /.footer-section -->
-
+    {!! View::make('partials.login_modal') !!}
     <!-- Load js libs only when the page is loaded. -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/packages/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
