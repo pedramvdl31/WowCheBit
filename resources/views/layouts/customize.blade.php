@@ -124,9 +124,6 @@
 
             <!-- Title -->
             <h1>WowCheBit</h1>
-    <div> 
-        <a class="btn btn-info" href="auth/facebook" role="button">Login with Facebook</a>
-    </div>
             <!-- Sub title -->
             <p>
               If you want to buy or sell bitcoins you are in the right place.
