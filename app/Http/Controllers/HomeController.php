@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
 use Input;
 use Validator;
 use Redirect;
@@ -12,10 +10,9 @@ use Route;
 use Response;
 use Auth;
 use URL;
+use Mail;
 use Session;
 use Laracasts\Flash\Flash;
-use View;
-use Mail;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -96,84 +93,8 @@ class HomeController extends Controller
         }
     }
 
-    public function getEvents()
-    {
-        $events = Event::PrepareEventsForEventPage();
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.events')
-        ->with('layout',$layout_title)
-        ->with('events',$events);
-    }
 
-    public function getCalendar()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.calendar')
-        ->with('layout',$layout_title);
-    }
 
-    public function getVideos()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.videos')
-        ->with('layout',$layout_title);
-    }
-
-    public function getPrema()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.prema')
-        ->with('layout',$layout_title);
-    }
-    public function getJo()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.jo')
-        ->with('layout',$layout_title);
-    }    
-    public function getJean()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.jean')
-        ->with('layout',$layout_title);
-    }    
-    public function getBbtr()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.bbtr')
-        ->with('layout',$layout_title);
-    }
-    public function getBbtrSession()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.bbtr_session')
-        ->with('layout',$layout_title);
-    }
-    public function getCocoon()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.cocoon')
-        ->with('layout',$layout_title);
-    }
-    public function getCocoonModality()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.cocoon_modality')
-        ->with('layout',$layout_title);
-    }
-    public function getCocoonMassage()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.cocoon_massage')
-        ->with('layout',$layout_title);
-    }
-
-    public function getGiten()
-    {
-        $layout_title = 'layouts.customize';
-        return view('pages.website_pages.giten')
-        ->with('layout',$layout_title);
-    }
 
     public function postSendEmail()
     {

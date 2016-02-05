@@ -14,7 +14,7 @@ use URL;
 use Session;
 use Laracasts\Flash\Flash;
 use View;
-
+use Mail;
 
 
 
@@ -438,7 +438,6 @@ class Job extends Model
 	        );      
 }
 	static public function validate_data($input_all) {
-		
 		$data_output = [
 		'message' => '',
 		'status' => 400,
@@ -447,78 +446,6 @@ class Job extends Model
 		if (isset($input_all)) {
 			foreach ($input_all as $type => $value) {
 				switch ($type) {
-					case 'first_name':
-						if ( strlen($input_all[$type]) > 1 && preg_match('/^[a-z .\-]+$/i', $input_all[$type])) {
-							$data_output[$type]['status'] = 200;
-
-						} else {
-							$data_output[$type]['message'] = 'Invalid Format';
-							$data_output[$type]['status'] = 400;
-						}
-					break;
-					case 'last_name':
-						if ( strlen($input_all[$type]) > 1 && preg_match('/^[a-z .\-]+$/i', $input_all[$type])) {
-							$data_output[$type]['status'] = 200;
-
-						} else {
-							$data_output[$type]['message'] = 'Invalid Format';
-							$data_output[$type]['status'] = 400;
-						}
-					break;
-					case 'phone':
-						$error_type = 0;
-						if ( strlen($input_all[$type]) < 5 ) {
-							$error_type = 1;
-						} elseif (!ctype_digit($input_all[$type])) {
-							$error_type = 2;
-						}
-
-						switch ($error_type) {
-							case 0:
-								$data_output[$type]['status'] = 200;
-								break;
-							case 1:
-								$data_output[$type]['message'] = 'Please Enter Your Phone Number';
-								$data_output[$type]['status'] = 400;
-								break;
-							case 2:
-								$data_output[$type]['message'] = 'Invalid Format';
-								$data_output[$type]['status'] = 400;
-								break;
-							
-							default:
-								# code...
-								break;
-						}
-
-					break;
-					case 'age':
-						if ($input_all[$type] == 0) {
-							$data_output[$type]['message'] = "Not Selected";
-							$data_output[$type]['status'] = 400;
-						} else {
-							$data_output[$type]['status'] = 200;
-						}
-
-					break;
-					case 'username':
-						$message="Username has already been taken.";
-						$count = count(User::where('username',$value)->first());
-						if ($count == 0) {
-							if (strlen($value) >= '4') {
-								$data_output[$type]['message']="";
-								$data_output[$type]['status'] = 200;
-
-							} else {
-								$data_output[$type]['message']="Must Contain At Least 4 Characters!";
-								$data_output[$type]['status'] = 400;
-							}
-						} else {
-								$data_output[$type]['message']="Username Aleardy Exists";
-								$data_output[$type]['status'] = 400;
-						}
-					break;
-
 					case 'email':
 						$count = count(User::where('email',$value)->first());
 						if ($count == 0) {
@@ -551,30 +478,19 @@ class Job extends Model
 			        break;
 			        case 'password_again':
 				         $valid = 1;
-				         if (strlen($input_all[$type]) <= '5') {
-				             $data_output[$type]['message'] = "Must Contain At Least 6 Characters";
-				        	$data_output[$type]['status'] = 400;
-				         }
-				         elseif($input_all[$type] != $input_all["password"]) {
-				             $data_output[$type]['message'] = "Entered Passwords Does Not Match";
+				         if ($input_all[$type] != $input_all["password"]) {
+				        	$data_output[$type]['message'] = "Entered Passwords Does Not Match";
 				         	$data_output[$type]['status'] = 400;
+				         }
+				         elseif(strlen($input_all[$type]) <= '5') {
+				            $data_output[$type]['message'] = "Must Contain At Least 6 Characters";
+				        	$data_output[$type]['status'] = 400;
 				         }
 				         else {
 				             $data_output[$type]['status'] = 200;
 				         }
 			        break;
-					// case 'phone':
-     //    			//US PHONE, VALIDATION
-					// $regex = '/^(?:1(?:[. -])?)?(?:\((?=\d{3}\)))?([2-9]\d{2})(?:(?<=\(\d{3})\))? ?(?:(?<=\d{3})[.-])?([2-9]\d{2})[. -]?(\d{4})(?: (?i:ext)\.? ?(\d{1,5}))?$/';
-					// if ( preg_match( $regex, $input_all[$type]) ){
-					// 	$data['status'] = 200;
-					// } else {
-					// 	$data['validator']  = ['phone'=> 'Invalid Phone Number'];
-					// }
-					// break;
-			       
 					default:
-                    # code...
 					break;
 				}
 			}
@@ -920,6 +836,23 @@ class Job extends Model
 	    }
 	    return $randomString;
 	}
+    static public function VerificationMailer($email,$url) {
+        $status = 400;
+        if (Mail::send('emails.verify_email_message', array(
+                    'email' => $email,
+                    'url' => $url
+                ), function($message) use ($email,$url)
+                {
+                    $message->from('postmaster@webprinciples.com');
+                    $message->to($email);
+                    $message->subject('Verify Your Email Address');
+                })) {
+            $status = 200;
+        }
+        return $status;
+	}
 
 
 }
+
+

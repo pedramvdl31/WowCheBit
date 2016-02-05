@@ -30,7 +30,11 @@
     <link href="/assets/css/pages/website_pages/landing-page.css" rel="stylesheet">
     <!-- Templates core CSS -->
     <link href="/assets/css/application.css" rel="stylesheet">
+    {!! Html::style('/assets/css/layouts/customize.css') !!}
     {!! Html::style('/assets/css/login_modal.css') !!}
+    {!! Html::style('/assets/css/general.css') !!}
+    {!! Html::style('/assets/css/partials/login_modal_style.css') !!}
+    {!! Html::style('/assets/css/partials/login_modal_form_elements.css') !!}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -69,14 +73,14 @@
                     <li>
                        @if(Auth::user())
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{!!Auth::user()->username!!}<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{!!Auth::user()->email!!}<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                               <li><a href="{!! route('users_profile',Auth::user()->username) !!}">Edit Profile</a></li>
-                              <li><a href="{!! route('logout') !!}">Log Out</a></li>
+                              <li><a href="{!!route('users_logout')!!}" class="logout-btn clickables-a">Log Out</a></li>
                             </ul>
                         </li>
                       @else
-                        <li><a id="login-btn">Log In</a>
+                        <li><a class="login-btn  clickables-a">Log In</a>
                         </li>
                       @endif
                     </li>
@@ -98,13 +102,13 @@
       </ul>
       
     </nav> <!-- /.side-nav -->
-
-
-
-
+    <div class="flashmessage" style="margin:50px 0 0 0;">
+    <style type="text/css">.alert-success,.alert-danger{margin: 0;}</style>
+      @include('flash::message')
+    </div>
+    
     <!-- Jumbotron -->
     <header class="jumbotron" role="banner" id="section-0">
-
       <div class="container">
 
         <div class="row">
@@ -120,7 +124,9 @@
 
             <!-- Title -->
             <h1>WowCheBit</h1>
-
+    <div> 
+        <a class="btn btn-info" href="auth/facebook" role="button">Login with Facebook</a>
+    </div>
             <!-- Sub title -->
             <p>
               If you want to buy or sell bitcoins you are in the right place.

@@ -13,19 +13,12 @@
 
 Route::group(['middleware' => 'beforeFilter'], function () {
 
+
+	Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
+	Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
+
 	// WEBSITE PUBLIC PAGES
-	Route::get('/events',  ['as'=>'events', 'uses' => 'HomeController@getEvents']);
-	Route::get('/schedule-and-register/ubu-calendar',  ['as'=>'get-calendar', 'uses' => 'HomeController@getCalendar']);
-	Route::get('/videos',  ['as'=>'get-videos', 'uses' => 'HomeController@getVideos']);
-	Route::get('/about/prema-kreever',  ['as'=>'get_prema_page', 'uses' => 'HomeController@getPrema']);
-	Route::get('/about/jo-morris',  ['as'=>'get_jo_page', 'uses' => 'HomeController@getJo']);
-	Route::get('/about/jean-paul-lacroix',  ['as'=>'get_jean_page', 'uses' => 'HomeController@getJean']);
-	Route::get('/about/bbtr',  ['as'=>'get_bbtr_page', 'uses' => 'HomeController@getBbtr']);
-	Route::get('/about/bbtr-session',  ['as'=>'get_bbtr_session_page', 'uses' => 'HomeController@getBbtrSession']);
-	Route::get('/about/cocoon-us',  ['as'=>'get_cocoon_page', 'uses' => 'HomeController@getCocoon']);
-	Route::get('/about/cocoon-modality',  ['as'=>'get_cocoon_modality_page', 'uses' => 'HomeController@getCocoonModality']);
-	Route::get('/about/cocoon-message',  ['as'=>'get_cocoon_massage_page', 'uses' => 'HomeController@getCocoonMassage']);
-	Route::get('/about/giten-tonkov',  ['as'=>'get_giten_page', 'uses' => 'HomeController@getGiten']);
+	Route::get('/verify-email/{id}',  ['as'=>'verify_mail', 'uses' => 'UsersController@getEmailVerify']);
 	// WEBSITE PUBLIC PAGES END
 	Route::post('/questions-and-answers/ajax-add',  ['uses' => 'QnAController@postAjaxqnaAdd']);
 	Route::post('/reviews/ajax-add',  ['uses' => 'ReviewsController@postAjaxReviewAdd']);
