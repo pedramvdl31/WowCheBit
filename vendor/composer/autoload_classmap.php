@@ -42,6 +42,7 @@ return array(
     'AddTotalAndEtcToInvoicesTable' => $baseDir . '/database/migrations/2015_11_25_065827_add_total_and_etc_to_invoices_table.php',
     'AddTotalToInvoiceItemsTable' => $baseDir . '/database/migrations/2015_11_25_073808_add_total_to_invoice_items_table.php',
     'AddVarificationColsToUsersTable' => $baseDir . '/database/migrations/2016_02_05_073800_add_varification_cols_to_users_table.php',
+    'AddWalletAddressToUsersTable' => $baseDir . '/database/migrations/2016_02_07_122228_add_wallet_address_to_users_table.php',
     'Adobe_Font_Metrics' => $vendorDir . '/phenx/php-font-lib/classes/Adobe_Font_Metrics.php',
     'Attribute_Translator' => $vendorDir . '/dompdf/dompdf/include/attribute_translator.cls.php',
     'Block_Frame_Decorator' => $vendorDir . '/dompdf/dompdf/include/block_frame_decorator.cls.php',

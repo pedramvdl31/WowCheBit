@@ -75,7 +75,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{!!Auth::user()->email!!}<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                              <li><a href="{!! route('users_profile',Auth::user()->username) !!}">Edit Profile</a></li>
+                              <li><a>Edit Profile</a></li>
                               <li><a href="{!!route('users_logout')!!}" class="logout-btn clickables-a">Log Out</a></li>
                             </ul>
                         </li>
@@ -128,9 +128,10 @@
             <p>
               If you want to buy or sell bitcoins you are in the right place.
             </p>
+            <br>
             <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px">
-              <a class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm">Buy <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
-              <a class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm">Sell <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
+              <a class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn">Buy <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
+              <a class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn">Sell <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
             </div>
           </div> <!-- /.col-md-7 -->
           <div class="col-md-5">
@@ -231,106 +232,6 @@
 
 
 
-
-    <!-- Features -->
-    <section class="features-section" id="section-2" style="background: white;">
-
-      <div class="container">
-
-        <div class="row">
-
-          <div class="col-md-5 col-features text-center">
-            
-            <!-- Images showcase -->
-            <figure>
-              <img class="img-iPhone" src="/assets/images/iphone/1.png" alt="">
-            </figure>
-
-          </div> <!-- /.col-md-5 -->
-
-          <div class="col-md-7 col-features features-content">
-            
-            <!-- Title -->
-            <h3 id="title-1">First title features</h3>
-
-            <!-- Description -->
-            <p>Omnis, esse quo natus soluta minima facilis ratione dignissimos necessitatibus quod dolorem labore molestiae maxime veritatis laudantium aut odio ullam laboriosam autem!</p>
-
-            <p>
-              <a class="btn btn-danger" href="#title-2">Learn more</a>
-            </p>
-
-          </div> <!-- /.col-md-7 -->
-          
-        </div> <!-- /.row -->
-
-
-
-
-        <div class="row media-screen-800">
-
-          <div class="col-md-7 col-features features-content">
-            
-            <!-- Title -->
-            <h3 id="title-2">Second title features</h3>
-
-            <!-- Description -->
-            <p>Omnis, esse quo natus soluta minima facilis ratione dignissimos necessitatibus quod dolorem labore molestiae maxime veritatis laudantium aut odio ullam laboriosam autem!</p>
-
-            <p>
-              <a class="btn btn-danger" href="./sign-in.html">Sign In</a> &nbsp;
-              <a class="btn btn-danger-border" href="./sign-up.html">Sign Up</a>
-            </p>
-
-          </div> <!-- /.col-md-7 -->
-
-          <div class="col-md-5 col-features text-center">
-            
-            <!-- Images showcase -->
-            <figure>
-              <img class="img-iPhone margin-top margin-screen-800" src="/assets/images/iphone/4.png" alt="">
-            </figure>
-
-          </div> <!-- /.col-md-5 -->
-          
-        </div> <!-- /.row -->
-
-
-
-
-        <div class="row">
-
-          <div class="col-md-5 col-features text-center">
-            
-            <!-- Images showcase -->
-            <figure>
-              <img class="img-iPhone margin-top margin-top-1" src="/assets/images/iphone/3.png" alt="">
-            </figure>
-
-          </div> <!-- /.col-md-5 -->
-
-          <div class="col-md-7 col-features features-content">
-            
-            <!-- Title -->
-            <h3 id="title-3">Third title features</h3>
-
-            <!-- Description -->
-            <p>Omnis, esse quo natus soluta minima facilis ratione dignissimos necessitatibus quod dolorem labore molestiae maxime veritatis laudantium aut odio ullam laboriosam autem!</p>
-
-            <!-- Button -->
-            <p class="btn-app-store">
-              <a class="btn btn-danger btn-lg" href="#fakelinks">
-                <img src="/assets/images/btn-app-store.png" alt="">
-              </a>
-            </p> <!-- /.btn-app-store -->
-
-          </div> <!-- /.col-md-7 -->
-          
-        </div> <!-- /.row -->
-
-      </div> <!-- /.container -->
-
-    </section> <!-- /.features-section -->
 
 
 

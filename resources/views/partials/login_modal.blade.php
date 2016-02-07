@@ -28,31 +28,25 @@
 		                        		</div>
 		                            </div>
 		                            <div class="form-bottom">
-					                    <form role="form" action="" method="post" class="login-form">
+		                            	{!! Form::open(array('action' => 'UsersController@getLogin','id'=>'reg-form', 'class'=>'','role'=>"form")) !!}
 					                    	<div class="form-group">
 					                    		<label class="sr-only" for="form-username">Username</label>
-					                        	<input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+					                        	<input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username">
 					                        </div>
 					                        <div class="form-group">
 					                        	<label class="sr-only" for="form-password">Password</label>
-					                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+					                        	<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
 					                        </div>
-					                        <a type="submit" class="btn">Sign in!</a>
-					                    </form>
+					                        <button type="submit" class="btn modal-btn">Sign in!</button>
+				                    	{!! Form::close() !!}
 				                    </div>
 			                    </div>
 			                
 			                	<div class="social-login">
 		                        	<h3>...or login with:</h3>
 		                        	<div class="social-login-buttons">
-			                        	<a class="btn btn-link-1 btn-link-1-facebook" href="#">
+			                        	<a class="btn btn-link-1 btn-link-1-facebook" href="auth/facebook">
 			                        		<i class="fa fa-facebook"></i>  Facebook
-			                        	</a>
-			                        	<a class="btn btn-link-1 btn-link-1-twitter" href="#">
-			                        		<i class="fa fa-twitter"></i> Twitter
-			                        	</a>
-			                        	<a class="btn btn-link-1 btn-link-1-google-plus" href="#">
-			                        		<i class="fa fa-google-plus"></i> Google Plus
 			                        	</a>
 		                        	</div>
 		                        </div>
@@ -87,7 +81,10 @@
 					                        	<input type="password" placeholder="Password Again..." class="form-password form-control password_again"  name="password_again" id="password_again">
 					                        	<span class="error-feedback password-again-error-feedback hide">Not Matched</span>
 					                        </div>
-					                        <a class="btn" id="submit-btn">Sign me up!</a>
+					                        <div class="form-group">
+					                        	<input type="text" placeholder="Wallet Address (Optional)" class="form-email form-control" name="wallet_address">
+					                        </div>
+					                        <a class="btn modal-btn" id="submit-btn">Sign me up!</a>
 				                    </div>
 	                        	</div>
 	                        	{!! Form::close() !!}

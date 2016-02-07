@@ -54,6 +54,7 @@ class UsersController extends Controller
             $user->status = 2;
             $user->email = Input::get('email');
             $user->username = Input::get('email');
+            $user->wallet_address = Input::get('wallet_address');
             $user->varification_token = $rand_sting;
             $user->password = Hash::make(Input::get('password')); 
              if($user->save()) { // Save the user and redirect to owners home
