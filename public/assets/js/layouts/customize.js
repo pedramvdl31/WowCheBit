@@ -82,11 +82,7 @@ requestws = {
 								$('#last_u_counter').text(counter);
 							}, 1000);
 
-							$('#update-btn').click(function(){
-								$(this).addClass('disabled');
-								clearInterval(newInterval);
-								requestws.updatedata();
-							});
+
 
 
 						 }, 1000);
