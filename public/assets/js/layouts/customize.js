@@ -8,10 +8,11 @@ cust_layout = {
 		if ( (location.hash == "#_=_" || location.href.slice(-1) == "#_=_") ) {
 		    removeHash();
 		}
-
-
+		var counter = 0;
+		requestws.updatedata();
 	},
 	events: function() {
+
 		$('#submit-btn').click(function(){
 			var reg_form = $('#reg-form').serialize();
 			requestws.form_validate(reg_form);
@@ -46,6 +47,59 @@ cust_layout = {
 	}
 }
 requestws = {
+	updatedata: function() {
+		$('#seconds-text').text('updating...');
+		$('#update-btn').addClass('disabled');
+		var token = $('meta[name=csrf-token]').attr('content');
+		$.post(
+			'/updatedata',
+			{
+				"_token": token
+			},
+			function(result){
+				var status = result.status;
+				switch(status) {
+					case 200: 
+						$('#last-price').text(result.last);
+						$('#high-price').text(result.high);
+						$('#low-price').text(result.low);
+						$('#volume-price').text(result.volume);
+						$('#seconds-text').text('Just Now');
+						var html = '<span id="last_u_counter">0</span> Seconds Ago</span>';
+						$('#seconds-text').html(html); 
+						var counter = 0;
+						setTimeout(function(){ 
+
+							var newInterval = setInterval(function () {
+								if (counter > 5) {
+									$('#update-btn').removeClass('disabled');
+								};
+								if (counter == 15) {
+									clearInterval(newInterval);
+									requestws.updatedata();
+								};
+								++counter;
+								$('#last_u_counter').text(counter);
+							}, 1000);
+
+							$('#update-btn').click(function(){
+								$(this).addClass('disabled');
+								clearInterval(newInterval);
+								requestws.updatedata();
+							});
+
+
+						 }, 1000);
+
+					break;				
+					case 400: 
+					break;
+					default:
+					break;
+				}
+			}
+			);
+	},
 	form_validate: function(reg_form) {
 		var token = $('meta[name=csrf-token]').attr('content');
 		$.post(

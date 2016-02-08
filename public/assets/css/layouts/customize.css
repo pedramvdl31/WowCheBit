@@ -1,3 +1,52 @@
+.price-nav>ul>li{
+  padding: 10px;
+}
+
+.price-nav>ul{
+  font-size:12px;
+  float:none;
+  text-transform: uppercase;padding: 0 0 5px 0;
+  line-height: 15px;
+  letter-spacing: 1.5px;
+  font-weight: 200;
+}
+.price-span{
+  font-size:12px;
+  letter-spacing: 1.5px;
+  font-weight: 200;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 20px;
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  padding-bottom: 0;
+}
+.price-span-2{
+  padding-left:10px;
+  font-size:12px;
+  line-height: 15px;
+  letter-spacing: 1.5px;
+  font-weight: 200;
+}
+#update-btn{
+    width: 90px;
+    font-size: 10px;
+    padding: 2px;
+    margin-right: 20px;
+}
+#timer-li{
+  padding-right: 50px;
+}
+
+
+
+
+
+
+
+
+
 
 .modal-open {
   overflow: hidden;

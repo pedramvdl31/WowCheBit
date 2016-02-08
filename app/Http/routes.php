@@ -13,7 +13,7 @@
 
 Route::group(['middleware' => 'beforeFilter'], function () {
 
-
+	Route::post('/updatedata',  ['uses' => 'HomeController@postUpdateData']);
 	Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 	Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 

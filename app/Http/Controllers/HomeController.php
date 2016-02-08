@@ -29,6 +29,8 @@ use App\Event;
 use App\WebsiteBrand;
 use App\Like;
 
+use App\KrakenAPI;
+
 class HomeController extends Controller
 {
     public function __construct() {
@@ -65,6 +67,37 @@ class HomeController extends Controller
 
         public function getHomePage()
     {
+
+
+        $last = 0;
+        $high = 0;
+        $low = 0;
+        $volume = 0;
+        // your api credentials
+        $key = 'YDtA/aoJWmyEarzUUKZf8FWwUC7mXVtkVhKaT1khVFjGIoQ7CYxDtxr0';
+        $secret = 'S50fivrc/0jjm7IB01/IPUpFiztlfbYLA4xpnTe3KBbaQwaUiFiM8xTBlWqoMWB799UlrlZb5UGtXryRIFJa5A==';
+        // set which platform to use (currently only beta is operational, live available soon)
+        $beta = true; 
+        $url = 'https://api.kraken.com';
+        $sslverify = $beta ? false : true;
+        $version = 0;
+        $kraken = new KrakenAPI($key, $secret, $url, $version, $sslverify);
+        // Query a public list of active assets and their properties: 
+        $res = $kraken->QueryPublic('Ticker', array('pair' => 'XBTCZEUR'));
+        if (isset($res['result']['XXBTZEUR']['a'])) {
+            $last = $res['result']['XXBTZEUR']['a']['0'];
+        }
+        if (isset($res['result']['XXBTZEUR']['h'])) {
+            $high = $res['result']['XXBTZEUR']['h']['1'];
+        }
+        if (isset($res['result']['XXBTZEUR']['l'])) {
+            $low = $res['result']['XXBTZEUR']['l']['1'];
+        }
+        if (isset($res['result']['XXBTZEUR']['v'])) {
+            $volume = $res['result']['XXBTZEUR']['v']['1'];
+        }
+
+
         $layout_title = 'layouts.customize';
         $pages = Page::take(1)->first();
         if (isset($pages)) {
@@ -89,12 +122,63 @@ class HomeController extends Controller
             ->with('prefered_layout',$prefered_layout_set)
             ->with('is_home',1)
             ->with('likes_count',$likes_count)
+            ->with('last',$last)
+            ->with('high',$high)
+            ->with('low',$low)
+            ->with('volume',$volume)
             ->with('slider_option',$pages->slider_option);
         }
     }
 
 
 
+    public function postUpdateData()
+    {
+        if(Request::ajax()){
+            $status = 400;
+            $last = 0;
+            $high = 0;
+            $low = 0;
+            $volume = 0;
+            // your api credentials
+            $key = 'YDtA/aoJWmyEarzUUKZf8FWwUC7mXVtkVhKaT1khVFjGIoQ7CYxDtxr0';
+            $secret = 'S50fivrc/0jjm7IB01/IPUpFiztlfbYLA4xpnTe3KBbaQwaUiFiM8xTBlWqoMWB799UlrlZb5UGtXryRIFJa5A==';
+            // set which platform to use (currently only beta is operational, live available soon)
+            $beta = true; 
+            $url = 'https://api.kraken.com';
+            $sslverify = $beta ? false : true;
+            $version = 0;
+            $kraken = new KrakenAPI($key, $secret, $url, $version, $sslverify);
+            // Query a public list of active assets and their properties: 
+            $res = $kraken->QueryPublic('Ticker', array('pair' => 'XBTCZEUR'));
+
+            if (isset($res)) {
+                $status = 200;
+            }
+
+            if (isset($res['result']['XXBTZEUR']['a'])) {
+                $last = $res['result']['XXBTZEUR']['a']['0'];
+            }
+            if (isset($res['result']['XXBTZEUR']['h'])) {
+                $high = $res['result']['XXBTZEUR']['h']['1'];
+            }
+            if (isset($res['result']['XXBTZEUR']['l'])) {
+                $low = $res['result']['XXBTZEUR']['l']['1'];
+            }
+            if (isset($res['result']['XXBTZEUR']['v'])) {
+                $volume = number_format($res['result']['XXBTZEUR']['v']['1'],2);
+            }
+
+            return Response::json(array(
+                'status' => $status,
+                'last' => $last,
+                'high' => $high,
+                'low' => $low,
+                'volume' => $volume,
+
+                ));
+        }
+    }
 
     public function postSendEmail()
     {

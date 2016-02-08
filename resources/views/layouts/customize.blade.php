@@ -106,6 +106,40 @@
     <style type="text/css">.alert-success,.alert-danger{margin: 0;}</style>
       @include('flash::message')
     </div>
+
+      <div class="price-nav" style="background-color:black;">
+        <ul class="nav navbar-nav">
+            <li>
+              <span class="btn btn-default">XBT/EUR</span>
+            </li>
+            <li>
+                <span class="price-span" style="color: #fff;">LAST</span>
+                <br>
+                <span class="price-span-2" style="color: #fff;">€<span id="last-price">{!!$last!!}</span></span>
+            </li>
+            <li>
+                <span class="price-span" style="color: #fff;">HIGH</span>
+                <br>
+                <span class="price-span-2" style="color: #fff;">€<span id="high-price">{!!$high!!}</span></span>
+            </li>
+            <li>
+                <span class="price-span" style="color: #fff;">LOW</span>
+                <br>
+                <span class="price-span-2" style="color: #fff;">€<span id="low-price">{!!$low!!}</span></span>
+            </li>
+            <li>
+                <span class="price-span" style="color: #fff;">24 HOUR VOLUME</span>
+                <br>
+                <span class="price-span-2" style="color: #fff;">€<span id="volume-price">{!!number_format($volume,2)!!}</span></span>
+            </li>
+            <li class="pull-right" id="timer-li">
+                <span class="price-span" style="color: #fff;">Last Updated: <span id="seconds-text">updating...</span> </span>
+                <br>
+                <span class="btn btn-default pull-right disabled" id="update-btn">Update <i class="glyphicon glyphicon-refresh"></i></span>
+            </li>
+
+        </ul>
+      </div>
     
     <!-- Jumbotron -->
     <header class="jumbotron" role="banner" id="section-0">

@@ -617,6 +617,8 @@ return array(
     'Page_Cache' => $vendorDir . '/dompdf/dompdf/include/page_cache.cls.php',
     'Page_Frame_Decorator' => $vendorDir . '/dompdf/dompdf/include/page_frame_decorator.cls.php',
     'Page_Frame_Reflower' => $vendorDir . '/dompdf/dompdf/include/page_frame_reflower.cls.php',
+    'Payward\\KrakenAPI' => $baseDir . '/app/Classes/KrakenAPIClient.php',
+    'Payward\\KrakenAPIException' => $baseDir . '/app/Classes/KrakenAPIClient.php',
     'Positioner' => $vendorDir . '/dompdf/dompdf/include/positioner.cls.php',
     'RemoveDateTimeFromTable' => $baseDir . '/database/migrations/2016_01_09_113549_remove_date_time_from_table.php',
     'RemoveFewColsFromLayoutsTable' => $baseDir . '/database/migrations/2015_11_04_052322_remove_few_cols_from_layouts_table.php',
