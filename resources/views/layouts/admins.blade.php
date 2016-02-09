@@ -85,43 +85,12 @@
                                         </li>
                                     </ul>
                                 </li>
-
-                                <li class="li-menus"><a><i class="fa fa-wrench"></i> Control Panel <span class="fa fa-chevron-down"></span></a>
+                                <li class="li-menus"><a><i class="fa fa-cogs"></i> Setting <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none">
-                                        <li class="navLi"><a href="{!! route('users_index') !!}">Users</a>
+                                        <li class="navLi"><a href="{!! route('set_profit') !!}">Set Profit</a>
                                         </li>
-                                    </ul>
-                                </li>
-                                <li class="li-menus"><a><i class="fa fa-clone"></i> Layouts and Pages <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style="display: none">
-                                        <li>Pages</li>
-                                        <li class="navLi"><a href="{!! route('pages_index') !!}">Index</a>
-                                        </li>
-                                        <li class="navLi"><a href="{!! route('pages_add') !!}">Add</a>
-                                        </li>
-                                        <li>Pages Sliders</li>
-                                        <li class="navLi"><a href="{!! route('sliders_index') !!}">Index</a>
-                                        </li>
-                                        <li class="navLi"><a href="{!! route('sliders_add') !!}">Add</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="li-menus"><a><i class="fa fa-cogs"></i> Website Setting <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style="display: none">
-                                        <li>Website Brand</li>
-                                            <li class="navLi"><a href="{!! route('website_brand_index') !!}">Setup</a>
-                                            </li>
-
                                     </ul>
                                 </li>  
-                                <li class="li-menus"><a><i class="fa fa-calendar"></i> Events <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style="display: none">
-                                        <li class="navLi"><a href="{!! route('events_index') !!}">View All</a>
-                                        </li>
-                                        <li class="navLi"><a href="{!! route('events_add') !!}">Add New</a>
-                                        </li>
-                                    </ul>
-                                </li>
   
                             </ul>
                         </div>

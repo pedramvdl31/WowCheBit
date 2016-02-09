@@ -28,7 +28,7 @@ use App\Invoice;
 use App\Event;
 use App\WebsiteBrand;
 use App\Like;
-
+use App\Setup;
 use App\KrakenAPI;
 
 class HomeController extends Controller
@@ -69,10 +69,29 @@ class HomeController extends Controller
     {
 
 
-        $last = 0;
-        $high = 0;
-        $low = 0;
-        $volume = 0;
+        $setups = Setup::find(1);
+        if (!isset($setups)) {
+            $new_setups = new Setup;
+            $new_setups->sell_percentage = 0;
+            $new_setups->buy_percentage = 0;
+            $new_setups->save();
+        } else {
+            if (!isset($setups->sell_percentage)) {
+                $setups->sell_percentage = 0;
+                $setups->save();
+            }
+            if (!isset($setups->buy_percentage)) {
+                $setups->buy_percentage = 0;
+                $setups->save();
+            }      
+        }
+
+
+
+
+        $buy = 0;
+        $sell = 0;
+
         // your api credentials
         $key = 'YDtA/aoJWmyEarzUUKZf8FWwUC7mXVtkVhKaT1khVFjGIoQ7CYxDtxr0';
         $secret = 'S50fivrc/0jjm7IB01/IPUpFiztlfbYLA4xpnTe3KBbaQwaUiFiM8xTBlWqoMWB799UlrlZb5UGtXryRIFJa5A==';
@@ -84,19 +103,28 @@ class HomeController extends Controller
         $kraken = new KrakenAPI($key, $secret, $url, $version, $sslverify);
         // Query a public list of active assets and their properties: 
         $res = $kraken->QueryPublic('Ticker', array('pair' => 'XBTCZEUR'));
+        //BUY RATE
         if (isset($res['result']['XXBTZEUR']['a'])) {
-            $last = $res['result']['XXBTZEUR']['a']['0'];
+            $buy = $res['result']['XXBTZEUR']['a']['0'];
         }
-        if (isset($res['result']['XXBTZEUR']['h'])) {
-            $high = $res['result']['XXBTZEUR']['h']['1'];
-        }
-        if (isset($res['result']['XXBTZEUR']['l'])) {
-            $low = $res['result']['XXBTZEUR']['l']['1'];
-        }
-        if (isset($res['result']['XXBTZEUR']['v'])) {
-            $volume = $res['result']['XXBTZEUR']['v']['1'];
+        //SELL RATE
+        if (isset($res['result']['XXBTZEUR']['b'])) {
+            $sell = $res['result']['XXBTZEUR']['b']['0'];
         }
 
+        $setup_data = Setup::find(1);
+        $sell_percentage = $setup_data->sell_percentage / 100;
+        $buy_percentage = $setup_data->buy_percentage / 100;
+
+        $sell_percentage_calc = $sell_percentage * $sell;
+        $buy_percentage_calc = $buy_percentage * $buy;
+
+        $final_sell = $sell_percentage_calc + $sell;
+        $final_buy = $buy_percentage_calc + $buy;
+
+
+        $new_buy = number_format($final_buy,2);
+        $new_sell = number_format($final_sell,2);
 
         $layout_title = 'layouts.customize';
         $pages = Page::take(1)->first();
@@ -122,10 +150,8 @@ class HomeController extends Controller
             ->with('prefered_layout',$prefered_layout_set)
             ->with('is_home',1)
             ->with('likes_count',$likes_count)
-            ->with('last',$last)
-            ->with('high',$high)
-            ->with('low',$low)
-            ->with('volume',$volume)
+            ->with('buy',$new_buy)
+            ->with('sell',$new_sell)
             ->with('slider_option',$pages->slider_option);
         }
     }

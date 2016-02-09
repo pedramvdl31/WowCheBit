@@ -139,8 +139,11 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 			Route::get('website-brand/index',  ['as' => 'website_brand_index','uses' => 'WebsiteBrandController@getIndex', 'middleware' => ['acl:'.$prefix.'/website-brand/index']]);
 			Route::post('website-brand/index',  ['uses' => 'WebsiteBrandController@postIndex', 'middleware' => ['acl:'.$prefix.'/website-brand/index']]);
 			Route::post('website-brand/upload',  ['uses' => 'WebsiteBrandController@postUpload', 'middleware' => ['acl:'.$prefix.'/website-brand/upload']]);
+			
+			Route::get('set-profit',  ['as' => 'set_profit','uses' => 'AdminsController@getSetProfit', 'middleware' => ['acl:'.$prefix.'/set-profit']]);
+			Route::post('set-profit',  ['uses' => 'AdminsController@postSetProfit', 'middleware' => ['acl:'.$prefix.'/set-profit']]);
 
-						//EVENTS
+			//EVENTS
 			Route::get('events',  ['as' => 'events_index','uses' => 'EventsController@getIndex', 'middleware' => ['acl:'.$prefix.'/events']]);
 			Route::get('events/add',  ['as' => 'events_add','uses' => 'EventsController@getAdd', 'middleware' => ['acl:'.$prefix.'/events/add']]);
 			Route::post('events/add',  ['uses' => 'EventsController@postAdd', 'middleware' => ['acl:'.$prefix.'/events/add']]);

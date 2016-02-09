@@ -9,9 +9,20 @@ cust_layout = {
 		    removeHash();
 		}
 		var counter = 0;
-		requestws.updatedata();
+		$('#myTabs a').click(function (e) {
+		  e.preventDefault()
+		  $(this).tab('show')
+		})
 	},
 	events: function() {
+
+		$('.buy-btn').click(function(){
+			requestws.user_auth();
+		});
+		$('.sell-btn').click(function(){
+			requestws.user_auth();
+		});
+
 
 		$('#submit-btn').click(function(){
 			var reg_form = $('#reg-form').serialize();
@@ -47,6 +58,29 @@ cust_layout = {
 	}
 }
 requestws = {
+	user_auth: function() {
+		var token = $('meta[name=csrf-token]').attr('content');
+		$.post(
+			'/users/user-auth',
+			{
+				"_token": token
+			},
+			function(result){
+				var status = result.status;
+				switch(status) {
+					case 200: // Approved
+						$('#dashboard-modal').modal('show');
+					break;				
+					case 400: // Approved
+						alert('You must be logged in in order to continue');
+						$('#login-modal').modal('show');
+					break;
+					default:
+					break;
+				}
+			}
+			);
+	},
 	updatedata: function() {
 		$('#seconds-text').text('updating...');
 		$('#update-btn').addClass('disabled');

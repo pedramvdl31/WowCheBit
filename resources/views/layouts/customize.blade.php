@@ -107,40 +107,6 @@
       @include('flash::message')
     </div>
 
-      <div class="price-nav" style="background-color:black;">
-        <ul class="nav navbar-nav">
-            <li>
-              <span class="btn btn-default">XBT/EUR</span>
-            </li>
-            <li>
-                <span class="price-span" style="color: #fff;">LAST</span>
-                <br>
-                <span class="price-span-2" style="color: #fff;">€<span id="last-price">{!!$last!!}</span></span>
-            </li>
-            <li>
-                <span class="price-span" style="color: #fff;">HIGH</span>
-                <br>
-                <span class="price-span-2" style="color: #fff;">€<span id="high-price">{!!$high!!}</span></span>
-            </li>
-            <li>
-                <span class="price-span" style="color: #fff;">LOW</span>
-                <br>
-                <span class="price-span-2" style="color: #fff;">€<span id="low-price">{!!$low!!}</span></span>
-            </li>
-            <li>
-                <span class="price-span" style="color: #fff;">24 HOUR VOLUME</span>
-                <br>
-                <span class="price-span-2" style="color: #fff;">€<span id="volume-price">{!!number_format($volume,2)!!}</span></span>
-            </li>
-            <li class="pull-right" id="timer-li">
-                <span class="price-span" style="color: #fff;">Last Updated: <span id="seconds-text">updating...</span> </span>
-                <br>
-                <span class="btn btn-default pull-right disabled" id="update-btn">Update <i class="glyphicon glyphicon-refresh"></i></span>
-            </li>
-
-        </ul>
-      </div>
-    
     <!-- Jumbotron -->
     <header class="jumbotron" role="banner" id="section-0">
       <div class="container">
@@ -164,8 +130,8 @@
             </p>
             <br>
             <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px">
-              <a class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn">Buy <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
-              <a class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn">Sell <i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
+              <a class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn buy-btn">Buy €<strong>{!!$buy!!}</strong></a>
+              <a class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn sell-btn">Sell €<strong>{!!$sell!!}</strong></a>
             </div>
           </div> <!-- /.col-md-7 -->
           <div class="col-md-5">
@@ -379,6 +345,7 @@
 
     </footer> <!-- /.footer-section -->
     {!! View::make('partials.login_modal') !!}
+    {!! View::make('partials.dashboard_modal') !!}
     <!-- Load js libs only when the page is loaded. -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/packages/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>

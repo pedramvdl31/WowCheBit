@@ -26,6 +26,7 @@ use App\Role;
 use App\RoleUser;
 use App\Permission;
 use App\PermissionRole;
+use App\Setup;
 
 class AdminsController extends Controller
 {
@@ -59,6 +60,57 @@ class AdminsController extends Controller
         return view('admins.index')
         ->with('layout','layouts.admins');
     }
+
+    public function getSetProfit() {
+        $setups = Setup::find(1);
+        if (!isset($setups)) {
+            $new_setups = new Setup;
+            $new_setups->sell_percentage = 0;
+            $new_setups->buy_percentage = 0;
+            $new_setups->save();
+        } else {
+            if (!isset($setups->sell_percentage)) {
+                $setups->sell_percentage = 0;
+                $setups->save();
+            }
+            if (!isset($setups->buy_percentage)) {
+                $setups->buy_percentage = 0;
+                $setups->save();
+            }      
+        }
+
+
+        $setup_data = Setup::find(1);
+
+        return view('admins.set_profit')
+        ->with('layout','layouts.admins')
+        ->with('setup_data',$setup_data);
+    }
+
+    public function postSetProfit() {
+        $validator = Validator::make(Input::all(), Setup::$percentage);
+        if ($validator->passes()) {
+            Job::dump(Input::all());
+            $setups = Setup::find(1);
+            if (isset($setups)) {
+                $setups->sell_percentage = Input::get('sell-profit');
+                $setups->buy_percentage = Input::get('buy-profit');
+                if ($setups->save()) {
+                    Flash::success('Successfully Saved!');
+                    return Redirect::route('set_profit');
+                }
+            }
+        } else {
+                // validation has failed, display error messages    
+            return Redirect::back()
+            ->with('message', 'The following errors occurred')
+            ->with('alert_type','alert-danger')
+            ->withErrors($validator)
+            ->withInput();
+        }
+    }
+
+
 
     public function getSimpleIndex() {
         $_layout = 'layouts.admins_simple';
