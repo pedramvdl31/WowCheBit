@@ -130,8 +130,8 @@
             </p>
             <br>
             <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px">
-              <a style="z-index:1" class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn buy-btn">Buy €<strong>{!!$buy!!}</strong></a>
-              <a style="z-index:1" class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn sell-btn">Sell €<strong>{!!$sell!!}</strong></a>
+              <a style="z-index:1" class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn buy-btn">Buy €<strong>{!!$buy!!}&nbsp</strong>&nbsp<i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
+              <a style="z-index:1" class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn sell-btn">Sell €<strong>{!!$sell!!}</strong>&nbsp<i><img width="23px" src="/assets/images/icons/bitcoin.png"></i></a>
             </div>
           </div> <!-- /.col-md-7 -->
           <div class="col-md-5">
