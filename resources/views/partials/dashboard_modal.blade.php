@@ -37,12 +37,16 @@
 												<div class="form-group">
 												    <input type="email" class="form-control" id="email" placeholder="Amount">
 												</div>
+												<div class="form-group">
+	    											{!! Form::select('payment_method', $all_payment_methods, null ,array('id'=>'payment_method','class'=>'form-control')) !!}
+												</div>
 												<p>Total: </p>
-												<a class="btn btn-default pull-right">Review Order</a>
+												<a class="btn pull-right modal-btn" >Review Order</a>
 												
 											</div>
 											<div class="col-md-6" style="padding:10px">
-												<div class="well" style="height:100px;">
+												<div class="well" style="height:268px;">
+													<p>Pending Approval:</p>
 												</div>
 											</div>
 
@@ -66,12 +70,16 @@
 												<div class="form-group">
 												    <input type="email" class="form-control" id="email" placeholder="Amount">
 												</div>
+												<div class="form-group">
+	    											{!! Form::select('payment_method', $all_payment_methods, null ,array('id'=>'payment_method','class'=>'form-control')) !!}
+												</div>
 												<p>Total: </p>
-												<a class="btn btn-default pull-right">Review Order</a>
+												<a class="btn pull-right modal-btn" >Review Order</a>
 												
 											</div>
 											<div class="col-md-6" style="padding:10px">
-												<div class="well" style="height:100px;">
+												<div class="well" style="height:268px;">
+													<p>Pending Approval:</p>
 												</div>
 											</div>
 

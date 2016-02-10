@@ -10,4 +10,9 @@ class Setup extends Model
         'sell-profit'=>'required|numeric',
         'buy-profit'=>'required|numeric'
     );
+    public static $paymentmethods = array(
+        'title'=>'required',
+        'address'=>'required',
+        'hours'=>'required|numeric'
+    );
 }

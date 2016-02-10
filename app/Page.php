@@ -132,7 +132,7 @@ class Page extends Model
         return $output;
     }
 
-        public static function PerparePagesSelect() {
+    public static function PerparePagesSelect() {
         $data =  Page::all();
         $ps = array(''=>'Select a Page');
         if(isset($data)) {

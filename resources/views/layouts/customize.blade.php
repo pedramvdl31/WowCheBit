@@ -345,7 +345,7 @@
 
     </footer> <!-- /.footer-section -->
     {!! View::make('partials.login_modal') !!}
-    {!! View::make('partials.dashboard_modal') !!}
+    {!! View::make('partials.dashboard_modal')->with('all_payment_methods',$all_payment_methods) !!}
     <!-- Load js libs only when the page is loaded. -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/packages/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>

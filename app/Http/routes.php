@@ -143,6 +143,17 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 			Route::get('set-profit',  ['as' => 'set_profit','uses' => 'AdminsController@getSetProfit', 'middleware' => ['acl:'.$prefix.'/set-profit']]);
 			Route::post('set-profit',  ['uses' => 'AdminsController@postSetProfit', 'middleware' => ['acl:'.$prefix.'/set-profit']]);
 
+			//payment_method
+			Route::get('payment_method',  ['as' => 'payment_method_index','uses' => 'AdminsController@getPaymentMethodsIndex', 'middleware' => ['acl:'.$prefix.'/payment_method']]);
+			Route::get('payment_method/add',  ['as' => 'payment_method_add','uses' => 'AdminsController@getPaymentMethodsAdd', 'middleware' => ['acl:'.$prefix.'/payment_method/add']]);
+			Route::post('payment_method/add',  ['uses' => 'AdminsController@postPaymentMethodsAdd', 'middleware' => ['acl:'.$prefix.'/payment_method/add']]);
+			Route::get('payment_method/edit/{id}',  ['as' => 'payment_method_edit','uses' => 'AdminsController@getPaymentMethodsEdit', 'middleware' => ['acl:'.$prefix.'/payment_method/edit'], function ($id) {}]);
+			Route::post('payment_method/edit',  ['uses' => 'AdminsController@postPaymentMethodsEdit', 'middleware' => ['acl:'.$prefix.'/payment_method/edit']]);
+			Route::post('payment_method/remove',  ['uses' => 'AdminsController@postPaymentMethodsRemove', 'middleware' => ['acl:'.$prefix.'/payment_method/remove']]);
+			Route::get('payment_method/view/{id}',  ['as' => 'payment_method_view','uses' => 'AdminsController@getPaymentMethodsView', 'middleware' => ['acl:'.$prefix.'/payment_method/view'], function ($id) {}]);
+			Route::post('payment_method/view',  ['uses' => 'AdminsController@postPaymentMethodsView', 'middleware' => ['acl:'.$prefix.'/payment_method/view']]);
+			Route::get('payment_method/remove/{id}',  ['as' => 'payment_method_remove','uses' => 'AdminsController@getPaymentMethodsRemove', 'middleware' => ['acl:'.$prefix.'/payment_method/remove'], function ($id) {}]);
+
 			//EVENTS
 			Route::get('events',  ['as' => 'events_index','uses' => 'EventsController@getIndex', 'middleware' => ['acl:'.$prefix.'/events']]);
 			Route::get('events/add',  ['as' => 'events_add','uses' => 'EventsController@getAdd', 'middleware' => ['acl:'.$prefix.'/events/add']]);

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSetupsTable extends Migration
+class CreatePaymentmethodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,12 @@ class CreateSetupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('setups', function (Blueprint $table) {
+        Schema::create('paymentmethods', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('sell_percentage')->nullable();
-            $table->string('buy_percentage')->nullable();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->string('address')->nullable();
+            $table->string('default_wait_hours')->nullable();
             $table->tinyInteger('status')->nullable();
             $table->softDeletes();
             $table->timestamps();
@@ -29,6 +31,6 @@ class CreateSetupsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('setups');
+        //
     }
 }

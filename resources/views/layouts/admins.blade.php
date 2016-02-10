@@ -89,6 +89,11 @@
                                     <ul class="nav child_menu" style="display: none">
                                         <li class="navLi"><a href="{!! route('set_profit') !!}">Set Profit</a>
                                         </li>
+                                        <li>Payment method</li>
+                                        <li class="navLi"><a href="{!! route('payment_method_index') !!}">View All</a>
+                                        </li>
+                                        <li class="navLi"><a href="{!! route('payment_method_add') !!}">Add New</a>
+                                        </li>
                                     </ul>
                                 </li>  
   

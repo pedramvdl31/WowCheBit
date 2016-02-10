@@ -27,6 +27,8 @@ use App\RoleUser;
 use App\Permission;
 use App\PermissionRole;
 use App\Setup;
+use App\Event;
+use App\Paymentmethod;
 
 class AdminsController extends Controller
 {
@@ -90,7 +92,6 @@ class AdminsController extends Controller
     public function postSetProfit() {
         $validator = Validator::make(Input::all(), Setup::$percentage);
         if ($validator->passes()) {
-            Job::dump(Input::all());
             $setups = Setup::find(1);
             if (isset($setups)) {
                 $setups->sell_percentage = Input::get('sell-profit');
@@ -210,4 +211,102 @@ class AdminsController extends Controller
         }
         return Redirect::back();
     }
+
+
+    public function getPaymentMethodsIndex()
+    {   
+        $all_payment_methods = Paymentmethod::PrepareForIndex(Paymentmethod::all());
+        return view('payment_methods.index')
+        ->with('layout',$this->layout)
+        ->with('all_payment_methods',$all_payment_methods);
+    }
+
+    public function getPaymentMethodsAdd()
+    {   
+        return view('payment_methods.add')
+        ->with('layout',$this->layout);
+    }
+
+        public function postPaymentMethodsAdd()
+    {   
+        $validator = Validator::make(Input::all(), Setup::$paymentmethods);
+        if ($validator->passes()) {
+            $description = Input::get('description');
+            $new_method = new Paymentmethod();
+            $new_method->title = Input::get('title');
+            $new_method->address = Input::get('address');
+            $new_method->description = json_encode($description);
+            $new_method->default_wait_hours = Input::get('hours');
+            $new_method->status = 1;
+            if ($new_method->save()) {
+                Flash::success('Successfully Added');
+                return Redirect::route('payment_method_index');
+            }
+        } else {
+                // validation has failed, display error messages    
+            return Redirect::back()
+            ->with('message', 'The following errors occurred')
+            ->with('alert_type','alert-danger')
+            ->withErrors($validator)
+            ->withInput();
+        }
+    }
+
+        public function getPaymentMethodsEdit($id = null)
+    {   
+        $payment_methods = Paymentmethod::PreparePaymentMethodsForEdit(Paymentmethod::find($id));
+        return view('payment_methods.edit')
+        ->with('layout',$this->layout)
+        ->with('this_id',$id)
+        ->with('data',$payment_methods);
+    }
+
+        public function postPaymentMethodsEdit()
+    {   
+        $validator = Validator::make(Input::all(), Setup::$paymentmethods);
+        if ($validator->passes()) {
+            $this_id = Input::get('this_id');
+            $description = Input::get('description');
+            $new_method = Paymentmethod::find($this_id);
+            $new_method->title = Input::get('title');
+            $new_method->address = Input::get('address');
+            $new_method->description = json_encode($description);
+            $new_method->default_wait_hours = Input::get('hours');
+            $new_method->status = 1;
+            if ($new_method->save()) {
+                Flash::success('Successfully Added');
+                return Redirect::route('payment_method_index');
+            }
+        } else {
+                // validation has failed, display error messages    
+            return Redirect::back()
+            ->with('message', 'The following errors occurred')
+            ->with('alert_type','alert-danger')
+            ->withErrors($validator)
+            ->withInput();
+        }
+    }
+
+    public function getPaymentMethodsView($id = null)
+    {   
+
+    }
+
+    public function getPaymentMethodsRemove($id = null)
+    {   
+        $method = Paymentmethod::find($id);
+        if (isset($method)) {
+            if ($method->delete()) {
+                Flash::success("Method Deleted!");
+                return Redirect::route('payment_method_index');
+            }
+        } else {
+                Flash::success("Method doesn't exist");
+                return Redirect::route('payment_method_index');
+        }
+    }
+
+
+
+
 }
