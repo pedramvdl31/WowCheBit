@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Input;
 use Validator;
 use Redirect;
-use Hash;
 use Request;
 use Route;
 use Response;
@@ -18,16 +17,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Job;
 use App\User;
-use App\Thread;
-use App\Category;
-use App\Search;
-use App\Inventory;
 use App\Page;
 use App\Layout;
-use App\Invoice;
-use App\Event;
 use App\WebsiteBrand;
-use App\Like;
 use App\Setup;
 use App\KrakenAPI;
 use App\Paymentmethod;
@@ -138,7 +130,7 @@ class HomeController extends Controller
             ->with('layout_titles',$layout_titles)
             ->with('buy',$new_buy)
             ->with('sell',$new_sell)
-            ->with('all_payment_methods',$all_payment_methods)
+            ->with('all_payment_methods',isset($all_payment_methods)?$all_payment_methods:null)
             ->with('w_a',isset($w_a)?$w_a:null)
             ->with('slider_option',$pages->slider_option);
         }

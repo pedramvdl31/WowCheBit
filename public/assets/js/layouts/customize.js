@@ -44,24 +44,22 @@ cust_layout = {
 			}
 		});
 		$('.buy-btn').click(function(){
-			requestws.user_auth();
+			requestwsj.user_auth();
 		});
 		$('#bbtn').click(function(){
-			var data_array = [];
+			var d_a = {};
+			d_a['wallet_address'] =  $('#addb').val();
+			d_a['buy_amount'] = $('#amount-buy').val();
+			d_a['method'] = $('#bms').find('option:selected').val();
+			d_a['message'] = $('#bps_ta').val();
+			d_a['currency_price'] = $('#buy_input').attr('price');
+			d_a['currency_type'] = $('#dash-currency-select').find('option:selected').val();
 
-			data_array['wallet_address'] =  $('#addb').val();
-			data_array['buy_amount'] = $('#amount-buy').val();
-			data_array['method'] = $('#bms').find('option:selected').val();
-			data_array['message'] = $('#bps_ta').val();
-			data_array['currency_price'] = $('#buy_input').attr('price');
-			data_array['currency_type'] = $('#dash-currency-select').find('option:selected').val();
-			data_array['total_price'] = $('#buy-total').attr('price');
-
-			
+			requestwsj.buy(d_a);
 			
 		});
 		$('.sell-btn').click(function(){
-			requestws.user_auth();
+			requestwsj.user_auth();
 		});
 		$("#amount-buy").keyup(function(){
 		    var v = $(this).val();
@@ -87,16 +85,16 @@ cust_layout = {
 		});
 		$("#updp").click(function() {
 		  var selected = 1;
-		  requestws.change_currency(selected);
+		  requestwsj.change_currency(selected);
 		});
 		$("#dash-currency-select").change(function() {
 		  var selected = parseInt($("option:selected", this).val());
-		  requestws.change_currency(selected);
+		  requestwsj.change_currency(selected);
 		});
 
 		$('#submit-btn').click(function(){
 			var reg_form = $('#reg-form').serialize();
-			requestws.form_validate(reg_form);
+			requestwsj.form_validate(reg_form);
 		});
 		$('#send_message').click(function(){
 			var user_email = $('#user_email').val();
@@ -104,7 +102,7 @@ cust_layout = {
 			if (!$.isBlank(user_email)) {
 				if (isEmail(user_email)) {
 					if (!$.isBlank(user_message)) {
-						requestws.send_email(user_email,user_message);
+						requestwsj.send_email(user_email,user_message);
 					} else {
 						alert('Cannot send empty message');
 					}
@@ -127,8 +125,29 @@ cust_layout = {
 
 	}
 }
-requestws = {
-	user_auth: function() {
+requestwsj = {
+	buy: function(d_a) {
+		var token = $('meta[name=csrf-token]').attr('content');
+		$.post(
+			'admins/buysells/buy',
+			{
+				"_token": token,
+				"d_a":d_a
+			},
+			function(result){
+				var status = result.status;
+				switch(status) {
+					case 200: // Approved
+					break;				
+					case 400: // Approved
+					break;
+					default:
+					break;
+				}
+			}
+			);
+	},
+		user_auth: function() {
 		var token = $('meta[name=csrf-token]').attr('content');
 		$.post(
 			'/users/user-auth',
@@ -210,7 +229,7 @@ requestws = {
 								};
 								if (counter == 15) {
 									clearInterval(newInterval);
-									requestws.updatedata();
+									requestwsj.updatedata();
 								};
 								++counter;
 								$('#last_u_counter').text(counter);
@@ -349,8 +368,9 @@ function view_errors(data)
 		    }
 		}
 		function addCommas(val) {
+
 			while (/(\d+)(\d{3})/.test(val.toString())){
 			      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
 			    }
-			    return val;
+			    return new_val;
 		}

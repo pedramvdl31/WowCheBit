@@ -1,87 +1,61 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use Input;
+use Validator;
+use Redirect;
+use Request;
+use Route;
+use Response;
+use Auth;
+use URL;
+use Mail;
+use Session;
+use Laracasts\Flash\Flash;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Job;
+use App\User;
+use App\Search;
+use App\Page;
+use App\Layout;
+use App\WebsiteBrand;
+use App\Setup;
+use App\KrakenAPI;
+use App\Paymentmethod;
+use App\Buysell;
 
 class BuysellsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function postBuy()
     {
-        //
-    }
+        if(Request::ajax()){
+            $status = 400;
+            $adata = Input::get('d_a');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+            $currency_price = $adata['currency_price'];
+            $amount = $adata['buy_amount'];
+            $total = $amount * $currency_price;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            $buys = new Buysell();
+            $buys->total = $total;
+            $buys->currency_price = $currency_price;
+            $buys->wallet_address = $adata['wallet_address'];
+            $buys->method = $adata['method'];
+            $buys->qty = $amount;
+            $buys->currency = $adata['currency_type'];
+            $buys->ps = $adata['message'];
+            $buys->type = 1;//buy
+            $buys->status = 1;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+            if ($buys->save()) {
+                $status = 200;
+            }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            return Response::json(array(
+                'status' => $status
+                ));
+        }
     }
 }

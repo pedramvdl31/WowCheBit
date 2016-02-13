@@ -31,93 +31,99 @@
 										<div role="tabpanel" class="tab-pane fade  active in" id="buy" aria-labelledby="buy-tab"> 
 											<div class="col-md-12" style="padding:10px">
 												<div class="form-group">
-												<input id="addb" type="text" style="background-color:white" class="form-control" id="wallet_address" placeholder="Wallet Address" value="{{$w_a}}">
+													<input id="addb" type="text" style="background-color:white" class="form-control" id="wallet_address" placeholder="Wallet Address" value="{{$w_a}}">
 												</div>
 												<div class="form-group">
 													<select name="type"
-														id="bms"
-													 class="form-control">
+													id="bms"
+													class="form-control">
 													<option value="0">Select Method</option>
-														@if(isset($all_payment_methods))
-														@foreach($all_payment_methods as $all_methods)
-														@if($all_methods['type']==1)
-														<option value="{!!$all_methods['id']!!}" des="{!!$all_methods['description_html']!!}">{!!$all_methods['title']!!}</option>
-														@endif
-														@endforeach
-														@endif
-													</select>
-												</div>
-												<div class="form-group des-form hide">
-													<div class="well" style="text-align:left;min-height:150px;overflow: auto;">
-														<span id="bdt"></span>
-													</div>
-												</div>
-												<div class="form-group">
-													<input type="text" class="form-control bd" id="amount-buy" placeholder="Amount" disabled="disabled">
-												</div>
-												<div class="form-group" style="text-align:left;cursor:pointer;">
-													<a id="bps" status="0">*Add a personal message</a>
-													<br>
-													<textarea class="hide" id="bps_ta" rows="4" cols="50" style="resize: none;"></textarea>
-												</div>	
-												<p><strong>Total:&nbsp&nbsp</strong> <span id="buy-total" price="">0</span></p>
-												<a id="bbtn" class="btn pull-right modal-btn bd" disabled="disabled">Review Order</a>
+													@if(isset($all_payment_methods))
+													@foreach($all_payment_methods as $all_methods)
+													@if($all_methods['type']==1)
+													<option value="{!!$all_methods['id']!!}" des="{!!$all_methods['description_html']!!}">{!!$all_methods['title']!!}</option>
+													@endif
+													@endforeach
+													@endif
+												</select>
 											</div>
-
-										</div> 
-										<div role="tabpanel" class="tab-pane fade" id="sell" aria-labelledby="sell-tab"> 
-											<div class="col-md-12" style="padding:10px">
-												<div class="form-group">
-													<input type="text" style="background-color:white" class="form-control" id="wallet-address-sell" placeholder="Account">
+											<div class="form-group des-form hide">
+												<div class="well" style="text-align:left;min-height:150px;overflow: auto;">
+													<span id="bdt"></span>
 												</div>
-												<div class="form-group">
-													<input type="text" style="background-color:white" class="form-control" id="amount-sell" placeholder="Amount">
-												</div>
-												<p><strong>Total:&nbsp&nbsp</strong> <span id="sell-total">0</span></p>
-												<a class="btn pull-right modal-btn" >Review Order</a>
 											</div>
-										</div> 
-										<div role="tabpanel" class="tab-pane fade" id="pending" aria-labelledby="sell-tab"> 
-											<div class="col-md-12" style="padding:10px">
+											<div class="form-group">
+												<input type="text" class="form-control bd" id="amount-buy" placeholder="Amount" disabled="disabled">
 											</div>
-										</div> 
-									</div> 
-								</div>
-								<div class="col-md-6" style="padding:10px;overflow: auto;">
-									<div class="well" style="overflow: auto;text-align:left">
-										<p>REFERENCE PRICE:</p>
-										<div class="col-md-7">
-											<fieldset class="form-group">
-												<label for="buy">BUY</label>
-												<input price="{!!$buy!!}" value="{!!$buy!!} EUR/bitcoin" style="background-color:white" type="text" class="form-control ref-buy" readonly="true" id="buy_input" placeholder="Updating...">
-											</fieldset>													  
-											<fieldset class="form-group">
-												<label for="sell">SELL</label>
-												<input price="{!!$sell!!}" value="{!!$sell!!} EUR/bitcoin" style="background-color:white" type="text" class="form-control ref-sell" readonly="true" id="sell_input" placeholder="Updating...">
-											</fieldset>
-										</div>			
-										<div class="col-md-5 text-center" style="margin-top:35px">
-											<select name="type" class="form-control" id='dash-currency-select'>
-												<option value="1">EUR/bitcoin</option>
-												<option value="2">USD/bitcoin</option>
-											</select>
-											<fieldset class="form-group" style="text-align: left">
-												<a id="updp" class="btn btn-info btn-sm" style="margin:10px;">Update <img class="upd_g hide" src="/assets/images/icons/gif/loading1.gif" width="20px"></a>
-											</fieldset>
+											<div class="form-group" style="text-align:left;cursor:pointer;">
+												<a id="bps" status="0">*Add a personal message</a>
+												<br>
+												<textarea class="hide" id="bps_ta" rows="4" cols="50" style="resize: none;"></textarea>
+											</div>	
+											<p><strong>Total:&nbsp&nbsp</strong> <span id="buy-total" price="">0</span></p>
+											<a id="bbtn" class="btn pull-right modal-btn bd" disabled="disabled">Review Order</a>
 										</div>
+
+									</div> 
+									<div role="tabpanel" class="tab-pane fade" id="sell" aria-labelledby="sell-tab"> 
+										<div class="col-md-12" style="padding:10px">
+											<div class="form-group">
+												<input type="text" style="background-color:white" class="form-control" id="wallet-address-sell" placeholder="Account">
+											</div>
+											<div class="form-group">
+												<input type="text" style="background-color:white" class="form-control" id="amount-sell" placeholder="Amount">
+											</div>
+											<p><strong>Total:&nbsp&nbsp</strong> <span id="sell-total">0</span></p>
+											<a class="btn pull-right modal-btn" >Review Order</a>
+										</div>
+									</div> 
+									<div role="tabpanel" class="tab-pane fade" id="pending" aria-labelledby="p-tab"> 
+										<div class="col-md-12" style="padding:10px">
+											<div class="table-responsive">
+												<table class="table"> <thead> <tr> <th>#</th> <th>Column heading</th> <th>Column heading</th> <th>Column heading</th> </tr> </thead> <tbody> <tr class="active"> <th scope="row">1</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> <tr> <th scope="row">2</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> <tr class="success"> <th scope="row">3</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> <tr> <th scope="row">4</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> <tr class="info"> <th scope="row">5</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> <tr> <th scope="row">6</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> <tr class="warning"> <th scope="row">7</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> <tr> <th scope="row">8</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> <tr class="danger"> <th scope="row">9</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> </tbody> </table>
+											</div>
+										</div>
+									</div> 
+
+
+
+								</div> 
+							</div>
+							<div class="col-md-6" style="padding:10px;overflow: auto;">
+								<div class="well" style="overflow: auto;text-align:left">
+									<p>REFERENCE PRICE:</p>
+									<div class="col-md-7">
+										<fieldset class="form-group">
+											<label for="buy">BUY</label>
+											<input price="{!!$buy!!}" value="{!!$buy!!} EUR/bitcoin" style="background-color:white" type="text" class="form-control ref-buy" readonly="true" id="buy_input" placeholder="Updating...">
+										</fieldset>													  
+										<fieldset class="form-group">
+											<label for="sell">SELL</label>
+											<input price="{!!$sell!!}" value="{!!$sell!!} EUR/bitcoin" style="background-color:white" type="text" class="form-control ref-sell" readonly="true" id="sell_input" placeholder="Updating...">
+										</fieldset>
+									</div>			
+									<div class="col-md-5 text-center" style="margin-top:35px">
+										<select name="type" class="form-control" id='dash-currency-select'>
+											<option value="1">EUR/bitcoin</option>
+											<option value="2">USD/bitcoin</option>
+										</select>
+										<fieldset class="form-group" style="text-align: left">
+											<a id="updp" class="btn btn-info btn-sm" style="margin:10px;">Update <img class="upd_g hide" src="/assets/images/icons/gif/loading1.gif" width="20px"></a>
+										</fieldset>
 									</div>
 								</div>
-
-
 							</div>
 
-						</div>
-					</div>
 
+						</div>
+
+					</div>
 				</div>
 
 			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-	{!! Form::close() !!}
+
+		</div>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+{!! Form::close() !!}
 </div><!-- /.modal -->
