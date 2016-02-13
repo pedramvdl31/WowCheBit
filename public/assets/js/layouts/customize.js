@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	cust_layout.pageLoad();
 	cust_layout.events();
-
 });
 cust_layout = {
 	pageLoad: function() {
@@ -15,14 +14,85 @@ cust_layout = {
 		})
 	},
 	events: function() {
+		$( "#bms" ).change(function() {
+			var option = $('option:selected', this).attr('des');
+			var v = parseInt($('option:selected', this).val());
+			if (v != 0) {
+				$('#bdt').html('');
+				if (!$.isBlank(option)) {
+					$('.des-form').removeClass('hide');
+					$('#bdt').html(option);
+				}
+				$('.bd').removeAttr('disabled');
+				$('#amount-buy').css('background-color','white');	
+			} else {
+				$('.bd').attr('disabled','disabled');
+				$('#amount-buy').css('background-color','#f3f4f5');
+				$('.des-form').addClass('hide');
+				$('#bdt').html('');
+			}
 
+		});
+		$('#bps').click(function(){
+			s = parseInt($(this).attr('status'));
+			if (s == 0) {
+				$(this).attr('status',1);
+				$('#bps_ta').removeClass('hide');
+			} else {
+				$(this).attr('status',0);
+				$('#bps_ta').addClass('hide');
+			}
+		});
 		$('.buy-btn').click(function(){
 			requestws.user_auth();
+		});
+		$('#bbtn').click(function(){
+			var data_array = [];
+
+			data_array['wallet_address'] =  $('#addb').val();
+			data_array['buy_amount'] = $('#amount-buy').val();
+			data_array['method'] = $('#bms').find('option:selected').val();
+			data_array['message'] = $('#bps_ta').val();
+			data_array['currency_price'] = $('#buy_input').attr('price');
+			data_array['currency_type'] = $('#dash-currency-select').find('option:selected').val();
+			data_array['total_price'] = $('#buy-total').attr('price');
+
+			
+			
 		});
 		$('.sell-btn').click(function(){
 			requestws.user_auth();
 		});
-
+		$("#amount-buy").keyup(function(){
+		    var v = $(this).val();
+		    var p = $('.ref-buy').attr('price');
+		    if (v == '') {
+		    	$('#buy-total').text('0');
+		    	$('#buy-total').attr('price','0');
+		    } else if (jQuery.isNumeric(v)) {
+		    	var total = v*p;
+		    	$('#buy-total').attr('price',total);
+		    	$('#buy-total').text(addCommas(total));
+		    }
+		});
+		$("#amount-sell").keyup(function(){
+		    var v = $(this).val();
+		    var p = $('.ref-sell').attr('price');
+		    if (v == '') {
+		    	$('#sell-total').text('0');
+		    } else if (jQuery.isNumeric(v)) {
+		    	var total = v*p;
+		    	$('#sell-total').text(addCommas(total));
+		    }
+		});
+		$("#updp").click(function() {
+		  var selected = 1;
+		  requestws.change_currency(selected);
+		});
+		$("#dash-currency-select").change(function() {
+		  var selected = parseInt($("option:selected", this).val());
+		  requestws.change_currency(selected);
+		});
 
 		$('#submit-btn').click(function(){
 			var reg_form = $('#reg-form').serialize();
@@ -74,6 +144,36 @@ requestws = {
 					case 400: // Approved
 						alert('You must be logged in in order to continue');
 						$('#login-modal').modal('show');
+					break;
+					default:
+					break;
+				}
+			}
+			);
+	},
+		change_currency: function(type) {
+		$('.upd_g').removeClass('hide');
+		var token = $('meta[name=csrf-token]').attr('content');
+		$.post(
+			'/new-currency',
+			{
+				"_token": token,
+				"type": type,
+
+			},
+			function(result){
+				$('.upd_g').addClass('hide');
+				var status = result.status;
+				var buy = result.buy;
+				var sell = result.sell;
+				switch(status) {
+					case 200: 
+						$('#buy_input').attr('price',buy);
+						$('#sell_input').attr('price',sell);
+						$('#buy_input').val(buy+' EUR/bitcoin');
+						$('#sell_input').val(sell+' EUR/bitcoin');
+					break;				
+					case 400: 
 					break;
 					default:
 					break;
@@ -247,4 +347,10 @@ function view_errors(data)
 		        document.body.scrollTop = scrollV;
 		        document.body.scrollLeft = scrollH;
 		    }
+		}
+		function addCommas(val) {
+			while (/(\d+)(\d{3})/.test(val.toString())){
+			      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+			    }
+			    return val;
 		}

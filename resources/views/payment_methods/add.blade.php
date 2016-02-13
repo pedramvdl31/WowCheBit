@@ -24,20 +24,21 @@
     </div>
 
     <div class="form-group {{ $errors->has('description') ? 'has-error' : false }}">
-      <label class="control-label" for="description">Description (optional)</label>
+      <label class="control-label" for="description">Description</label>
       {!! Form::textarea('description', null, array('size'=>'10x5','class'=>'form-control', 'placeholder'=>'Description')) !!}
         @foreach($errors->get('description') as $message)
             <span class='help-block'>{{ $message }}</span>
         @endforeach
     </div>
 
-    <div class="form-group {{ $errors->has('address') ? 'has-error' : false }}">
-      <label class="control-label" for="address">Address</label>
-      {!! Form::text('address', null, array('class'=>'form-control', 'placeholder'=>'Address')) !!}
-        @foreach($errors->get('address') as $message)
-            <span class='help-block'>{{ $message }}</span>
-        @endforeach
+    <div class="form-group {{ $errors->has('description') ? 'has-error' : false }}">
+      <label class="control-label" for="type">Type</label>
+      <select name="type" class="form-control">
+        <option value="1">Buy</option>
+        <option value="2">Sell</option>
+      </select>
     </div>
+
 
       <label for="pwd">Default Wait Hours:</label>
       <div class="input-group {{ $errors->has('hours') ? 'has-error' : false }}">

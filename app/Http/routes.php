@@ -13,7 +13,9 @@
 
 Route::group(['middleware' => 'beforeFilter'], function () {
 
+
 	Route::post('/updatedata',  ['uses' => 'HomeController@postUpdateData']);
+	Route::post('/new-currency',  ['uses' => 'HomeController@postNewCurrency']);
 	Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 	Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 

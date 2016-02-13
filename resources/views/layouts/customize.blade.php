@@ -130,8 +130,8 @@
             </p>
             <br>
             <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px">
-              <a style="z-index:1" class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn buy-btn"><i><img width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspBuy €<strong>{!!$buy!!}</a>
-              <a style="z-index:1" class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn sell-btn"><i><img width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspSell €<strong>{!!$sell!!}</strong></a>
+              <a style="z-index:1" class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn buy-btn"><i><img width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspBuy €<strong>{!!number_format($buy,2)!!}</a>
+              <a style="z-index:1" class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn sell-btn"><i><img width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspSell €<strong>{!!number_format($sell,2)!!}</strong></a>
             </div>
           </div> <!-- /.col-md-7 -->
           <div class="col-md-5">
@@ -345,7 +345,14 @@
 
     </footer> <!-- /.footer-section -->
     {!! View::make('partials.login_modal') !!}
-    {!! View::make('partials.dashboard_modal')->with('all_payment_methods',$all_payment_methods) !!}
+    @if(Auth::check())
+      {!! View::make('partials.dashboard_modal')
+      ->with('buy',$buy)
+      ->with('sell',$sell)
+      ->with('w_a',$w_a)
+      ->with('all_payment_methods',$all_payment_methods)->__toString() !!}
+    @endif
+
     <!-- Load js libs only when the page is loaded. -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/packages/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>

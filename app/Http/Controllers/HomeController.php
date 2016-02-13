@@ -70,28 +70,34 @@ class HomeController extends Controller
     {
 
 
-        $setups = Setup::find(1);
-        if (!isset($setups)) {
-            $new_setups = new Setup;
-            $new_setups->sell_percentage = 0;
-            $new_setups->buy_percentage = 0;
-            $new_setups->save();
-        } else {
-            if (!isset($setups->sell_percentage)) {
-                $setups->sell_percentage = 0;
-                $setups->save();
+        if (Auth::check()) {
+            $setups = Setup::find(1);
+            if (!isset($setups)) {
+                $new_setups = new Setup;
+                $new_setups->sell_percentage = 0;
+                $new_setups->buy_percentage = 0;
+                $new_setups->save();
+            } else {
+                if (!isset($setups->sell_percentage)) {
+                    $setups->sell_percentage = 0;
+                    $setups->save();
+                }
+                if (!isset($setups->buy_percentage)) {
+                    $setups->buy_percentage = 0;
+                    $setups->save();
+                }      
             }
-            if (!isset($setups->buy_percentage)) {
-                $setups->buy_percentage = 0;
-                $setups->save();
-            }      
+
+            $lu = Auth::user();
+            $w_a = $lu->wallet_address;
+
+            $all_payment_methods = Paymentmethod::PrepareForHome(Paymentmethod::where('status',1)->get());
         }
 
-        $all_payment_methods = Paymentmethod::PerparePaymentMethodSelect();
 
+        
         $buy = 0;
         $sell = 0;
-
         // your api credentials
         $key = 'YDtA/aoJWmyEarzUUKZf8FWwUC7mXVtkVhKaT1khVFjGIoQ7CYxDtxr0';
         $secret = 'S50fivrc/0jjm7IB01/IPUpFiztlfbYLA4xpnTe3KBbaQwaUiFiM8xTBlWqoMWB799UlrlZb5UGtXryRIFJa5A==';
@@ -111,23 +117,18 @@ class HomeController extends Controller
         if (isset($res['result']['XXBTZEUR']['b'])) {
             $sell = $res['result']['XXBTZEUR']['b']['0'];
         }
-
         $setup_data = Setup::find(1);
         $sell_percentage = $setup_data->sell_percentage / 100;
         $buy_percentage = $setup_data->buy_percentage / 100;
-
         $sell_percentage_calc = $sell_percentage * $sell;
         $buy_percentage_calc = $buy_percentage * $buy;
-
         $final_sell = $sell_percentage_calc + $sell;
         $final_buy = $buy_percentage_calc + $buy;
-
-
-        $new_buy = number_format($final_buy,2);
-        $new_sell = number_format($final_sell,2);
-
+        $new_buy = $final_buy;
+        $new_sell = $final_sell;
         $layout_title = 'layouts.customize';
         $pages = Page::take(1)->first();
+
         if (isset($pages)) {
             $prefered_layout_set = null;
             $layout_titles = Layout::PrepareLayout(Layout::select('title','id')->take(3)->get());
@@ -138,6 +139,7 @@ class HomeController extends Controller
             ->with('buy',$new_buy)
             ->with('sell',$new_sell)
             ->with('all_payment_methods',$all_payment_methods)
+            ->with('w_a',isset($w_a)?$w_a:null)
             ->with('slider_option',$pages->slider_option);
         }
     }
@@ -191,6 +193,64 @@ class HomeController extends Controller
                 ));
         }
     }
+    public function postNewCurrency()
+    {
+        if(Request::ajax()){
+            $type = Input::get('type');
+            $status = 400;
+            $buy = 0;
+            $sell = 0;
+            if (isset($type)) {
+
+                // your api credentials
+                $key = 'YDtA/aoJWmyEarzUUKZf8FWwUC7mXVtkVhKaT1khVFjGIoQ7CYxDtxr0';
+                $secret = 'S50fivrc/0jjm7IB01/IPUpFiztlfbYLA4xpnTe3KBbaQwaUiFiM8xTBlWqoMWB799UlrlZb5UGtXryRIFJa5A==';
+                // set which platform to use (currently only beta is operational, live available soon)
+                $beta = true; 
+                $url = 'https://api.kraken.com';
+                $sslverify = $beta ? false : true;
+                $version = 0;
+                $kraken = new KrakenAPI($key, $secret, $url, $version, $sslverify);
+                // Query a public list of active assets and their properties: 
+                $res = $kraken->QueryPublic('Ticker', array('pair' => 'XBTCZEUR')); 
+                switch ($type) {
+                    case 1:
+                       $res = $kraken->QueryPublic('Ticker', array('pair' => 'XBTCZEUR'));
+                        break;
+                    case 2:
+                        $res = $kraken->QueryPublic('Ticker', array('pair' => 'XBTCZUSD'));
+                        break;
+                    
+                    default:
+                        $res = null;
+                        break;
+                }
+
+                if (isset($res)) {
+                    $status = 200;
+                }
+
+                //BUY RATE
+                if (isset($res['result']['XXBTZEUR']['a'])) {
+                    $buy = $res['result']['XXBTZEUR']['a']['0'];
+                }
+                //SELL RATE
+                if (isset($res['result']['XXBTZEUR']['b'])) {
+                    $sell = $res['result']['XXBTZEUR']['b']['0'];
+                }
+
+            }
+
+
+            return Response::json(array(
+                'status' => $status,
+                'buy' => $buy,
+                'sell' => $sell,
+                ));
+        }
+    }
+
+
 
     public function postSendEmail()
     {

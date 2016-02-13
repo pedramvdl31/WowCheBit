@@ -16,6 +16,10 @@ blank = {
         	if (!$.isBlank('text')) {
 
             }
+
+            $( ".target" ).change(function() {
+			  alert( "Handler for .change() called." );
+			});
         	//CHECKBOX
             var $this = $(this);
 		     

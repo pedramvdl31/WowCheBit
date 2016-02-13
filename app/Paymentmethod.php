@@ -34,6 +34,26 @@ class Paymentmethod extends Model
     	return $all_methods;
     }
 
+    
+    static public function PrepareForHome($all_methods) {
+
+
+        if(isset($all_methods)) {
+            foreach ($all_methods as $ackey => $acvalue) {
+                if(isset($acvalue['created_at'])) {
+                    $acvalue['created_at_html'] = date ( 'Y/n/d g:ia',  strtotime($acvalue['created_at']) );
+                }           
+                if(isset($acvalue['description'])) {
+                    $acvalue['description_html'] = json_decode($acvalue['description']);
+                }           
+
+            }
+
+        }
+
+        return $all_methods;
+    }
+
     static public function PreparePaymentMethodsForEdit($event) {
 
     	if(isset($event)) {

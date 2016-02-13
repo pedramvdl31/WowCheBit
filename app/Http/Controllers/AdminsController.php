@@ -238,6 +238,7 @@ class AdminsController extends Controller
             $new_method->description = json_encode($description);
             $new_method->default_wait_hours = Input::get('hours');
             $new_method->status = 1;
+            $new_method->type = Input::get('type');
             if ($new_method->save()) {
                 Flash::success('Successfully Added');
                 return Redirect::route('payment_method_index');
@@ -273,6 +274,7 @@ class AdminsController extends Controller
             $new_method->description = json_encode($description);
             $new_method->default_wait_hours = Input::get('hours');
             $new_method->status = 1;
+            $new_method->type = Input::get('type');
             if ($new_method->save()) {
                 Flash::success('Successfully Added');
                 return Redirect::route('payment_method_index');

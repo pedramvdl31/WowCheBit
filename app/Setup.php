@@ -12,7 +12,7 @@ class Setup extends Model
     );
     public static $paymentmethods = array(
         'title'=>'required',
-        'address'=>'required',
+        'description'=>'required',
         'hours'=>'required|numeric'
     );
 }
