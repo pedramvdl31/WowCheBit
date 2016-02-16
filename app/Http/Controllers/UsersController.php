@@ -499,6 +499,26 @@ public function postUsersAuthCheckReview()
         return Redirect::route('home_index');
     }
 
+    public function postUpdateProfile()
+    {
+        if(Request::ajax()){
+            $status = 400;
+            if (Auth::check()) {
+                $wa = Input::get('wa');
+                $tu = User::find(Auth::user()->id);
+                if (isset($tu)) {
+                    $tu->wallet_address = $wa;
+                    if ($tu->save()) {
+                        $status = 200;
+                    }
+                }
+            }
+            return Response::json(array(
+            'status' => $status
+            ));
+        }
+    }
+
 
 
 

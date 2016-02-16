@@ -1,10 +1,13 @@
+.white-input{
+  background-color: white !important;
+}
+.fin{
+  cursor: pointer;
+}
+
 .tab-pane{
   background-color: white !important;
 }
-
-
-
-
 
 .price-nav>ul>li{
   padding: 10px;
@@ -258,6 +261,10 @@
       .side-nav {
           right: 7px;
       } 
+      #eur-buy-fm,#btc-buy-fm{
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+      }
     }
 
     /* Extra Small Devices, Phones */ 
@@ -270,6 +277,10 @@
       .side-nav {
           right: 7px;
       }
+      #eur-buy-fm,#btc-buy-fm{
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+      }
     }
 
     /* Custom, iPhone Retina */ 
@@ -280,4 +291,8 @@
       .side-nav {
           right: 7px;
       }     
+      #eur-buy-fm,#btc-buy-fm{
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+      }   
     }

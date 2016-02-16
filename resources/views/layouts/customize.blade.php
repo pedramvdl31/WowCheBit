@@ -62,13 +62,22 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="">Buy Bitcoin</a>
+                        <a this-href="dashboard" this-slug="buy" class="fin m-top-nav-sb">Buy</a>
                     </li>
                     <li>
-                        <a href="">Sell Bitcoin</a>
+                        <a this-href="dashboard" this-slug="sell" class="fin m-top-nav-sb">Sell</a>
                     </li>
                     <li>
-                        <a href="">FAQ</a>
+                        <a this-href="profile" class="fin m-top-nav">Profile</a>
+                    </li>
+                    <li>
+                        <a this-href="order" class="fin m-top-nav">Order</a>
+                    </li>
+                    <li>
+                        <a this-href="profile" class="fin m-top-nav">Wallet</a>
+                    </li>
+                    <li>
+                        <a>Help</a>
                     </li>
                     <li>
                        @if(Auth::user())
@@ -130,8 +139,8 @@
             </p>
             <br>
             <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px">
-              <a style="z-index:1" class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn buy-btn"><i><img width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspBuy €<strong>{!!number_format($buy,2)!!}</a>
-              <a style="z-index:1" class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn sell-btn"><i><img width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspSell €<strong>{!!number_format($sell,2)!!}</strong></a>
+              <a this-href="dashboard" this-slug="buy" style="z-index:1" class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn buy-btn"><i><img  width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspBuy €<strong><span class="onp-b"><img style="margin-left: 9px;margin-top: -3px;" class="upd_g hide" src="/assets/images/icons/gif/loading1.gif" width="20px"></span></a>
+              <a this-href="dashboard" this-slug="sell" style="z-index:1" class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn sell-btn"><i><img width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspSell €<img style="margin-left: 9px;margin-top: -3px;" class="upd_g hide" src="/assets/images/icons/gif/loading1.gif" width="20px"><strong><span class="onp-s"></span></strong></a>
             </div>
           </div> <!-- /.col-md-7 -->
           <div class="col-md-5">
@@ -293,7 +302,19 @@
     </section> <!-- /.subscribe-section -->
 
 
-
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/568ec78d87faab5426776b11/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+<!--End of Tawk.to Script-->
 
     <!-- Footer -->
     <footer class="footer-section" role="contentinfo">

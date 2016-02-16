@@ -4,6 +4,7 @@ $(document).ready(function(){
 });
 cust_layout = {
 	pageLoad: function() {
+		requestwsj.change_currency(1);
 		if ( (location.hash == "#_=_" || location.href.slice(-1) == "#_=_") ) {
 		    removeHash();
 		}
@@ -23,11 +24,7 @@ cust_layout = {
 					$('.des-form').removeClass('hide');
 					$('#bdt').html(option);
 				}
-				$('.bd').removeAttr('disabled');
-				$('#amount-buy').css('background-color','white');	
 			} else {
-				$('.bd').attr('disabled','disabled');
-				$('#amount-buy').css('background-color','#f3f4f5');
 				$('.des-form').addClass('hide');
 				$('#bdt').html('');
 			}
@@ -43,34 +40,89 @@ cust_layout = {
 				$('#bps_ta').addClass('hide');
 			}
 		});
-		$('.buy-btn').click(function(){
-			requestwsj.user_auth();
-		});
-		$('#bbtn').click(function(){
-			var d_a = {};
-			d_a['wallet_address'] =  $('#addb').val();
-			d_a['buy_amount'] = $('#amount-buy').val();
-			d_a['method'] = $('#bms').find('option:selected').val();
-			d_a['message'] = $('#bps_ta').val();
-			d_a['currency_price'] = $('#buy_input').attr('price');
-			d_a['currency_type'] = $('#dash-currency-select').find('option:selected').val();
 
-			requestwsj.buy(d_a);
-			
+		$('#bbtn').click(function(){
+			var verify = buyverify();
+			if (verify==true) {
+				var d_a = {};
+				d_a['wallet_address'] =  $('#addb').val();
+				d_a['paper_amount'] = $('#eur-buy').val();
+				d_a['btc_amount'] = $('#btc-buy').val();
+				d_a['method'] = $('#bms').find('option:selected').val();
+				d_a['message'] = $('#bps_ta').val();
+				d_a['currency_type'] = $('#dash-currency-select').find('option:selected').val();
+				requestwsj.buy(d_a);
+			}
+		});
+
+		$('.buy-btn').click(function(){
+			var this_k = $(this).attr('this-href');
+			var this_s = $(this).attr('this-slug');
+			requestwsj.user_auth(1,this_k,this_s);
 		});
 		$('.sell-btn').click(function(){
-			requestwsj.user_auth();
+			var this_k = $(this).attr('this-href');
+			var this_s = $(this).attr('this-slug');
+			requestwsj.user_auth(1,this_k,this_s);
 		});
-		$("#amount-buy").keyup(function(){
+		$('.m-top-nav').click(function(){
+			var this_k = $(this).attr('this-href');
+			requestwsj.user_auth(2,this_k);
+		});
+		$('.m-top-nav-sb').click(function(){
+			var this_k = $(this).attr('this-href');
+			var this_s = $(this).attr('this-slug');
+			requestwsj.user_auth(1,this_k,this_s);
+		});
+		$('#upd-profile').click(function(){
+			var wallet_add = $('#profile_wa').val();
+			if (!$.isBlank(wallet_add)) {
+				requestwsj.update_profile(wallet_add);
+			}
+		});
+		$('.top-cats').click(function(){
+			var this_href = $(this).attr('this-href');
+			$('.msections').addClass('hide');
+			$('#'+this_href).removeClass('hide');
+		});
+		$("#eur-buy").keyup(function(){
 		    var v = $(this).val();
 		    var p = $('.ref-buy').attr('price');
 		    if (v == '') {
 		    	$('#buy-total').text('0');
 		    	$('#buy-total').attr('price','0');
+		    	$('#btc-buy').text('');
 		    } else if (jQuery.isNumeric(v)) {
-		    	var total = v*p;
-		    	$('#buy-total').attr('price',total);
-		    	$('#buy-total').text(addCommas(total));
+		    	$total = v/p;
+		    	$new_total = $total.toFixed(6);
+				$("#btc-buy").val($new_total);
+				$commed_v=addCommas(v);
+				$('#buy-total').text($commed_v);
+				$('#buy-total').attr('price',v);
+
+		    }
+		});
+		$("#eur-buy, #btc-buy").blur(function(){
+			$('#min-buy').addClass('hide');
+		    var v = parseInt($(this).val());
+		    if (v == '' || v<60) {
+		    	$('#min-buy').removeClass('hide');
+		    }
+		});
+		$("#btc-buy").keyup(function(){
+		    var v = $(this).val();
+		    var p = $('.ref-buy').attr('price');
+		    if (v == '') {
+		    	$('#buy-total').text('0');
+		    	$('#buy-total').attr('price','0');
+		    	$('#eur-buy').text('');
+		    } else if (jQuery.isNumeric(v)) {
+		    	$total = v*p;
+		    	$new_total = $total.toFixed(6);
+				$("#eur-buy").val($new_total);
+
+				$('#buy-total').text(addCommas($total));
+				$('#buy-total').attr('price',$total);
 		    }
 		});
 		$("#amount-sell").keyup(function(){
@@ -126,6 +178,27 @@ cust_layout = {
 	}
 }
 requestwsj = {
+	update_profile: function(wallet_addr) {
+		var token = $('meta[name=csrf-token]').attr('content');
+		$.post(
+			'users/update-profile',
+			{
+				"_token": token,
+				"wa":wallet_addr
+			},
+			function(result){
+				var status = result.status;
+				switch(status) {
+					case 200: // Approved
+					break;				
+					case 400: // Approved
+					break;
+					default:
+					break;
+				}
+			}
+			);
+	},
 	buy: function(d_a) {
 		var token = $('meta[name=csrf-token]').attr('content');
 		$.post(
@@ -147,7 +220,7 @@ requestwsj = {
 			}
 			);
 	},
-		user_auth: function() {
+		user_auth: function(type,kind,slug) {
 		var token = $('meta[name=csrf-token]').attr('content');
 		$.post(
 			'/users/user-auth',
@@ -159,6 +232,25 @@ requestwsj = {
 				switch(status) {
 					case 200: // Approved
 						$('#dashboard-modal').modal('show');
+						switch(type){
+							case 1:
+								$('.msections').addClass('hide');
+								$('#'+kind).removeClass('hide');
+
+								$('.d-tl').removeClass('active');
+								$('#'+slug+'-tl').addClass('active');
+
+								$('.m-tp').removeClass('in');
+								$('.m-tp').removeClass('active');
+								$('#'+slug).addClass('in')
+								$('#'+slug).addClass('active');
+							break;
+							case 2:
+								$('.msections').addClass('hide');
+								$('#'+kind).removeClass('hide');
+							break;
+						}
+						
 					break;				
 					case 400: // Approved
 						alert('You must be logged in in order to continue');
@@ -181,16 +273,36 @@ requestwsj = {
 
 			},
 			function(result){
+
 				$('.upd_g').addClass('hide');
 				var status = result.status;
 				var buy = result.buy;
 				var sell = result.sell;
 				switch(status) {
 					case 200: 
+						var nsp = parseFloat(sell);
+						var nbp = parseFloat(buy);
+						$('.onp-s').text(nsp.toFixed(2));
+						$('.onp-b').text(nbp.toFixed(2));
 						$('#buy_input').attr('price',buy);
 						$('#sell_input').attr('price',sell);
 						$('#buy_input').val(buy+' EUR/bitcoin');
 						$('#sell_input').val(sell+' EUR/bitcoin');
+
+						var v = $('#eur-buy').val();
+					    var p = buy;
+					    if (v == '') {
+					    	$('#buy-total').text('0');
+					    	$('#buy-total').attr('price','0');
+					    	$('#btc-buy').text('');
+					    } else if (jQuery.isNumeric(v)) {
+					    	$total = v/p;
+					    	$new_total = $total.toFixed(6);
+							$("#btc-buy").val($new_total);
+							$commed_v=addCommas(v);
+							$('#buy-total').text($commed_v);
+							$('#buy-total').attr('price',v);
+					    }
 					break;				
 					case 400: 
 					break;
@@ -296,11 +408,7 @@ requestwsj = {
 	}
 };
 
-(function($){
-  $.isBlank = function(obj){
-    return(!obj || $.trim(obj) === "");
-  };
-})(jQuery);
+
 function isEmail(email) {
   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   return regex.test(email);
@@ -372,5 +480,25 @@ function view_errors(data)
 			while (/(\d+)(\d{3})/.test(val.toString())){
 			      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
 			    }
-			    return new_val;
+			    return val;
 		}
+		function buyverify() {
+			$('#sam').addClass('hide');
+			$('#min-buy').addClass('hide');
+			var e_buy = parseInt($('#eur-buy').val());
+			var met = $('#bms').find('option:selected').val();
+		    if (met == 0) {
+		    	$('#sam').removeClass('hide');
+		    	return false;
+		    } else if(e_buy == '' || e_buy<60 || $.isBlank(e_buy)){
+		    	$('#min-buy').removeClass('hide');
+		    	return false;
+		    }else{
+		    	return true;
+		    }
+		}
+(function($){
+  $.isBlank = function(obj){
+    return(!obj || $.trim(obj) === "");
+  };
+})(jQuery);

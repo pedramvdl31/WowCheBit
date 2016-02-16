@@ -51,6 +51,7 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 		Route::get('logout', ['as'=>'users_logout','uses'=>'UsersController@getLogout']);
 		Route::post('auth-check', ['as'=>'users_ac','uses'=>'UsersController@postUsersAuthCheck']);
 		Route::post('auth-check-review', ['as'=>'users_ac_review','uses'=>'UsersController@postUsersAuthCheckReview']);
+		Route::post('update-profile', ['as'=>'up-p','uses'=>'UsersController@postUpdateProfile']);
 	});	
 	Route::group(['prefix' => 'admins'], function () {
 		Route::get('login', ['as'=>'admin_login', 'uses' => 'AdminsController@getLogin']);
