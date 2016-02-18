@@ -2,9 +2,12 @@
 
 <div class="modal fade" id="login-modal">
 	{!! Form::open(array('action' => 'UsersController@postLoginModal', 'class'=>'','role'=>"form",'id'=>'login-form-1')) !!}
-	  <div class="modal-dialog" style="width: 75%">
+	  <div class="modal-dialog" style="width: 50%">
 	    <div class="modal-content">
 	      	<div class="modal-header" style="background-color: #288FB2;">
+	      		<a class="login-cats" style="color: #5CDAD4;cursor: pointer;" this-href="signin">Sign-In</a>
+				<span>&nbsp-&nbsp</span>
+				<a class="login-cats" style="color: #5CDAD4;cursor: pointer;" this-href="signup">Sign-Up</a>
 	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      	</div>
 	      <div class="modal-body">
@@ -15,7 +18,7 @@
 	                <div class="container" style="width:100%">
 	                	
 	                    <div class="row">
-	                        <div class="col-sm-5">
+	                        <div id="signin" class="col-sm-12 vws">
 	                        	
 	                        	<div class="form-box">
 		                        	<div class="form-top">
@@ -52,11 +55,7 @@
 		                        </div>
 		                        
 	                        </div>
-	                        
-	                        <div class="col-sm-1 middle-border" style="padding:0"></div>
-	                        <div class="col-sm-1"></div>
-	                        	
-	                        <div class="col-sm-5">
+	                        <div id="signup" class="col-sm-12 hide vws">
 	                        	{!! Form::open(array('action' => 'UsersController@postRegistration','id'=>'reg-form', 'class'=>'','role'=>"form")) !!}
 	                        	<div class="form-box">
 	                        		<div class="form-top">
@@ -88,6 +87,7 @@
 				                    </div>
 	                        	</div>
 	                        	{!! Form::close() !!}
+		                        
 	                        </div>
 	                    </div>
 	                    

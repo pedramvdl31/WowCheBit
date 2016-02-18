@@ -23,6 +23,7 @@ use App\WebsiteBrand;
 use App\Setup;
 use App\KrakenAPI;
 use App\Paymentmethod;
+use App\Buysell;
 
 class HomeController extends Controller
 {
@@ -84,6 +85,10 @@ class HomeController extends Controller
             $w_a = $lu->wallet_address;
 
             $all_payment_methods = Paymentmethod::PrepareForHome(Paymentmethod::where('status',1)->get());
+
+            //prepare pending table
+            $pending_table = '';
+            $all_bs = Buysell::PreparePendingTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
         }
 
 
@@ -109,15 +114,10 @@ class HomeController extends Controller
         if (isset($res['result']['XXBTZEUR']['b'])) {
             $sell = $res['result']['XXBTZEUR']['b']['0'];
         }
-        $setup_data = Setup::find(1);
-        $sell_percentage = $setup_data->sell_percentage / 100;
-        $buy_percentage = $setup_data->buy_percentage / 100;
-        $sell_percentage_calc = $sell_percentage * $sell;
-        $buy_percentage_calc = $buy_percentage * $buy;
-        $final_sell = $sell_percentage_calc + $sell;
-        $final_buy = $buy_percentage_calc + $buy;
-        $new_buy = $final_buy;
-        $new_sell = $final_sell;
+
+
+
+
         $layout_title = 'layouts.customize';
         $pages = Page::take(1)->first();
 
@@ -128,10 +128,10 @@ class HomeController extends Controller
             return view('home.homepage')
             ->with('layout',$layout_title)
             ->with('layout_titles',$layout_titles)
-            ->with('buy',$new_buy)
-            ->with('sell',$new_sell)
             ->with('all_payment_methods',isset($all_payment_methods)?$all_payment_methods:null)
             ->with('w_a',isset($w_a)?$w_a:null)
+            ->with('all_bs',$all_bs?$all_bs:null)
+            ->with('all_count',$all_bs?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null)
             ->with('slider_option',$pages->slider_option);
         }
     }
@@ -233,11 +233,20 @@ class HomeController extends Controller
 
             }
 
+            $setup_data = Setup::find(1);
+            $new_sell_p = str_replace("-","", $setup_data->sell_percentage);
+            $sell_percentage = $new_sell_p / 100;
+            $buy_percentage = $setup_data->buy_percentage / 100;
+            $sell_percentage_calc = $sell_percentage * $sell;
+            $buy_percentage_calc = $buy_percentage * $buy;
+            $final_sell = $sell - $sell_percentage_calc;
+            $final_buy = $buy_percentage_calc + $buy;
+
 
             return Response::json(array(
                 'status' => $status,
-                'buy' => $buy,
-                'sell' => $sell,
+                'buy' => $final_buy,
+                'sell' => $final_sell,
                 ));
         }
     }

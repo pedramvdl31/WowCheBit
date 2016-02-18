@@ -85,6 +85,13 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="li-menus"><a class=""><i class="fa fa-edit"></i> Control Panel <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="display: none">
+                                        <li>Buy/Sell List</li>
+                                        <li class="navLi"><a href="{!! route('buysells_index') !!}">View All</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="li-menus"><a><i class="fa fa-cogs"></i> Setting <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none">
                                         <li class="navLi"><a href="{!! route('set_profit') !!}">Set Profit</a>

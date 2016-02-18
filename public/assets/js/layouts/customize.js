@@ -30,6 +30,13 @@ cust_layout = {
 			}
 
 		});
+
+
+		$('.login-cats').click(function(){
+			var this_href = $(this).attr('this-href');
+			$('.vws').addClass('hide');
+			$('#'+this_href).removeClass('hide');
+		});
 		$('#bps').click(function(){
 			s = parseInt($(this).attr('status'));
 			if (s == 0) {
@@ -209,8 +216,14 @@ requestwsj = {
 			},
 			function(result){
 				var status = result.status;
+				var all_bs = result.all_bs;
+				var hours = result.hours;
+				var count = result.all_count;
 				switch(status) {
 					case 200: // Approved
+						alert('Successfully Purchased. Please verify the payment within next '+hours+' hours.');
+						$('#verfication_table').html(all_bs);
+						$('.p_count').text(count);
 					break;				
 					case 400: // Approved
 					break;

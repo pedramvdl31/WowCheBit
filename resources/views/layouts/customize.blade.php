@@ -56,7 +56,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="/">WowCheBit</a>
+                <img width="107px" class="img-logo" src="/assets/images/brand_image/png/logo.png" alt="">
+
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -67,15 +68,17 @@
                     <li>
                         <a this-href="dashboard" this-slug="sell" class="fin m-top-nav-sb">Sell</a>
                     </li>
-                    <li>
-                        <a this-href="profile" class="fin m-top-nav">Profile</a>
-                    </li>
-                    <li>
-                        <a this-href="order" class="fin m-top-nav">Order</a>
-                    </li>
-                    <li>
-                        <a this-href="profile" class="fin m-top-nav">Wallet</a>
-                    </li>
+                    @if(Auth::check())
+                      <li>
+                          <a this-href="profile" class="fin m-top-nav">Profile</a>
+                      </li>
+                      <li>
+                          <a this-href="order" class="fin m-top-nav">Order</a>
+                      </li>
+                      <li>
+                          <a this-href="profile" class="fin m-top-nav">Wallet</a>
+                      </li>
+                    @endif
                     <li>
                         <a>Help</a>
                     </li>
@@ -100,17 +103,7 @@
         </div>
         <!-- /.container -->
     </nav>
-    <!-- Side nav -->
-    <nav class="side-nav" role="navigation">
 
-      <ul class="nav-side-nav">
-        <li><a class="tooltip-side-nav" href="#section-0" title="" data-original-title="Intro" data-placement="left"></a></li>
-        <li><a class="tooltip-side-nav" href="#section-1" title="" data-original-title="Chart" data-placement="left"></a></li>
-        <li><a class="tooltip-side-nav" href="#section-2" title="" data-original-title="Subscribe" data-placement="left"></a></li>
-        <li><a class="tooltip-side-nav" href="#section-3" title="" data-original-title="Contact" data-placement="left"></a></li>
-      </ul>
-      
-    </nav> <!-- /.side-nav -->
     <div class="flashmessage" style="margin:50px 0 0 0;">
     <style type="text/css">.alert-success,.alert-danger{margin: 0;}</style>
       @include('flash::message')
@@ -124,18 +117,12 @@
 
           <div class="col-md-6">
 
-            <!-- Logo -->
-            <figure class="text-center">
-              <a href="./index.html">
-                <img class="img-logo" src="/assets/images/logo.png" alt="">
-              </a>
-            </figure> <!-- /.text-center -->
 
             <!-- Title -->
             <h1>WowCheBit</h1>
             <!-- Sub title -->
             <p>
-              If you want to buy or sell bitcoins you are in the right place.
+              If you want to buy or sell bitcoins you came to the right place.
             </p>
             <br>
             <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px">
@@ -368,9 +355,9 @@
     {!! View::make('partials.login_modal') !!}
     @if(Auth::check())
       {!! View::make('partials.dashboard_modal')
-      ->with('buy',$buy)
-      ->with('sell',$sell)
       ->with('w_a',$w_a)
+      ->with('all_bs',$all_bs)
+      ->with('all_count',$all_count)
       ->with('all_payment_methods',$all_payment_methods)->__toString() !!}
     @endif
 

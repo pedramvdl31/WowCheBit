@@ -1,3 +1,7 @@
+.close{
+  color: white !important;
+  opacity: 1 !important;
+}
 .white-input{
   background-color: white !important;
 }
