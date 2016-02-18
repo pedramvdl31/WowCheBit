@@ -130,8 +130,8 @@ class HomeController extends Controller
             ->with('layout_titles',$layout_titles)
             ->with('all_payment_methods',isset($all_payment_methods)?$all_payment_methods:null)
             ->with('w_a',isset($w_a)?$w_a:null)
-            ->with('all_bs',$all_bs?$all_bs:null)
-            ->with('all_count',$all_bs?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null)
+            ->with('all_bs',isset($all_bs)?$all_bs:null)
+            ->with('all_count',isset($all_bs)?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null)
             ->with('slider_option',$pages->slider_option);
         }
     }

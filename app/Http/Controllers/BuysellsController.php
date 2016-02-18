@@ -107,9 +107,9 @@ class BuysellsController extends Controller
 
             return Response::json(array(
                 'status' => $status,
-                'hours' => $wait_hours?$wait_hours:null,
-                'all_bs' => $all_bs?$all_bs:null,
-                'all_count' =>$all_bs?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null
+                'hours' => isset($wait_hours)?$wait_hours:null,
+                'all_bs' => isset($all_bs)?$all_bs:null,
+                'all_count' => isset($all_bs)?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null
                 ));
         }
     }
