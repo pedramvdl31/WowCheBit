@@ -35,39 +35,17 @@ class Job extends Model
             $this_username = $this_user->username;
             $this_user_profile_image = Job::imageValidator($this_user->profile_image);
         } 
-        $new_qanda_count = QuestionsNAnswer::where('status',1)->where('type',1)->count()>0?
-        					QuestionsNAnswer::where('status',1)->where('type',1)->count():null;
 
         View::share('this_username',$this_username);
         View::share('this_user_profile_image',$this_user_profile_image);
-        View::share('new_qanda_count',$new_qanda_count);
 
 		return $array;
 	}
 	static public function ViewSharesPublicData() {
 		$data = [];
-        $data['cart_session_count'] = Session::get('cart_session')?Inventory::PrepareCartCount(Session::get('cart_session')):null;
-        $data['cart_session_items'] = Session::get('cart_session')?Inventory::PrepareCartItemsDropdown(Session::get('cart_session')):null;
-        $data['like_session_count'] = Session::get('liked_session')?sizeof(Session::get('liked_session')):0;
-        $data['liked_session'] = Session::get('liked_session')?Session::get('liked_session'):null;
-        $data['liked_session_items'] = Session::get('liked_session')?Inventory::PrepareLikedItemsDropdown(Session::get('liked_session')):null;
         $data['website_brand'] = WebsiteBrand::CheckDataAndReturn();
 
-        $data['new_event_count'] = Event::CountEventsForIndex();
-
         view::share('website_brand',$data['website_brand']);
-        view::share('liked_session',$data['liked_session']);
-        view::share('liked_session_items',$data['liked_session_items']);
-        view::share('cart_session_items',$data['cart_session_items']);
-        view::share('like_session_count',$data['like_session_count']);
-        view::share('cart_session_count',$data['cart_session_count']);
-        view::share('new_event_count',$data['new_event_count']);
-
-		$layout_titles = Layout::select('title')->take(3)->get()?
-        Layout::PrepareLayout(Layout::select('title','id')->take(3)->get()):null;
-        $prefered_layout = Layout::CheckUserPreferedLayout();
-        view::share('layout_titles',$layout_titles);
-        view::share('prefered_layout',$prefered_layout);
 
 		return 0;
 	}

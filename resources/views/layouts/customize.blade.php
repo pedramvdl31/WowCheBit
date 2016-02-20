@@ -56,7 +56,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img width="107px" class="img-logo" src="/assets/images/brand_image/png/logo.png" alt="">
+                <a href="/" class="pointer"><img width="107px" class="img-logo" src="/assets/images/brand_image/png/logo.png" alt=""></a>
 
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -92,7 +92,9 @@
                             </ul>
                         </li>
                       @else
-                        <li><a class="login-btn  clickables-a">Log In</a>
+                        <li><a class="login-cats pointer login-btn" this-href="signin">Log In</a>
+                        </li>
+                        <li><a class="login-cats pointer login-btn" this-href="signup">Register</a>
                         </li>
                       @endif
                     </li>
@@ -175,7 +177,38 @@
 
         <div class="row">
 
-          <div class="col-md-4 col-services">
+          <div class="col-md-4 col-services text-center">
+            
+
+            <!-- Icons -->
+            <figure>
+              <img class="img-services img-margin" src="/assets/images/icons/flag.png" alt="">
+            </figure>
+
+            <!-- Title -->
+            <h4>BUY & SELL SECURELY</h4>
+
+            <!-- Description -->
+            <p>Security is our highest priority. To guarantee the highest level of security for your account, we are using state of the art technology and security standards.</p>
+
+          </div> <!-- /.col-md-4 -->
+
+          <div class="col-md-4 col-services text-center">
+            
+            <!-- Icons -->
+            <figure>
+              <img class="img-services" src="/assets/images/icons/world-map.svg" alt="">
+            </figure>
+
+            <!-- Title -->
+            <h4>BE COMFORTABLE</h4>
+
+            <!-- Description -->
+            <p>With strong API-applications, high-end servers and a real-time, fully automated order system, we are able to provide you with 24/7 service and a secure environment to make your first steps into the crypto world in the best way possible.</p>
+
+          </div> <!-- /.col-md-4 -->
+
+          <div class="col-md-4 col-services text-center">
             
             <!-- Icons -->
             <figure>
@@ -183,40 +216,10 @@
             </figure>
 
             <!-- Title -->
-            <h4>FAQ</h4>
+            <h4>BE IN THE FAST LANE</h4>
 
             <!-- Description -->
-            <p>Here we answer to the top frequently asked questions, to read more click here.</p>
-
-          </div> <!-- /.col-md-4 -->
-
-          <div class="col-md-4 col-services">
-            
-            <!-- Icons -->
-            <figure>
-              <img class="img-services" src="/assets/images/icons/world-map.png" alt="">
-            </figure>
-
-            <!-- Title -->
-            <h4>Search</h4>
-
-            <!-- Description -->
-            <p>Quaerat, quisquam, perspiciatis, ipsam eveniet a ducimus repellat rem nobis similique.</p>
-
-          </div> <!-- /.col-md-4 -->
-
-          <div class="col-md-4 col-services">
-            
-            <!-- Icons -->
-            <figure>
-              <img class="img-services img-margin" src="/assets/images/icons/flag.png" alt="">
-            </figure>
-
-            <!-- Title -->
-            <h4>Contact Us</h4>
-
-            <!-- Description -->
-            <p>If you wish to directly ask or report something click <a href="#section-3">here</a>.</p>
+            <p>Coinimal was designed to provide you with the easiest and fastest access to Cryptocoins. With Coinimal you can order your coins in less than 2 minutes.</p>
 
           </div> <!-- /.col-md-4 -->
           
@@ -357,7 +360,7 @@
       {!! View::make('partials.dashboard_modal')
       ->with('w_a',$w_a)
       ->with('all_bs',$all_bs)
-      ->with('all_count',$all_count)
+      ->with('all_orders',$all_orders)
       ->with('all_payment_methods',$all_payment_methods)->__toString() !!}
     @endif
 

@@ -88,7 +88,10 @@ class HomeController extends Controller
 
             //prepare pending table
             $pending_table = '';
+            Buysell::UpdateAllTimers(Buysell::where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
             $all_bs = Buysell::PreparePendingTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
+            $all_orders = Buysell::PrepareOrdersTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->get());
+
         }
 
 
@@ -130,6 +133,7 @@ class HomeController extends Controller
             ->with('layout_titles',$layout_titles)
             ->with('all_payment_methods',isset($all_payment_methods)?$all_payment_methods:null)
             ->with('w_a',isset($w_a)?$w_a:null)
+            ->with('all_orders',isset($all_orders)?$all_orders:null)
             ->with('all_bs',isset($all_bs)?$all_bs:null)
             ->with('all_count',isset($all_bs)?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null)
             ->with('slider_option',$pages->slider_option);

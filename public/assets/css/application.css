@@ -3116,12 +3116,6 @@ select[multiple].input-lg,
   color: #f2f2f2;
   background-color: #333333;
 }
-
-.btn-primary {
-  color: white;
-  background-color: #1b1f23;
-  border-color: #101215;
-}
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
   color: white;
   background-color: #050606;
@@ -3133,10 +3127,6 @@ select[multiple].input-lg,
 .btn-primary.disabled, .btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled:active, .btn-primary.disabled.active, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled]:active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary.active {
   background-color: #1b1f23;
   border-color: #101215;
-}
-.btn-primary .badge {
-  color: #1b1f23;
-  background-color: white;
 }
 
 .btn-success {

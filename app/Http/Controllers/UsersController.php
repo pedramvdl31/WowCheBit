@@ -99,17 +99,10 @@ class UsersController extends Controller
 
         if (Auth::attempt(array('username'=>$username, 'password'=>$password))) {
             Flash::success('Welcome back '.$username.'!');
-            return redirect()->action('HomeController@postIndex');
+            return Redirect::route('home_index');
         } else { //LOGING FAILED
-            if (isset($direct_login)) {
-                return view('users.login')
-                    ->with('layout',$this->layout)
-                    ->with('wrong',1);
-            } else {
-                return view('users.login')
-                    ->with('layout',$this->layout)
-                    ->with('wrong',1); 
-            }
+            Flash::error('Wrong Username or Password!');
+            return Redirect::route('home_index');
         }
     }   
  
@@ -118,27 +111,23 @@ class UsersController extends Controller
         $username = Input::get('username');
         $password = Input::get('password');
         if (Auth::attempt(array('username'=>$username, 'password'=>$password))) {
-            $redirect = (Session::get('redirect_flash')) ? Session::get('redirect_flash') : null; 
-            if(isset($redirect)) {
-                Flash::success('Welcome back '.$username.'!');
-                return Redirect::to($redirect);
-            } else { //SESSION DOESN'T EXIST
-                return Redirect::action('HomeController@getHomepage');
-            }
+            Flash::success('Welcome back '.$username.'!');
+            return Redirect::route('home_index');
         } else { //LOGIN FAILED
-            return view('users.login')
-                ->with('layout',$this->layout)
-                ->with('wrong',1); 
+            Flash::Error('Wrong Username or Password!');
+            return Redirect::route('home_index');
         }
     }
     public function getLogout()
     {
             Auth::logout();
+            Flash::success('Logged out');
             return Redirect::action('HomeController@getHomepage');
     }
     public function postLogout()
     {
         Auth::logout();
+        Flash::success('Logged out');
         return Redirect::action('HomeController@getHomepage');
     }
 

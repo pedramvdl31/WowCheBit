@@ -89,6 +89,7 @@ class BuysellsController extends Controller
                     $buys->status = 1;
                 }
                 if ($buys->save()) {
+                    
                     // if (Mail::send('emails.purchase', array(
                     //     'email' => $email,
                     //     'message_text' => $message_text
@@ -110,6 +111,18 @@ class BuysellsController extends Controller
                 'hours' => isset($wait_hours)?$wait_hours:null,
                 'all_bs' => isset($all_bs)?$all_bs:null,
                 'all_count' => isset($all_bs)?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null
+                ));
+        }
+    }
+
+     public function postUploadVar()
+    {
+        if(Request::ajax()){
+            $status = 400;
+            Job::dump(Input::all());
+
+            return Response::json(array(
+                'status' => $status
                 ));
         }
     }

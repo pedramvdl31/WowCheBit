@@ -15,6 +15,61 @@ cust_layout = {
 		})
 	},
 	events: function() {
+
+		var files;
+
+
+		$('.pen-file').change(function(event) {
+		  	files = event.target.files;
+		});
+
+		$('.var-form').on('submit', uploadFiles);
+		// Catch the form submit and upload the files
+		function uploadFiles(event)
+		{
+		  	event.stopPropagation(); // Stop stuff happening
+		    event.preventDefault(); // Totally stop stuff happening
+
+		    // START A LOADING SPINNER HERE
+
+		    // Create a formdata object and add the files
+		    var data = new FormData();
+		    $.each(files, function(key, value)
+		    {
+		        data.append(key, value);
+		    });
+		    data.append('thisid',1221);
+		    $.ajax({
+		        url: '/upload-varification',
+		        type: 'POST',
+		        data: data,
+		        cache: false,
+		        dataType: 'json',
+		        processData: false, // Don't process the files
+		        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+		        success: function(data, textStatus, jqXHR)
+		        {
+		            if(typeof data.error === 'undefined')
+		            {
+		                // Success so call function to process the form
+		                submitForm(event, data);
+		            }
+		            else
+		            {
+		                // Handle errors here
+		                console.log('ERRORS: ' + data.error);
+		            }
+		        },
+		        error: function(jqXHR, textStatus, errorThrown)
+		        {
+		            // Handle errors here
+		            console.log('ERRORS: ' + textStatus);
+		            // STOP LOADING SPINNER
+		        }
+		    });
+		}
+
+
 		$( "#bms" ).change(function() {
 			var option = $('option:selected', this).attr('des');
 			var v = parseInt($('option:selected', this).val());
@@ -185,6 +240,27 @@ cust_layout = {
 	}
 }
 requestwsj = {
+	upload_varification: function(form_data) {
+		var token = $('meta[name=csrf-token]').attr('content');
+		$.post(
+			'/upload-varification',
+			{
+				"_token": token,
+				"form_data":form_data
+			},
+			function(result){
+				var status = result.status;
+				switch(status) {
+					case 200: // Approved
+					break;				
+					case 400: // Approved
+					break;
+					default:
+					break;
+				}
+			}
+			);
+	},
 	update_profile: function(wallet_addr) {
 		var token = $('meta[name=csrf-token]').attr('content');
 		$.post(
@@ -218,12 +294,10 @@ requestwsj = {
 				var status = result.status;
 				var all_bs = result.all_bs;
 				var hours = result.hours;
-				var count = result.all_count;
 				switch(status) {
 					case 200: // Approved
 						alert('Successfully Purchased. Please verify the payment within next '+hours+' hours.');
 						$('#verfication_table').html(all_bs);
-						$('.p_count').text(count);
 					break;				
 					case 400: // Approved
 					break;

@@ -1,16 +1,16 @@
 
 
-<div class="modal fade" id="login-modal">
+<div class="modal fade" id="login-modal" style="">
 	{!! Form::open(array('action' => 'UsersController@postLoginModal', 'class'=>'','role'=>"form",'id'=>'login-form-1')) !!}
 	  <div class="modal-dialog" style="width: 50%">
 	    <div class="modal-content">
 	      	<div class="modal-header" style="background-color: #288FB2;">
-	      		<a class="login-cats" style="color: #5CDAD4;cursor: pointer;" this-href="signin">Sign-In</a>
-				<span>&nbsp-&nbsp</span>
-				<a class="login-cats" style="color: #5CDAD4;cursor: pointer;" this-href="signup">Sign-Up</a>
+
+
 	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      	</div>
-	      <div class="modal-body">
+	      <div class="modal-body" style="padding-left: 0;
+    		padding-right: 0;"	>
 
 	        <div class="top-content">
 	        	
@@ -40,20 +40,17 @@
 					                        	<label class="sr-only" for="form-password">Password</label>
 					                        	<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
 					                        </div>
-					                        <button type="submit" class="btn modal-btn">Sign in!</button>
+					                        <p>
+						                        <a href="password/email" class="clickables-a">Forgot Password?</a>&nbspOr&nbsp
+						                        <a this-href="signup" class="login-cats clickables-a" >Register new account</a>
+					                        </p>
+					                        <button type="submit" class="btn modal-btn btn-primary">Sign in!</button>
 				                    	{!! Form::close() !!}
+			                        	<a class="btn btn-link-1 btn-link-1-facebook" href="auth/facebook">
+			                        		<i class="fa fa-facebook"></i>  Connect
+			                        	</a>
 				                    </div>
 			                    </div>
-			                
-			                	<div class="social-login">
-		                        	<h3>...or login with:</h3>
-		                        	<div class="social-login-buttons">
-			                        	<a class="btn btn-link-1 btn-link-1-facebook" href="auth/facebook">
-			                        		<i class="fa fa-facebook"></i>  Facebook
-			                        	</a>
-		                        	</div>
-		                        </div>
-		                        
 	                        </div>
 	                        <div id="signup" class="col-sm-12 hide vws">
 	                        	{!! Form::open(array('action' => 'UsersController@postRegistration','id'=>'reg-form', 'class'=>'','role'=>"form")) !!}
@@ -83,7 +80,10 @@
 					                        <div class="form-group">
 					                        	<input type="text" placeholder="Wallet Address (Optional)" class="form-email form-control" name="wallet_address">
 					                        </div>
-					                        <a class="btn modal-btn" id="submit-btn">Sign me up!</a>
+					                        <p>
+						                        <a this-href="signin" class="login-cats clickables-a" >Back To Login</a>
+					                        </p>
+					                        <a class="btn modal-btn btn-primary" id="submit-btn">Sign me up!</a>
 				                    </div>
 	                        	</div>
 	                        	{!! Form::close() !!}

@@ -1,4 +1,13 @@
-
+.pen-btn{
+	height: 32px;
+    font-size: 15px;
+    line-height: 1px;
+    margin-top: 3px;
+    width: 101px;
+}
+#login-modal{
+	padding-right: 0 !important;
+}
 .modal-body{
 	background: url(/assets/images/bg-modal.jpg) left top repeat;
     font-family: 'Roboto', sans-serif;
@@ -58,15 +67,6 @@
 
 
 /***** Top content *****/
-
-.inner-bg {
-    padding: 0 0 60px 0;
-}
-
-
-.form-box {
-	margin-top: 70px;
-}
 
 .form-top {
 	overflow: hidden;
@@ -151,20 +151,34 @@ footer a:hover, footer a:focus { border-bottom: 1px dotted #19b9e7; }
 @media (min-width: 768px) and (max-width: 991px) {}
 
 @media (max-width: 767px) {
+	.pending-v{
+		margin-top: 10px;
+	}
 	.modal-dialog{
 		width: 100% !important;
     	margin: 0 !important;
 	}
 	.middle-border { min-height: auto; margin: 65px 30px 0 30px; border-right: 0; border-top: 1px solid #ddd; }
-	
+
+	#updp {
+		margin-top: 5px;
+	    float: right;
+	}
 }
 
 @media (max-width: 415px) {
+	.pending-v{
+		margin-top: 10px;
+	}
 		.modal-dialog{
 		width: 100% !important;
     	margin: 0 !important;
 	}
 	h1, h2 { font-size: 32px; }
+	#updp {
+		margin-top: 5px;
+	    float: right;
+	}
 
 }
 

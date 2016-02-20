@@ -1,16 +1,22 @@
 
 
 <div class="modal fade" id="dashboard-modal">
-	{!! Form::open(array('action' => 'UsersController@postLoginModal', 'class'=>'','role'=>"form",'id'=>'login-form-1')) !!}
-	<div class="modal-dialog" style="width: 80%">
+
+	<div class="modal-dialog" style="width: 90%">
 		<div class="modal-content">
 			<div class="modal-header" style="background-color: #288FB2;">
-				<a class="top-cats" style="color: white;cursor: pointer;" this-href="dashboard">Dashboard</a>
-				<span>&nbsp-&nbsp</span>
-				<a class="top-cats" style="color: white;cursor: pointer;" this-href="profile">Profile</a>
-				<span>&nbsp-&nbsp</span>
-				<a class="top-cats" style="color: white;cursor: pointer;" this-href="orders">Orders</a>
+
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span class="pull-right">&nbsp-&nbsp</span>
+				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="profile">Profile&nbsp<i class="glyphicon glyphicon-user"></i></a>
+				<span class="pull-right">&nbsp-&nbsp</span>
+				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="orders">Orders&nbsp<i class="glyphicon glyphicon-list-alt"></i></a>
+				<span class="pull-right">&nbsp-&nbsp</span>
+				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="dashboard">Dashboard&nbsp<i class="glyphicon glyphicon-cog"></i></a>
+				
+
+
+
 			</div>
 			<div class="modal-body" style="background:white">
 
@@ -21,45 +27,51 @@
 						<div class="container" style="width:100%">
 
 							<div class="row">
-								<div class="bs-example bs-example-tabs col-md-12" data-example-id="togglable-tabs" style="overflow: auto;">
+								{!! Form::open(array('action' => 'UsersController@postLoginModal', 'class'=>'','role'=>"form",'id'=>'login-form-1')) !!}
+										<div class="bs-example bs-example-tabs col-md-6" data-example-id="togglable-tabs" style="overflow: auto;">
 
-									<div class="well" style="overflow: auto;text-align:left">
-										<p>REFERENCE PRICE:</p>
-										<div class="col-md-7">
+									<div class="well" style="overflow: auto;text-align:left;
+									    background-image: linear-gradient(to bottom,rgba(92, 184, 92, 0.44) 0,rgba(92, 184, 92, 0.5) 100%);
+									    padding: 5px;">
+										
+										<div class="col-md-12">
+											<p>REFERENCE PRICE:</p>
+											<div class="col-md-6" style="padding-left: 0">
+												<select name="type" class="ref-p-input form-control" id='dash-currency-select'>
+												<option value="1">EUR/bitcoin</option>
+												</select>		
+											</div>
+											<div class="col-md-6">
+													<fieldset class="form-group" style="text-align: left">
+													<a id="updp" class="btn btn-info btn-sm" style="height: 35px;
+														line-height: 17px;">Update <img class="upd_g hide" src="/assets/images/icons/gif/loading1.gif" width="20px"></a>
+													</fieldset>		
+											</div>
+	
+
+										</div>
+										<div class="col-md-6">
 											<fieldset class="form-group">
 												<label for="buy">BUY</label>
-												<input price="" value="0 EUR/bitcoin" style="background-color:white" type="text" class="form-control ref-buy" readonly="true" id="buy_input" placeholder="Updating...">
-											</fieldset>													  
+												<input price="" value="0 EUR/bitcoin" style="background-color:white" type="text" class="ref-p-input form-control ref-buy" readonly="true" id="buy_input" placeholder="Updating...">
+											</fieldset>												
+										</div>	
+										<div class="col-md-6">
 											<fieldset class="form-group">
 												<label for="sell">SELL</label>
-												<input price="" value="0 EUR/bitcoin" style="background-color:white" type="text" class="form-control ref-sell" readonly="true" id="sell_input" placeholder="Updating...">
-											</fieldset>
-										</div>			
-										<div class="col-md-5 text-center" style="margin-top:35px">
-											<select name="type" class="form-control" id='dash-currency-select'>
-												<option value="1">EUR/bitcoin</option>
-											</select>
-											<fieldset class="form-group" style="text-align: left">
-												<a id="updp" class="btn btn-info btn-sm" style="margin:10px;">Update <img class="upd_g hide" src="/assets/images/icons/gif/loading1.gif" width="20px"></a>
+												<input price="" value="0 EUR/bitcoin" style="background-color:white" type="text" class="ref-p-input form-control ref-sell" readonly="true" id="sell_input" placeholder="Updating...">
 											</fieldset>
 										</div>
-									</div>
-									</br> 
 
 
+
+									</div> 
 									<ul id="myTabs" class="nav nav-tabs" role="tablist"> 
 										<li class="d-tl" id="buy-tl" role="presentation" class="active">
 											<a href="#buy" id="buy-tab" role="tab" data-toggle="tab" aria-controls="buy" aria-expanded="true">Buy</a>
 										</li> 
 										<li class="d-tl" id="sell-tl" role="presentation" class="">
 											<a href="#sell" role="tab" id="sell-tab" data-toggle="tab" aria-controls="sell" aria-expanded="false"><strike>Sell</strike></a>
-										</li> 
-										<li role="presentation" class="">
-											<a href="#pending" role="tab" id="sell-tab" data-toggle="tab" aria-controls="pending" aria-expanded="true">Verifications 
-											@if(isset($all_bs))
-												<span class="badge" style="background-color:#f0ad4e"><span class="p_count">{!!$all_count!!}</span></span>
-											@endif
-											</a>
 										</li> 
 									</ul> 
 									<div id="myTabContent" class="tab-content"> 
@@ -102,7 +114,7 @@
 													<textarea class="hide" id="bps_ta" rows="4" cols="50" style="resize: none;"></textarea>
 												</div>	
 												<p><strong>Total:&nbsp&nbsp</strong> €<span id="buy-total" price="">0</span></p>
-												<a id="bbtn" class="btn pull-right modal-btn bd">Review Order</a>
+												<a id="bbtn" class="btn pull-right modal-btn bd btn-primary">Order</a>
 											</div>
 										</div> 
 										<div role="tabpanel" class="tab-pane m-tp fade" id="sell" aria-labelledby="sell-tab"> 
@@ -114,15 +126,17 @@
 													<input type="text" style="background-color:white" class="form-control" id="amount-sell" placeholder="Amount">
 												</div>
 												<p><strong>Total:&nbsp&nbsp</strong> €<span id="sell-total">0</span></p>
-												<a class="btn pull-right modal-btn" >Review Order</a>
+												<a class="btn pull-right modal-btn btn-primary" >Order</a>
 											</div>
 										</div> 
-										<div role="tabpanel" class="tab-pane m-tp fade" id="pending" aria-labelledby="p-tab"> 
-											<div class="col-md-12" id="verfication_table" style="padding:10px">
-												{!!$all_bs!!}
-											</div>
-										</div> 
-								</div> 
+									</div> 
+										</div>
+								{!! Form::close() !!}
+								<div class="col-md-6">
+									<div id="verfication_table" class="pending-v " style="max-height: 500px;overflow: auto;">
+										{!!$all_bs!!}
+									</div>
+								</div>
 							</div>
 
 						</div>
@@ -133,7 +147,7 @@
 
 				<div class="top-contents msections hide" id="profile">
 
-					<div class="inner-bgs">
+					<div class="inner-bgs" style="padding: 15px">
 						<div class="container" style="width:100%">
 							<div class="row" style="text-align: left">
 								<div class="form-group">
@@ -153,13 +167,10 @@
 				</div>
 
 				<div class="top-contents msections hide" id="orders">
-
-					<div class="inner-bgs">
+					<div class="inner-bgs" style="padding: 15px">
 						<div class="container" style="width:100%">
 							<div class="row" style="text-align: left">
-								<div class="table-responsive">
-									<table class="table table-condensed"> <thead> <tr> <th>#</th> <th>First Name</th> <th>Last Name</th> <th>Username</th> </tr> </thead> <tbody> <tr> <th scope="row">1</th> <td>Mark</td> <td>Otto</td> <td>@mdo</td> </tr> <tr> <th scope="row">2</th> <td>Jacob</td> <td>Thornton</td> <td>@fat</td> </tr> <tr> <th scope="row">3</th> <td colspan="2">Larry the Bird</td> <td>@twitter</td> </tr> </tbody> </table>
-								</div>
+								{!!$all_orders!!}
 							</div>
 						</div>				
 					</div>				
@@ -170,5 +181,5 @@
 		</div>
 	</div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
-{!! Form::close() !!}
+
 </div><!-- /.modal -->

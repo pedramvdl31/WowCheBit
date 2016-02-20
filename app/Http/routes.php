@@ -10,21 +10,26 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+	//HOME ROUTE
+	Route::get('/', ['as'=>'home_index', 'uses' => 'HomeController@getHomepage']);
+	Route::get('/home', ['as'=>'home_index', 'uses' => 'HomeController@getHomepage']);
 Route::group(['middleware' => 'beforeFilter'], function () {
+	// Password reset link request routes...
+	Route::get('password/email', 'Auth\PasswordController@getEmail');
+	Route::post('password/email', 'Auth\PasswordController@postEmail');
 
+	// Password reset routes...
+	Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+	Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 	Route::post('/updatedata',  ['uses' => 'HomeController@postUpdateData']);
+	Route::post('/upload-varification',  ['uses' => 'BuysellsController@postUploadVar']);
 	Route::post('/new-currency',  ['uses' => 'HomeController@postNewCurrency']);
 	Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 	Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
 	// WEBSITE PUBLIC PAGES
 	Route::get('/verify-email/{id}',  ['as'=>'verify_mail', 'uses' => 'UsersController@getEmailVerify']);
-	// WEBSITE PUBLIC PAGES END
-	Route::post('/questions-and-answers/ajax-add',  ['uses' => 'QnAController@postAjaxqnaAdd']);
-	Route::post('/reviews/ajax-add',  ['uses' => 'ReviewsController@postAjaxReviewAdd']);
-	Route::post('/reviews/ajax-edit',  ['uses' => 'ReviewsController@postAjaxReviewEdit']);
 	Route::post('/like-us',  ['uses' => 'LikesController@postLikeUs']);
 	Route::post('/send-email',  ['uses' => 'HomeController@postSendEmail']);
 
@@ -52,6 +57,9 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 		Route::post('auth-check', ['as'=>'users_ac','uses'=>'UsersController@postUsersAuthCheck']);
 		Route::post('auth-check-review', ['as'=>'users_ac_review','uses'=>'UsersController@postUsersAuthCheckReview']);
 		Route::post('update-profile', ['as'=>'up-p','uses'=>'UsersController@postUpdateProfile']);
+
+
+
 	});	
 	Route::group(['prefix' => 'admins'], function () {
 		Route::get('login', ['as'=>'admin_login', 'uses' => 'AdminsController@getLogin']);
@@ -157,16 +165,6 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 			Route::post('payment_method/view',  ['uses' => 'AdminsController@postPaymentMethodsView', 'middleware' => ['acl:'.$prefix.'/payment_method/view']]);
 			Route::get('payment_method/remove/{id}',  ['as' => 'payment_method_remove','uses' => 'AdminsController@getPaymentMethodsRemove', 'middleware' => ['acl:'.$prefix.'/payment_method/remove'], function ($id) {}]);
 
-			//EVENTS
-			Route::get('events',  ['as' => 'events_index','uses' => 'EventsController@getIndex', 'middleware' => ['acl:'.$prefix.'/events']]);
-			Route::get('events/add',  ['as' => 'events_add','uses' => 'EventsController@getAdd', 'middleware' => ['acl:'.$prefix.'/events/add']]);
-			Route::post('events/add',  ['uses' => 'EventsController@postAdd', 'middleware' => ['acl:'.$prefix.'/events/add']]);
-			Route::get('events/edit/{id}',  ['as' => 'events_edit','uses' => 'EventsController@getEdit', 'middleware' => ['acl:'.$prefix.'/events/edit'], function ($id) {}]);
-			Route::post('events/edit',  ['uses' => 'EventsController@postEdit', 'middleware' => ['acl:'.$prefix.'/events/edit']]);
-			Route::post('events/remove',  ['uses' => 'EventsController@postRemove', 'middleware' => ['acl:'.$prefix.'/events/remove']]);
-			Route::get('events/view/{id}',  ['as' => 'events_view','uses' => 'EventsController@getView', 'middleware' => ['acl:'.$prefix.'/events/view'], function ($id) {}]);
-			Route::post('events/view',  ['uses' => 'EventsController@postView', 'middleware' => ['acl:'.$prefix.'/events/view']]);
-			Route::get('events/remove/{id}',  ['as' => 'events_remove','uses' => 'EventsController@getRemove', 'middleware' => ['acl:'.$prefix.'/events/remove'], function ($id) {}]);
 
 			//BUYSELLS
 			Route::get('buysells',  ['as' => 'buysells_index','uses' => 'BuysellsController@getIndex', 'middleware' => ['acl:'.$prefix.'/buysells']]);
@@ -180,16 +178,6 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 			Route::get('buysells/remove/{id}',  ['as' => 'buysells_remove','uses' => 'BuysellsController@getRemove', 'middleware' => ['acl:'.$prefix.'/buysells/remove'], function ($id) {}]);
 			Route::post('buysells/buy', ['uses'=>'BuysellsController@postBuy']);
 
-			//LAYOUTS
-			Route::get('layouts',  ['as' => 'layouts_index','uses' => 'LayoutsController@getIndex', 'middleware' => ['acl:'.$prefix.'/layouts']]);
-			Route::get('layouts/add',  ['as' => 'layouts_add','uses' => 'LayoutsController@getAdd', 'middleware' => ['acl:'.$prefix.'/layouts/add']]);
-			Route::post('layouts/add',  ['uses' => 'LayoutsController@postAdd', 'middleware' => ['acl:'.$prefix.'/layouts/add']]);
-			Route::get('layouts/edit/{id}',  ['as' => 'layouts_edit','uses' => 'LayoutsController@getEdit', 'middleware' => ['acl:'.$prefix.'/layouts/edit'], function ($id) {}]);
-			Route::post('layouts/edit',  ['uses' => 'LayoutsController@postEdit', 'middleware' => ['acl:'.$prefix.'/layouts/edit']]);
-			Route::post('layouts/remove',  ['uses' => 'LayoutsController@postRemove', 'middleware' => ['acl:'.$prefix.'/layouts/remove']]);
-			Route::get('layouts/view/{id}',  ['as' => 'layouts_view','uses' => 'LayoutsController@getView', 'middleware' => ['acl:'.$prefix.'/layouts/view'], function ($id) {}]);
-			Route::post('layouts/view',  ['uses' => 'LayoutsController@postView', 'middleware' => ['acl:'.$prefix.'/layouts/view']]);
-			Route::get('layouts/remove/{id}',  ['uses' => 'LayoutsController@getRemove', 'middleware' => ['acl:'.$prefix.'/layouts/remove'], function ($id) {}]);
 
 			//PAGES
 			Route::get('pages',  ['as' => 'pages_index','uses' => 'PagesController@getIndex', 'middleware' => ['acl:'.$prefix.'/pages']]);
@@ -233,30 +221,10 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 	//PERMISSIONS ROUTE
 	Route::group(['prefix' => 'permissions'], function () {
 		Route::get('auto-update', ['uses'=>'PermissionsController@getAutoUpdate']);
-	});
-	Route::post('inventories/inv-liked',  ['uses' => 'InventoriesController@postItemLiked']);
-	Route::post('inventories/like-removed',  ['uses' => 'InventoriesController@postLikeRemoved']);
-	//ITEMS
-	Route::get('items/{id}', ['as' => 'view_this_item','uses'=>'InventoriesController@getViewItem']);
-	//CHECKOUT
-	Route::post('invoices/add-to-cart', ['uses'=>'InvoicesController@postAddToCart']);
-	Route::get('invoices/reset-cart', ['as' => 'reset-cart', 'uses'=>'InvoicesController@getRestCart']);
-	Route::get('invoices/reset-liked', ['as' => 'reset-liked', 'uses'=>'InvoicesController@getRestLiked']);
-	Route::get('invoices/delete-item-cart/{id}', ['as' => 'delete-item-cart', 'uses'=>'InvoicesController@getDeleteItemCart']);
-	Route::get('invoices/delete-item-liked/{id}', ['as' => 'delete-item-liked', 'uses'=>'InvoicesController@getDeleteItemLiked']);
-	Route::get('invoices/checkout', ['as'=>'invoice_checkout','uses'=>'InvoicesController@getCheckout']);
-	Route::post('invoices/checkout/add-to-cart-and-proceed', ['as'=>'add_to_cart_and_payment','uses'=>'InvoicesController@postAddAndProceed']);
-	Route::get('invoices/checkout/guest', ['as'=>'invoice_checkout_guest','uses'=>'InvoicesController@getCheckoutAsGuest']);
-	Route::get('invoices/checkout/reset-address-guest', ['as'=>'reset-address-guest','uses'=>'InvoicesController@getResetAddressGuest']);
-	Route::post('invoices/checkout-confirmation', ['uses'=>'InvoicesController@postCheckoutConfirmation']);
-	Route::post('invoices/checkout', ['uses'=>'InvoicesController@postCheckout']);
 
-	Route::get('invoices/user-login/{id}', ['as'=>'invoice_user_login','uses'=>'InvoicesController@getUserLoginPage']);
-	
+
+	Route::get('/{prefered_layout}/{id}', ['as'=>'set_layout', 'uses' => 'HomeController@getSetPreferedLayoutSession']);
+		});
 	//PAGES
 	Route::get('/{param1}','PagesController@getPage');
-
-	//HOME ROUTE
-	Route::get('/', ['as'=>'home_index', 'uses' => 'HomeController@getHomepage']);
-	Route::get('/{prefered_layout}/{id}', ['as'=>'set_layout', 'uses' => 'HomeController@getSetPreferedLayoutSession']);
 });

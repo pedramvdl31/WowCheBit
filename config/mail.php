@@ -2,9 +2,9 @@
 return [
 
 
-'driver' => env('MAIL_DRIVER', 'mailgun'),
-'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
- 'port' => env('MAIL_PORT', 587),
+'driver' => env('MAIL_DRIVER'),
+'host' => env('MAIL_HOST'),
+ 'port' => env('MAIL_PORT'),
 'from' => ['address' => null, 'name' => null],
  'encryption' => env('MAIL_ENCRYPTION', 'tls'),
  'username' => env('postmaster@www.webprinciples.com'),
