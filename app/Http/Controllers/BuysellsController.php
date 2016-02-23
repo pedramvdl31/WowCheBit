@@ -100,6 +100,7 @@ class BuysellsController extends Controller
                     //     $message->subject('Buy Notification!');
                     // }));
                                 //prepare pending table
+                    $b_id = $buys->id;
                     $all_bs = Buysell::PreparePendingTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
                     $status = 200;
                 }
@@ -108,6 +109,7 @@ class BuysellsController extends Controller
 
             return Response::json(array(
                 'status' => $status,
+                'this_id' => isset($b_id)?$b_id:null,
                 'hours' => isset($wait_hours)?$wait_hours:null,
                 'all_bs' => isset($all_bs)?$all_bs:null,
                 'all_count' => isset($all_bs)?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null
@@ -119,10 +121,50 @@ class BuysellsController extends Controller
     {
         if(Request::ajax()){
             $status = 400;
-            Job::dump(Input::all());
+            $this_id = Input::get('this_id');
+            $sourcePath = $_FILES['0']['name']; 
+            $tempPath = $_FILES['0']['tmp_name']; 
+
+            $imagePath = public_path("assets/images/buysell/");
+            $now_time = time();
+
+            $array_count = 0;
+            $image_ex = explode(DIRECTORY_SEPARATOR, $sourcePath);
+            $array_count = sizeof($image_ex);
+            $image_ex_name_type = $image_ex[$array_count-1];
+            $name_clean = preg_replace('#[ -]+#', '-', $image_ex_name_type);
+            $final_path = $now_time.'-'.$name_clean;
+
+
+            if( ! \File::isDirectory($imagePath) ) {
+                \File::makeDirectory($imagePath, 493, true);
+            }
+            if (!is_writable(dirname($imagePath))) {
+                $status = 401;
+                return Response::json(array(
+                    "error" => 'Destination Unwritable'
+                    ));
+            } else {
+                $newpath = public_path("assets/images/buysell/".$final_path);
+                if (move_uploaded_file($tempPath,$newpath)) {
+                    $status = 201;
+                    $this_bs = Buysell::find($this_id);
+                    if (isset($this_bs)) {
+                        $this_bs->status = 2;
+                        $this_bs->img = $final_path;
+
+                        if ($this_bs->save()) {
+                            $status = 200;
+                            $all_bs = Buysell::PreparePendingTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
+                        }
+                    }
+                }
+            }
 
             return Response::json(array(
-                'status' => $status
+                'status' => $status,
+                'all_bs' => isset($all_bs)?$all_bs:null,
+
                 ));
         }
     }

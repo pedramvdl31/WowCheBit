@@ -7,12 +7,12 @@
 			<div class="modal-header" style="background-color: #288FB2;">
 
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span class="pull-right">&nbsp&nbsp</span>
+				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="profile"><i class="glyphicon glyphicon-user"></i>&nbspProfile</a>
 				<span class="pull-right">&nbsp-&nbsp</span>
-				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="profile">Profile&nbsp<i class="glyphicon glyphicon-user"></i></a>
+				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="orders"><i class="glyphicon glyphicon-list-alt"></i>&nbspOrders</a>
 				<span class="pull-right">&nbsp-&nbsp</span>
-				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="orders">Orders&nbsp<i class="glyphicon glyphicon-list-alt"></i></a>
-				<span class="pull-right">&nbsp-&nbsp</span>
-				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="dashboard">Dashboard&nbsp<i class="glyphicon glyphicon-cog"></i></a>
+				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="dashboard"><i class="glyphicon glyphicon-cog"></i>&nbspDashboard</a>
 				
 
 

@@ -13,32 +13,29 @@ cust_layout = {
 		  e.preventDefault()
 		  $(this).tab('show')
 		})
+
 	},
 	events: function() {
 
 		var files;
 
 
-		$('.pen-file').change(function(event) {
-		  	files = event.target.files;
+		$(document).on('change', '.pen-file', function() {
+		  files = event.target.files;
 		});
 
-		$('.var-form').on('submit', uploadFiles);
-		// Catch the form submit and upload the files
-		function uploadFiles(event)
-		{
+		$(document).on("submit", ".var-form", function (event) {
 		  	event.stopPropagation(); // Stop stuff happening
 		    event.preventDefault(); // Totally stop stuff happening
-
-		    // START A LOADING SPINNER HERE
-
+		    var this_id = $(this).attr('this-id');
 		    // Create a formdata object and add the files
 		    var data = new FormData();
 		    $.each(files, function(key, value)
 		    {
 		        data.append(key, value);
 		    });
-		    data.append('thisid',1221);
+
+		    data.append('this_id',this_id);
 		    $.ajax({
 		        url: '/upload-varification',
 		        type: 'POST',
@@ -48,26 +45,33 @@ cust_layout = {
 		        processData: false, // Don't process the files
 		        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
 		        success: function(data, textStatus, jqXHR)
-		        {
-		            if(typeof data.error === 'undefined')
-		            {
-		                // Success so call function to process the form
-		                submitForm(event, data);
-		            }
-		            else
-		            {
-		                // Handle errors here
-		                console.log('ERRORS: ' + data.error);
-		            }
+		        {	
+		        	$('#upload-modal').modal('hide');
+		        	var status = data.status;
+		        	var all_bs = data.all_bs;
+					switch(status) {
+						case 200: // Approved
+						alert('Successfully Uploaded! Please wait while we reviewing the verification.');
+						$('#verfication_table').html(all_bs);
+						break;				
+						case 400: // Approved
+						break;
+						default:
+						break;
+					}
 		        },
 		        error: function(jqXHR, textStatus, errorThrown)
 		        {
+		        	alert('e');
 		            // Handle errors here
 		            console.log('ERRORS: ' + textStatus);
 		            // STOP LOADING SPINNER
 		        }
 		    });
-		}
+
+
+		});
+
 
 
 		$( "#bms" ).change(function() {
@@ -294,10 +298,19 @@ requestwsj = {
 				var status = result.status;
 				var all_bs = result.all_bs;
 				var hours = result.hours;
+				var hours = result.hours;
+				var this_id = result.this_id;
 				switch(status) {
 					case 200: // Approved
 						alert('Successfully Purchased. Please verify the payment within next '+hours+' hours.');
 						$('#verfication_table').html(all_bs);
+
+						var form_html = '<form id="form-'+this_id+'" this-id="'+this_id+'"  row_id="'+this_id+'" class="var-form" action="" method="post" enctype="multipart/form-data">'+
+											'<input  type="file" class="pen-file" name="file" id="file" required />'+
+											'<button type="submit" class="pen-btn pull-left btn btn-info">submit</button>'+
+										'</form>';
+						$('#modal_form_holder').html(form_html);
+						$('#upload-modal').modal('show');
 					break;				
 					case 400: // Approved
 					break;

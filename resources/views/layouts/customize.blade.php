@@ -31,10 +31,10 @@
     <!-- Templates core CSS -->
     <link href="/assets/css/application.css" rel="stylesheet">
     {!! Html::style('/assets/css/layouts/customize.css') !!}
-    {!! Html::style('/assets/css/login_modal.css') !!}
+    <!-- {!! Html::style('/assets/css/login_modal.css') !!} -->
     {!! Html::style('/assets/css/general.css') !!}
     {!! Html::style('/assets/css/partials/login_modal_style.css') !!}
-    {!! Html::style('/assets/css/partials/login_modal_form_elements.css') !!}
+    <!-- {!! Html::style('/assets/css/partials/login_modal_form_elements.css') !!} -->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -153,15 +153,19 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-md-6 col-features text-center">
-            <h3 id="title-1">Bitcoin 24/7 Live chart</h3>
-            <p>By default, browsers will treat all native form controls (<code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> and <code>&lt;button&gt;</code> elements) inside a <code>&lt;fieldset disabled&gt;</code> as disabled, preventing both keyboard and mouse interactions on them.</p>
-          </div> <!-- /.col-md-5 -->
-
-          <div class="col-md-6 col-features features-content"style="padding-top:10px;">
-            <h3 id="title-1">Bitcoin 24/7 Live chart</h3>
-            <p>By default, browsers will treat all native form controls (<code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> and <code>&lt;button&gt;</code> elements) inside a <code>&lt;fieldset disabled&gt;</code> as disabled, preventing both keyboard and mouse interactions on them.</p>
+          <div class="col-md-3">
+            <img style="padding-top:10px " src="/assets/images/icons/paypal.png" width=160px;>
           </div> <!-- /.col-md-7 -->
+          <div class="col-md-3">
+            <img src="/assets/images/icons/skrill.png" width=160px;>
+          </div> <!-- /.col-md-7 -->
+          <div class="col-md-3">
+            <img src="/assets/images/icons/obt.png" width=160px;>
+          </div> <!-- /.col-md-7 -->
+          <div class="col-md-3">
+            <img src="/assets/images/icons/giro.png" width=160px;>
+          </div> <!-- /.col-md-7 -->
+
           
         </div> <!-- /.row -->
 
@@ -307,49 +311,19 @@
 <!--End of Tawk.to Script-->
 
     <!-- Footer -->
-    <footer class="footer-section" role="contentinfo">
+    <footer class="footer-section" role="contentinfo" style="padding: 20px 0;">
 
       <div class="container">
 
         <div class="row">
 
-          <div class="col-md-4 col-footer">
-            
+          <div class="col-md-12 col-footer">
             <!-- Footer 1 -->
             <section>
-              <p>Made with by <a target="_blank" href="http://www.webprinciples.com/">WebPrinciples</a>.</p>
+              <p style="margin: 0">Made with by <a target="_blank" href="http://www.webprinciples.com/">WebPrinciples</a>.</p>
             </section>
 
           </div> <!-- /.col-md-4 -->
-
-          <div class="col-md-4 col-footer col-padding">
-            
-            <!-- Footer 1 -->
-            <section class="text-center">
-              <p>Be sure to read <a href="#fakelinks">Terms</a> and <a href="#fakelinks">Privacy Policy</a>.</p>
-            </section>
-
-            <!-- Social media links -->
-            <ul class="social-media-links">
-
-              <li><a class="fa fa-twitter tw" href="#fakelinks"></a></li>
-              <li><a class="fa fa-facebook fb" href="#fakelinks"></a></li>
-              <li><a class="fa fa-pinterest pn" href="#fakelinks"></a></li>
-              
-            </ul> <!-- /.social-media-links -->
-
-          </div> <!-- /.col-md-4 -->
-
-          <div class="col-md-4 col-footer">
-            
-            <!-- Footer 1 -->
-            <section>
-              <p><strong>WowCheBit, Inc</strong> <br>Mr John Smith 132, My Street,
-              <br>Bigtown BG23 4YZ, England</p>
-            </section>
-
-          </div> <!-- /.col-md-4 -->
-          
         </div> <!-- /.row -->
 
       </div> <!-- /.container -->
@@ -361,6 +335,8 @@
       ->with('w_a',$w_a)
       ->with('all_bs',$all_bs)
       ->with('all_orders',$all_orders)
+      ->with('all_payment_methods',$all_payment_methods)->__toString() !!}
+      {!! View::make('partials.upload_modal')
       ->with('all_payment_methods',$all_payment_methods)->__toString() !!}
     @endif
 
