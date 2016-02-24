@@ -56,12 +56,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="pointer"><img width="107px" class="img-logo" src="/assets/images/brand_image/png/logo.png" alt=""></a>
+                <a href="/" class="pointer"><img width="150px" class="img-logo" src="/assets/images/brand_image/png/logo.png" alt=""></a>
 
             </div>
+            <style type="text/css">
+            nav li a{
+              line-height: 34px !important;
+            }
+            </style>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" style="font-size: 18px;">
                     <li>
                         <a this-href="dashboard" this-slug="buy" class="fin m-top-nav-sb">Buy</a>
                     </li>
@@ -129,6 +134,7 @@
             <br>
             <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px">
               <a this-href="dashboard" this-slug="buy" style="z-index:1" class="col-md-5 col-xs-12 col-sm-12 btn btn-info btn-sm sell-buy-btn buy-btn"><i><img  width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspBuy €<strong><span class="onp-b"><img style="margin-left: 9px;margin-top: -3px;" class="upd_g hide" src="/assets/images/icons/gif/loading1.gif" width="20px"></span></a>
+              <span id="or-text">&nbsp-&nbspor&nbsp-&nbsp</span>
               <a this-href="dashboard" this-slug="sell" style="z-index:1" class="col-md-5 pull-right col-xs-12 col-sm-12 btn btn-success btn-sm sell-buy-btn sell-btn"><i><img width="23px" src="/assets/images/icons/bitcoin.png"></i>&nbspSell €<img style="margin-left: 9px;margin-top: -3px;" class="upd_g hide" src="/assets/images/icons/gif/loading1.gif" width="20px"><strong><span class="onp-s"></span></strong></a>
             </div>
           </div> <!-- /.col-md-7 -->
@@ -150,22 +156,39 @@
 
     <!-- Services -->
     <section class="services-section" id="section-1">
-
+    <style type="text/css">
+    .icons img{
+      width: 120px;
+      margin: 10px;
+    }
+    </style>
       <div class="container">
         <div class="row">
-          <div class="col-md-3">
-            <img style="padding-top:10px " src="/assets/images/icons/paypal.png" width=160px;>
-          </div> <!-- /.col-md-7 -->
-          <div class="col-md-3">
-            <img src="/assets/images/icons/skrill.png" width=160px;>
-          </div> <!-- /.col-md-7 -->
-          <div class="col-md-3">
-            <img src="/assets/images/icons/obt.png" width=160px;>
-          </div> <!-- /.col-md-7 -->
-          <div class="col-md-3">
-            <img src="/assets/images/icons/giro.png" width=160px;>
-          </div> <!-- /.col-md-7 -->
-
+          <div class="col-md-6" style="border-right: 1px solid gray;text-align: left">
+          <h2 style="color: #888;    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    margin-top: 0;">Choose between four amazing payment options.</h2>
+          <p class="lead" style="color: #636363 !important;">24 hours a day, 365 days a year! Buy or Sell your Cryptocoins within seconds! Use Neteller, Skrill, Sofortüberweisung, Giropay, PayPal, Sepa, Amazon, and many more...</p>
+            <div class="col-md-6 icons">
+              <img style="padding-top:10px " src="/assets/images/icons/paypal.png" >
+            </div> <!-- /.col-md-7 -->
+            <div class="col-md-6 icons">
+              <img src="/assets/images/icons/skrill.png">
+            </div> <!-- /.col-md-7 -->
+            <div class="col-md-6 icons">
+              <img src="/assets/images/icons/obt.png">
+            </div> <!-- /.col-md-7 -->
+            <div class="col-md-6 icons">
+              <img src="/assets/images/icons/giro.png">
+            </div> <!-- /.col-md-7 -->
+          </div>
+          <div class="col-md-6" style="text-align: left">
+            <h3 style="margin-top:0 "><strong>Latest News!</strong></h3>
+            <hr>
+            <div class="media"> <div class="media-left"> <a href="#"> <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTMxMzhlNGEzMSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MzEzOGU0YTMxIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMy40Njg3NSIgeT0iMzYuMzk2ODc1Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;"> </a> </div> <div class="media-body"> <h4 class="media-heading">Media heading</h4> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. </div> </div>
+            <div class="media"> <div class="media-left"> <a href="#"> <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTMxMzhlNGEzMSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MzEzOGU0YTMxIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMy40Njg3NSIgeT0iMzYuMzk2ODc1Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;"> </a> </div> <div class="media-body"> <h4 class="media-heading">Media heading</h4> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. </div> </div>
+          </div>
           
         </div> <!-- /.row -->
 

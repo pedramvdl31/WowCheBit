@@ -28,7 +28,7 @@
 
 							<div class="row">
 								{!! Form::open(array('action' => 'UsersController@postLoginModal', 'class'=>'','role'=>"form",'id'=>'login-form-1')) !!}
-										<div class="bs-example bs-example-tabs col-md-6" data-example-id="togglable-tabs" style="overflow: auto;">
+										<div class="bs-example bs-example-tabs col-md-7" data-example-id="togglable-tabs" style="overflow: auto;">
 
 									<div class="well" style="overflow: auto;text-align:left;
 									    background-image: linear-gradient(to bottom,rgba(92, 184, 92, 0.44) 0,rgba(92, 184, 92, 0.5) 100%);
@@ -95,11 +95,7 @@
 													</select>
 													<span class="hide" id="sam" style="color:#db4437">You must select a method</span>
 												</div>
-												<div class="form-group des-form hide">
-													<div class="well" style="text-align:left;min-height:150px;overflow: auto;">
-														<span id="bdt"></span>
-													</div>
-												</div>
+
 												<div class="form-group col-md-6" id="eur-buy-fm" style="text-align: left;padding: 0;padding-right: 5px;">
 													<input type="text" class="form-control bd" id="eur-buy" placeholder="EUR" >
 													<span class="hide" id="min-buy" style="color:#db4437">Minimum €60</span>
@@ -132,9 +128,11 @@
 									</div> 
 										</div>
 								{!! Form::close() !!}
-								<div class="col-md-6">
-									<div id="verfication_table" class="pending-v " style="max-height: 500px;overflow: auto;">
-										{!!$all_bs!!}
+								<div class="col-md-5">
+									<div class="form-group des-form hide">
+										<div class="well" style="text-align:left;min-height:150px;overflow: auto;">
+											<span id="bdt"></span>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -1684,7 +1684,7 @@ pre code {
 }
 @media (min-width: 992px) {
   .container {
-    width: 970px;
+    width: 1090px;
   }
 }
 @media (min-width: 1200px) {
@@ -5936,7 +5936,7 @@ tbody.collapse.in {
 .services-section {
   background: white;
   text-align: center;
-  padding: 100px 0;
+  padding: 50px 0;
 }
 .services-section .row.row-padding {
   padding-top: 40px;
