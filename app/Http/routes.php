@@ -153,7 +153,7 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 			Route::get('articles/view-it/{id}',  ['as' => 'articles_view_it','uses' => 'ArticlesController@getView', 'middleware' => ['acl:'.$prefix.'/articles/view-it'], function ($id) {}]);
 			Route::post('articles/edit',  ['uses' => 'ArticlesController@postEdit', 'middleware' => ['acl:'.$prefix.'/articles/edit']]);
 			Route::get('articles/remove/{id}',  ['as' => 'articles_remove', 'uses' => 'ArticlesController@getRemove', 'middleware' => ['acl:'.$prefix.'/articles/remove'], function ($id) {}]);
-			Route::post('articles/post-remove/',  ['as' => 'pa_remove', 'uses' => 'ArticlesController@postRemove', 'middleware' => ['acl:'.$prefix.'/articles/post-remove'], function ($id) {}]);
+			Route::post('articles/remove',  ['as' => 'pa_remove', 'uses' => 'ArticlesController@postRemove', 'middleware' => ['acl:'.$prefix.'/articles/remove'], function ($id) {}]);
 
 			//WEBSITE BRAND
 			Route::get('website-brand/index',  ['as' => 'website_brand_index','uses' => 'WebsiteBrandController@getIndex', 'middleware' => ['acl:'.$prefix.'/website-brand/index']]);
