@@ -167,7 +167,7 @@
     }
     </style>
       <div class="container">
-        <div class="row">
+        <div class="row" style="overflow: hidden;">
           <div class="col-md-6" style="border-right: 1px solid gray;text-align: left">
           <h2 style="color: #888;    font-size: 40px;
     font-weight: 700;
@@ -190,7 +190,7 @@
           <div class="col-md-6" style="text-align: left">
             <h3 style="margin-top:0 "><strong>Latest News!</strong></h3>
             <hr>
-             <div id="NewsContainer" style="max-height: 355px">
+             <div id="NewsContainer" style="max-height: 355px;overflow: hidden !important;">
               @if(isset($articles))
                 @foreach($articles as $article)
                   <div class="media"> 
@@ -201,7 +201,6 @@
                     <div class="media-body"> 
                     <h4 class="media-heading">{!!$article->title!!}</h4>
                     <span style='  
-                       
                     font-size: 14px;
                     font-weight: 300;
                     color: #888;

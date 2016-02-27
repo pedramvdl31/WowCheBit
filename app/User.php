@@ -64,10 +64,7 @@ AuthenticatableContract, CanResetPasswordContract
      */
     public function can($permission = null)
     {
-
-
         return !is_null($permission) && $this->checkPermission($permission);
-
     }
 
     /**
@@ -78,6 +75,7 @@ AuthenticatableContract, CanResetPasswordContract
      */
     protected function checkPermission($perm)
     {
+
         $grant_access = false;
         $permissions = $this->getUserPermission(); // Returns a list of permission slugs for the specified user role
         $permissionArray = is_array($perm) ? $perm : [$perm]; // Returns uri of current page as an array
@@ -104,19 +102,14 @@ AuthenticatableContract, CanResetPasswordContract
     {
         $permissions = [];
         //GET USER ID
-        $this_user_id = Auth::user()->id;
-        //GET USER ROLE
-        
-        $this_role = RoleUser::where('user_id',$this_user_id)->first();  
+        $this_role = RoleUser::where('user_id',Auth::user()->id)->first(); 
         $permission_role = PermissionRole::where('role_id',$this_role->role_id)->get();
         if($permission_role){
             foreach ($permission_role as $pr_key => $pr_value) {
                 $_permission = Permission::find($pr_value->permission_id);
                 $permissions[$pr_key] = $_permission->permission_slug;
-
             }  
         }
-
         // return $permissions?$permissions->permission_slug:false;
         return $permissions;
     }

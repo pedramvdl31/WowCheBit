@@ -23,7 +23,6 @@ class CheckPermission
         if (!app('Illuminate\Contracts\Auth\Guard')->guest()) {
             // If successful continue onto page request
             if ($request->user()->can($permission)) {
-
                 return $next($request);
             }
 
