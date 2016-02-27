@@ -103,6 +103,14 @@
                                         </li>
                                     </ul>
                                 </li>  
+                                <li class="li-menus"><a><i class="fa fa-newspaper-o"></i> News Articles <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="display: none">
+                                        <li class="navLi"><a href="{!! route('articles_index') !!}">View All</a>
+                                        </li>
+                                        <li class="navLi"><a href="{!! route('articles_add') !!}">Add New</a>
+                                        </li>
+                                    </ul>
+                                </li>
   
                             </ul>
                         </div>

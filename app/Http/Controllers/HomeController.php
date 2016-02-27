@@ -24,6 +24,7 @@ use App\Setup;
 use App\KrakenAPI;
 use App\Paymentmethod;
 use App\Buysell;
+use App\Article;
 
 class HomeController extends Controller
 {
@@ -94,7 +95,10 @@ class HomeController extends Controller
 
         }
 
+        //GET ALL NEWS
+        $articles = Article::PrepareArticlesForHome(Article::all());
 
+        // ----
         
         $buy = 0;
         $sell = 0;
@@ -136,6 +140,7 @@ class HomeController extends Controller
             ->with('all_orders',isset($all_orders)?$all_orders:null)
             ->with('all_bs',isset($all_bs)?$all_bs:null)
             ->with('all_count',isset($all_bs)?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null)
+            ->with('articles',$articles)
             ->with('slider_option',$pages->slider_option);
         }
     }

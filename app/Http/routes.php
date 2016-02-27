@@ -146,6 +146,15 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 			Route::post('permission-roles/edit',  ['uses' => 'PermissionRolesController@postEdit', 'middleware' => ['acl:'.$prefix.'/permission-roles/edit']]);
 			Route::get('permission-roles/delete-data/{id}',  ['as'=>'permission_roles_delete', 'uses' => 'PermissionRolesController@getDelete', 'middleware' => ['acl:'.$prefix.'/permission-roles/delete-data/{id}'], function ($id) {}]);
 
+			Route::get('articles',  ['as' => 'articles_index','uses' => 'ArticlesController@getIndex', 'middleware' => ['acl:'.$prefix.'/articles']]);
+			Route::get('articles/add',  ['as' => 'articles_add','uses' => 'ArticlesController@getAdd', 'middleware' => ['acl:'.$prefix.'/articles/add']]);
+			Route::post('articles/add',  ['uses' => 'ArticlesController@postAdd', 'middleware' => ['acl:'.$prefix.'/articles/add']]);
+			Route::get('articles/edit/{id}',  ['as' => 'articles_edit','uses' => 'ArticlesController@getEdit', 'middleware' => ['acl:'.$prefix.'/articles/edit'], function ($id) {}]);
+			Route::get('articles/view-it/{id}',  ['as' => 'articles_view_it','uses' => 'ArticlesController@getView', 'middleware' => ['acl:'.$prefix.'/articles/view-it'], function ($id) {}]);
+			Route::post('articles/edit',  ['uses' => 'ArticlesController@postEdit', 'middleware' => ['acl:'.$prefix.'/articles/edit']]);
+			Route::get('articles/remove/{id}',  ['as' => 'articles_remove', 'uses' => 'ArticlesController@getRemove', 'middleware' => ['acl:'.$prefix.'/articles/remove'], function ($id) {}]);
+			Route::post('articles/post-remove/',  ['as' => 'pa_remove', 'uses' => 'ArticlesController@postRemove', 'middleware' => ['acl:'.$prefix.'/articles/post-remove'], function ($id) {}]);
+
 			//WEBSITE BRAND
 			Route::get('website-brand/index',  ['as' => 'website_brand_index','uses' => 'WebsiteBrandController@getIndex', 'middleware' => ['acl:'.$prefix.'/website-brand/index']]);
 			Route::post('website-brand/index',  ['uses' => 'WebsiteBrandController@postIndex', 'middleware' => ['acl:'.$prefix.'/website-brand/index']]);

@@ -12,7 +12,10 @@ cust_layout = {
 		$('#myTabs a').click(function (e) {
 		  e.preventDefault()
 		  $(this).tab('show')
-		})
+		});
+		$('#NewsContainer').slimScroll({
+        	height: '355px'
+    	});
 
 	},
 	events: function() {
@@ -160,7 +163,7 @@ cust_layout = {
 		    	$('#btc-buy').text('');
 		    } else if (jQuery.isNumeric(v)) {
 		    	$total = v/p;
-		    	$new_total = $total.toFixed(6);
+		    	$new_total = $total.toFixed(2);
 				$("#btc-buy").val($new_total);
 				$commed_v=addCommas(v);
 				$('#buy-total').text($commed_v);
@@ -184,10 +187,10 @@ cust_layout = {
 		    	$('#eur-buy').text('');
 		    } else if (jQuery.isNumeric(v)) {
 		    	$total = v*p;
-		    	$new_total = $total.toFixed(6);
+		    	$new_total = $total.toFixed(2);
 				$("#eur-buy").val($new_total);
 
-				$('#buy-total').text(addCommas($total));
+				$('#buy-total').text(addCommas($new_total));
 				$('#buy-total').attr('price',$total);
 		    }
 		});
@@ -382,12 +385,16 @@ requestwsj = {
 					case 200: 
 						var nsp = parseFloat(sell);
 						var nbp = parseFloat(buy);
-						$('.onp-s').text(nsp.toFixed(2));
-						$('.onp-b').text(nbp.toFixed(2));
+
+						var f_sp = nsp.toFixed(2);
+						var f_bp = nbp.toFixed(2);
+
+						$('.onp-s').text(f_sp);
+						$('.onp-b').text(f_bp);
 						$('#buy_input').attr('price',buy);
 						$('#sell_input').attr('price',sell);
-						$('#buy_input').val(buy+' EUR/bitcoin');
-						$('#sell_input').val(sell+' EUR/bitcoin');
+						$('#buy_input').val(f_sp);
+						$('#sell_input').val(f_bp);
 
 						var v = $('#eur-buy').val();
 					    var p = buy;
@@ -397,7 +404,7 @@ requestwsj = {
 					    	$('#btc-buy').text('');
 					    } else if (jQuery.isNumeric(v)) {
 					    	$total = v/p;
-					    	$new_total = $total.toFixed(6);
+					    	$new_total = $total.toFixed(2);
 							$("#btc-buy").val($new_total);
 							$commed_v=addCommas(v);
 							$('#buy-total').text($commed_v);

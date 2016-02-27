@@ -2,7 +2,7 @@
 
 <div class="modal fade" id="dashboard-modal">
 
-	<div class="modal-dialog" style="width: 90%">
+	<div class="modal-dialog" style="width: 60%">
 		<div class="modal-content">
 			<div class="modal-header" style="background-color: #288FB2;">
 
@@ -28,7 +28,7 @@
 
 							<div class="row">
 								{!! Form::open(array('action' => 'UsersController@postLoginModal', 'class'=>'','role'=>"form",'id'=>'login-form-1')) !!}
-										<div class="bs-example bs-example-tabs col-md-7" data-example-id="togglable-tabs" style="overflow: auto;">
+										<div class="bs-example bs-example-tabs col-md-5" data-example-id="togglable-tabs" style="overflow: auto;">
 
 									<div class="well" style="overflow: auto;text-align:left;
 									    background-image: linear-gradient(to bottom,rgba(92, 184, 92, 0.44) 0,rgba(92, 184, 92, 0.5) 100%);
@@ -128,9 +128,10 @@
 									</div> 
 										</div>
 								{!! Form::close() !!}
-								<div class="col-md-5">
-									<div class="form-group des-form hide">
-										<div class="well" style="text-align:left;min-height:150px;overflow: auto;">
+								<div class="col-md-7">
+									<div class="form-group">
+										<h4 style="color: black">Details:</h4>
+										<div class="well hide des-form" style="text-align:left;min-height:150px;overflow: auto;">
 											<span id="bdt"></span>
 										</div>
 									</div>
