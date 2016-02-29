@@ -20,7 +20,6 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
@@ -38,16 +37,8 @@
 
     <!-- Modernizr Scripts -->
     <script src="/assets/js/modernizr-2.7.1.min.js"></script>
-
-
-
-
-
-    
   </head>
   <body>
-
-
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
         <div class="container topnav">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -93,14 +84,16 @@
         </div>
         <!-- /.container -->
     </nav>
-
-
     <div class="container-fluid background-color">
+        <style type="text/css">
+        .alert{
+            margin-top: 55px;
+        }
+        </style>
       @include('flash::message')
       @yield('content')
-
     </div>
-{!! View::make('partials.login_modal') !!}
+    {!! View::make('partials.login_modal') !!}
     <!-- Load js libs only when the page is loaded. -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->

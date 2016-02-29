@@ -3057,7 +3057,7 @@ select[multiple].input-lg,
   background-image: none;
   border: 0;
   white-space: nowrap;
-  padding: 10px 23px;
+  padding: 10px;
   font-size: 18px;
   line-height: 1.42857;
   border-radius: 4px;
@@ -3243,7 +3243,7 @@ select[multiple].input-lg,
 }
 
 .btn-lg, .btn-group-lg > .btn {
-  padding: 14px 27px;
+  padding: 15px;
   font-size: 22px;
   line-height: 1.33;
   border-radius: 6px;

@@ -154,6 +154,7 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 			Route::post('articles/edit',  ['uses' => 'ArticlesController@postEdit', 'middleware' => ['acl:'.$prefix.'/articles/edit']]);
 			Route::get('articles/remove/{id}',  ['as' => 'articles_remove', 'uses' => 'ArticlesController@getRemove', 'middleware' => ['acl:'.$prefix.'/articles/remove'], function ($id) {}]);
 			Route::post('articles/remove',  ['as' => 'pa_remove', 'uses' => 'ArticlesController@postRemove', 'middleware' => ['acl:'.$prefix.'/articles/remove'], function ($id) {}]);
+			Route::post('articles/images/add',  [ 'uses' => 'ArticlesController@postAddImages', 'middleware' => ['acl:'.$prefix.'/articles/images/add']]);
 
 			//WEBSITE BRAND
 			Route::get('website-brand/index',  ['as' => 'website_brand_index','uses' => 'WebsiteBrandController@getIndex', 'middleware' => ['acl:'.$prefix.'/website-brand/index']]);
