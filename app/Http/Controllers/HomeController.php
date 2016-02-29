@@ -96,7 +96,7 @@ class HomeController extends Controller
         }
 
         //GET ALL NEWS
-        $articles = Article::PrepareArticlesForHome(Article::all());
+        $articles = Article::PrepareArticlesForHome(Article::orderBy('id', 'desc')->get());
 
         // ----
         
