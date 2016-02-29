@@ -244,8 +244,8 @@ class ArticlesController extends Controller
     public function postAddImages()
     {
         error_reporting(E_ALL | E_STRICT);
-        $destinationPath = public_path("assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."tmp".DIRECTORY_SEPARATOR);
-        $savePath = DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."images".DIRECTORY_SEPARATOR."articles".DIRECTORY_SEPARATOR."tmp".DIRECTORY_SEPARATOR;
+        $destinationPath = public_path("assets/images/articles/tmp/");
+        $savePath = "/assets/images/articles/tmp/";
             // Check if directory is made for this company if not then create a new directory
         if (!file_exists($destinationPath)) {
             mkdir($destinationPath, 0777, true);
