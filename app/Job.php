@@ -814,6 +814,24 @@ class Job extends Model
 	    }
 	    return $randomString;
 	}
+    static public function generateRandomAlpha($length) {
+	    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    return $randomString;
+	}
+    static public function generateRandomNumber($length) {
+	    $characters = '0123456789';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    return $randomString;
+	}
     static public function VerificationMailer($email,$url) {
         $status = 400;
         if (Mail::send('emails.verify_email_message', array(

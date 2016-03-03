@@ -1,8 +1,35 @@
+<style type="text/css">
+	    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+    	.ns_dialog{
+    		width: 100% !important;
+    		padding: 10px !important;
+    		margin: 0 !important;
+    	}
+    }
 
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (max-width : 480px) {
+    	.ns_dialog{
+    		width: 100% !important;
+    		padding: 10px !important;
+    		margin: 0 !important;
+    	}
+    }
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (max-width : 320px) {
+        .ns_dialog{
+    		width: 100% !important;
+    		padding: 10px !important;
+    		margin: 0 !important;
+    	}  
+    }
+</style>
 
 <div class="modal fade" id="dashboard-modal">
 
-	<div class="modal-dialog" style="width: 60%">
+	<div class="modal-dialog ns_dialog" style="width: 60%">
 		<div class="modal-content">
 			<div class="modal-header" style="background-color: #288FB2;">
 
@@ -24,11 +51,11 @@
 				<div class="top-contents msections" id="dashboard">
 
 					<div class="inner-bgs">
-						<div class="container" style="width:100%">
+						<div class="container" style="width:100% !important">
 
 							<div class="row">
 								{!! Form::open(array('action' => 'UsersController@postLoginModal', 'class'=>'','role'=>"form",'id'=>'login-form-1')) !!}
-										<div class="bs-example bs-example-tabs col-md-5" data-example-id="togglable-tabs" style="overflow: auto;">
+										<div class="bs-example bs-example-tabs col-md-6" data-example-id="togglable-tabs" style="overflow: auto;">
 
 									<div class="well" style="overflow: auto;text-align:left;
 									    background-image: linear-gradient(to bottom,rgba(92, 184, 92, 0.44) 0,rgba(92, 184, 92, 0.5) 100%);
@@ -128,7 +155,7 @@
 									</div> 
 										</div>
 								{!! Form::close() !!}
-								<div class="col-md-7">
+								<div class="col-md-6">
 									<div class="form-group">
 										<h4 style="color: black">Details:</h4>
 										<div class="well hide des-form" style="text-align:left;min-height:150px;overflow: auto;">
@@ -147,7 +174,7 @@
 				<div class="top-contents msections hide" id="profile">
 
 					<div class="inner-bgs" style="padding: 15px">
-						<div class="container" style="width:100%">
+						<div class="container" style="width:100% !important">
 							<div class="row" style="text-align: left">
 								<div class="form-group">
 									<label for="comment">Email:</label>
@@ -167,8 +194,8 @@
 
 				<div class="top-contents msections hide" id="orders">
 					<div class="inner-bgs" style="padding: 15px">
-						<div class="container" style="width:100%">
-							<div class="row" style="text-align: left">
+						<div class="container" style="width:100% !important">
+							<div id="verfication_table" class="row" style="text-align: left">
 								{!!$all_orders!!}
 							</div>
 						</div>				

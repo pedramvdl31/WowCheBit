@@ -150,11 +150,10 @@
                 @if(isset($articles['avatar']))
                   <div class="col-xs-6 col-md-3 template-upload">
                     <a href="#" class="thumbnail">
-                      <img src="/assets/images/articles/perm/{!!$articles['avatar']!!}" alt="...">
+                      <img src="{!!DIRECTORY_SEPARATOR!!}assets{!!DIRECTORY_SEPARATOR!!}images{!!DIRECTORY_SEPARATOR!!}articles{!!DIRECTORY_SEPARATOR!!}perm/{!!$articles['avatar']!!}" alt="...">
                     </a>
                   </div>
                 @endif
-
               </tr>
               </tbody></table>
         </div>
@@ -176,7 +175,7 @@
       </div>  
       <div id="imageDiv" class="hide">
         @if(isset($articles['avatar']))
-          <input class="images" name="files[0][path]" type="hidden" value="/assets/images/articles/perm/{!!$articles['avatar']!!}"/>
+          <input class="images" name="files[0][path]" type="hidden" value="{!!$articles['avatar']!!}"/>
         @endif
       </div>
 

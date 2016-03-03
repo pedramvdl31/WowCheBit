@@ -53,6 +53,7 @@
     width: 85% !important;
   }
   </style>
+  <input type="hidden" id="_auth" data="{{Auth::check()?1:0}}"></input>
   <body class="index" id="to-top">
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
@@ -120,7 +121,7 @@
         <!-- /.container -->
     </nav>
 
-    <div class="flashmessage" style="margin:50px 0 0 0;">
+    <div class="flashmessage" style="margin:67px 0 0 0;">
     <style type="text/css">.alert-success,.alert-danger{margin: 0;}</style>
       @include('flash::message')
     </div>
@@ -148,18 +149,13 @@
             </div>
           </div> <!-- /.col-md-7 -->
           <div class="col-md-5">
-
             <!-- Images showcase -->
             <figure>
               <img class="img-iPhone" src="/assets/images/iphone/2.png" alt="">
             </figure>
-
           </div> <!-- /.col-md-5 -->
-          
         </div> <!-- /.row -->
-        
       </div> <!-- /.container -->
-
     </header> <!-- /.jumbotron -->
 
 
@@ -175,9 +171,9 @@
         <div class="row" style="overflow: hidden;">
           <div class="col-md-6" style="border-right: 1px solid gray;text-align: left">
           <h2 style="color: #888;    font-size: 40px;
-    font-weight: 700;
-    margin-bottom: 50px;
-    margin-top: 0;">Choose between four amazing payment options.</h2>
+            font-weight: 700;
+            margin-bottom: 50px;
+            margin-top: 0;">Choose between four amazing payment options.</h2>
           <p class="lead" style="color: #636363 !important;">24 hours a day, 365 days a year! Buy or Sell your Cryptocoins within seconds! Use Neteller, Skrill, Sofortüberweisung, Giropay, PayPal, Sepa, Amazon, and many more...</p>
             <div class="col-md-6 icons">
               <img style="padding-top:10px " src="/assets/images/icons/paypal.png" >
@@ -202,9 +198,9 @@
                   <div class="media-left"> 
                   <a href="#"> 
                   @if(isset($article->avatar))
-                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="/assets/images/articles/perm/{!!$article->avatar!!}" data-holder-rendered="true" style="width: 64px; height: 64px;">  
+                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="{!!DIRECTORY_SEPARATOR!!}assets{!!DIRECTORY_SEPARATOR!!}images{!!DIRECTORY_SEPARATOR!!}articles{!!DIRECTORY_SEPARATOR!!}perm{!!DIRECTORY_SEPARATOR!!}{!!$article->avatar!!}" data-holder-rendered="true" style="width: 64px; height: 64px;">  
                   @else
-                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="/assets/images/profile-images/perm/blank_male.png" data-holder-rendered="true" style="width: 64px; height: 64px;">    
+                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="{!!DIRECTORY_SEPARATOR!!}assets{!!DIRECTORY_SEPARATOR!!}images{!!DIRECTORY_SEPARATOR!!}profile-images{!!DIRECTORY_SEPARATOR!!}perm{!!DIRECTORY_SEPARATOR!!}blank_male.png" data-holder-rendered="true" style="width: 64px; height: 64px;">    
                   @endif
                    </a> 
                   </div> 

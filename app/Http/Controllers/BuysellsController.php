@@ -11,6 +11,8 @@ use Auth;
 use URL;
 use Mail;
 use Session;
+use DateTime;
+use DateInterval;
 use Laracasts\Flash\Flash;
 
 use App\Http\Requests;
@@ -50,7 +52,7 @@ class BuysellsController extends Controller
 
     public function postBuy()
     {
-        if(Request::ajax()){
+        if(Request::ajax() && Auth::check()){
             $status = 400;
             $adata = Input::get('d_a');
             // your api credentials
@@ -74,6 +76,10 @@ class BuysellsController extends Controller
                     $paper_amount = $adata['paper_amount'];
                     $calc_btc_amount = $paper_amount/$currency_price;
 
+                    $ran_alpha = Job::generateRandomAlpha(1);
+                    $ran_num = Job::generateRandomNumber(5);
+                    $ref = $ran_alpha.$ran_num;
+
                     $buys = new Buysell();
                     $buys->currency_price = $currency_price;
                     $buys->wallet_address = $adata['wallet_address'];
@@ -82,6 +88,7 @@ class BuysellsController extends Controller
                     $buys->ps = $adata['message'];
                     $buys->paper_amount = $paper_amount;
                     $buys->btc_amount = $calc_btc_amount;
+                    $buys->ref = $ref;
                     $buys->profit_percentage = $setups->buy_percentage?$setups->buy_percentage:0;
                     $buys->wait_hour =  $wait_hours;
                     $buys->user_id =  Auth::user()->id;
@@ -99,18 +106,41 @@ class BuysellsController extends Controller
                     //     $message->to('pedramkhoshnevis@gmail.com');
                     //     $message->subject('Buy Notification!');
                     // }));
-                                //prepare pending table
+                    //prepare pending table
                     $b_id = $buys->id;
-                    $all_bs = Buysell::PreparePendingTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
+                    $all_bs = Buysell::PrepareOrdersTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
                     $status = 200;
                 }
             }
 
+            $hours_left = null;
+            $dt = null; 
+            if (isset($wait_hours)) {
+                $this_wait_hour = $wait_hours;
+                $this_created = $buys->created_at;
+                $dt = new DateTime($this_created);
+                $dt->add(new DateInterval('PT'.$this_wait_hour.'H'));
+                $dt_new = $dt->format('Y-m-d H:i:s');
+                $this_string_tt = strtotime($dt_new);
+                $now_time = time();
+                if ($this_string_tt>=$now_time) {
+                    $left_time = $this_string_tt-$now_time;
+                    $hours_left = date( "H:i:s",$left_time) ;
+                }
+            }
+
+            $p_data = array();
+            $p_data['total']= number_format($paper_amount,2);
+            $p_data['ref']=$ref;
+            $p_data['wal_ad']=$adata['wallet_address'];
+            $p_data['cad']=$dt->format('Y-m-d H:i:s');
+            $p_data['os']= 'Pending for image upload';
 
             return Response::json(array(
                 'status' => $status,
                 'this_id' => isset($b_id)?$b_id:null,
-                'hours' => isset($wait_hours)?$wait_hours:null,
+                'hours' => $hours_left,
+                'p_data' => $p_data,
                 'all_bs' => isset($all_bs)?$all_bs:null,
                 'all_count' => isset($all_bs)?count(Buysell::where('user_id',Auth::user()->id)->where('status',1)->get()):null
                 ));
@@ -134,8 +164,6 @@ class BuysellsController extends Controller
             $image_ex_name_type = $image_ex[$array_count-1];
             $name_clean = preg_replace('#[ -]+#', '-', $image_ex_name_type);
             $final_path = $now_time.'-'.$name_clean;
-
-
             if( ! \File::isDirectory($imagePath) ) {
                 \File::makeDirectory($imagePath, 493, true);
             }
@@ -155,7 +183,7 @@ class BuysellsController extends Controller
 
                         if ($this_bs->save()) {
                             $status = 200;
-                            $all_bs = Buysell::PreparePendingTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
+                            $all_bs = Buysell::PrepareOrdersTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
                         }
                     }
                 }
@@ -164,7 +192,6 @@ class BuysellsController extends Controller
             return Response::json(array(
                 'status' => $status,
                 'all_bs' => isset($all_bs)?$all_bs:null,
-
                 ));
         }
     }

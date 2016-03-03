@@ -103,63 +103,63 @@ class Buysell extends Model
 	   		}
 	   	}
     }
-    static public function PreparePendingTable($all_buynsell) {
-    	$html_table='';
-    	if (isset($all_buynsell)) {
-			$html_table .= '	<div class="table-responsive">
-								<table class="table"> 
-								<thead> 
-									<tr> 
-									<th>Id</th> 
-									<th>Total</th> 
-									<th>Date</th> 
-									<th>Action</th> 
-									</tr> 
-								</thead> 
-								<tbody>';
-    		foreach ($all_buynsell as $key => $value) {
-				if(isset($value['status'])) {
-					switch ($value['status']) {
-						case 1: // Set but not paid
-							$st = 'Not Verified';
-							$tc = 'warning';
-							break;
-						case 2: // Recieved payment & success
-							$st = 'Pending';
-							$tc = 'info';
-							break;
-					}
-				}
+   //  static public function PreparePendingTable($all_buynsell) {
+   //  	$html_table='';
+   //  	if (isset($all_buynsell)) {
+			// $html_table .= '	<div class="table-responsive">
+			// 					<table class="table"> 
+			// 					<thead> 
+			// 						<tr> 
+			// 						<th>Id</th> 
+			// 						<th>Total</th> 
+			// 						<th>Date</th> 
+			// 						<th>Action</th> 
+			// 						</tr> 
+			// 					</thead> 
+			// 					<tbody>';
+   //  		foreach ($all_buynsell as $key => $value) {
+			// 	if(isset($value['status'])) {
+			// 		switch ($value['status']) {
+			// 			case 1: // Set but not paid
+			// 				$st = 'Not Verified';
+			// 				$tc = 'warning';
+			// 				break;
+			// 			case 2: // Recieved payment & success
+			// 				$st = 'Pending';
+			// 				$tc = 'info';
+			// 				break;
+			// 		}
+			// 	}
 					 
-				$html_table .='
-						<tr class="'.$tc.' tr-'.$value->id.'"> 
-							<th scope="row">'.$st.'</th> 
-							<td>'.number_format($value->paper_amount,2).'</td> 
-							<td>'.$value->created_at.'</td> 
-							<td>';
+			// 	$html_table .='
+			// 			<tr class="'.$tc.' tr-'.$value->id.'"> 
+			// 				<th scope="row">'.$st.'</th> 
+			// 				<td>'.number_format($value->paper_amount,2).'</td> 
+			// 				<td>'.$value->created_at.'</td> 
+			// 				<td>';
 
-				if ($value->status == 1) {
-					$html_table .= '<form id="form-'.$value->id.'" this-id="'.$value->id.'"  row_id="'.$value->id.'" class="var-form" action="" method="post" enctype="multipart/form-data">
-									<input  type="file" class="pen-file" name="file" id="file" required />
-									<button type="submit" class="pen-btn pull-left btn btn-info">submit</button>
-								</form>';
-				} else {
-					$html_table .= 'Submited.';
-				}
+			// 	if ($value->status == 1) {
+			// 		$html_table .= '<form id="form-'.$value->id.'" this-id="'.$value->id.'"  row_id="'.$value->id.'" timer="'.$value->wait_hour.'" class="var-form" action="" method="post" enctype="multipart/form-data">
+			// 						<input  type="file" class="pen-file" name="file" id="file" required />
+			// 						<button type="submit" class="pen-btn pull-left btn btn-info">submit</button>
+			// 					</form>';
+			// 	} else {
+			// 		$html_table .= 'Submited.';
+			// 	}
 
 
 
-				$html_table .='</td> 
-						</tr> ';
+			// 	$html_table .='</td> 
+			// 			</tr> ';
 					
-    		}
-			$html_table .= '</tbody>
-							</table>
-				</div>';
-    	}
+   //  		}
+			// $html_table .= '</tbody>
+			// 				</table>
+			// 	</div>';
+   //  	}
 
-    	return $html_table;
-    }
+   //  	return $html_table;
+   //  }
     static public function PrepareOrdersTable($all_buynsell) {
     	$html_table='';
     	if (isset($all_buynsell)) {
@@ -167,9 +167,11 @@ class Buysell extends Model
 								<table class="table"> 
 								<thead> 
 									<tr> 
+									<th>Id</th> 
 									<th>Status</th> 
 									<th>Total</th> 
 									<th>Date</th> 
+									<th>Details</th> 
 									</tr> 
 								</thead> 
 								<tbody>';
@@ -194,13 +196,33 @@ class Buysell extends Model
 							break;
 					}
 				}
-					 
+					
+				$hours_left = null;	
+				$this_wait_hour = $value->wait_hour;
+	   			$this_created = $value->created_at;
+				$dt = new DateTime($this_created);
+	   			$dt->add(new DateInterval('PT'.$this_wait_hour.'H'));
+	   			$dt_new = $dt->format('Y-m-d H:i:s');
+	   			$this_string_tt = strtotime($dt_new);
+	   			$now_time = time();
+	   			if ($this_string_tt>=$now_time) {
+	   				$left_time = $this_string_tt-$now_time;
+	   				$hours_left = date( "H:i:s",$left_time) ;
+	   			}
+
 				$html_table .='
-						<tr class="'.$tc.' tr-'.$value->id.'"> 
-							<th scope="row">'.$st.'</th> 
+						<tr class="'.$tc.' tr-'.$value->id.'" this-ref="'.$value->ref.'" this-id="'.$value->id.'" wal-ad="'.$value->wallet_address.'" this-date="'.$value->created_at.'"
+						this-total="'.number_format($value->paper_amount,2).'" this-status-html="'.$st.'" this-status="'.$value['status'].'" timer="'.$hours_left.'"> 
+							<th scope="row">'.$value->ref.'</th> 
+							<td>'.$st.'</td> 
 							<td>'.number_format($value->paper_amount,2).'</td> 
-							<td>'.$value->created_at.'</td> 
-							<td>';
+							<td>'.$value->created_at.'</td>';
+							if ($value['status'] == 1) {
+								$html_table .='<td class="pointer order-details upload-img">Upload Image</td>';
+							} else {
+								$html_table .='<td class="pointer order-details">View Detail</td>';
+							}
+				$html_table .=	'<td>';
 				$html_table .='</td> 
 						</tr> ';
     		}

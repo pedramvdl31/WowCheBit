@@ -19,14 +19,10 @@ cust_layout = {
 
 	},
 	events: function() {
-
 		var files;
-
-
 		$(document).on('change', '.pen-file', function() {
 		  files = event.target.files;
 		});
-
 		$(document).on("submit", ".var-form", function (event) {
 		  	event.stopPropagation(); // Stop stuff happening
 		    event.preventDefault(); // Totally stop stuff happening
@@ -54,6 +50,7 @@ cust_layout = {
 		        	var all_bs = data.all_bs;
 					switch(status) {
 						case 200: // Approved
+						$('#upload-modal').modal('show');
 						alert('Successfully Uploaded! Please wait while we reviewing the verification.');
 						$('#verfication_table').html(all_bs);
 						break;				
@@ -71,12 +68,7 @@ cust_layout = {
 		            // STOP LOADING SPINNER
 		        }
 		    });
-
-
 		});
-
-
-
 		$( "#bms" ).change(function() {
 			var option = $('option:selected', this).attr('des');
 			var v = parseInt($('option:selected', this).val());
@@ -90,10 +82,7 @@ cust_layout = {
 				$('.des-form').addClass('hide');
 				$('#bdt').html('');
 			}
-
 		});
-
-
 		$('.login-cats').click(function(){
 			var this_href = $(this).attr('this-href');
 			$('.vws').addClass('hide');
@@ -127,22 +116,50 @@ cust_layout = {
 		$('.buy-btn').click(function(){
 			var this_k = $(this).attr('this-href');
 			var this_s = $(this).attr('this-slug');
-			requestwsj.user_auth(1,this_k,this_s);
+			ShowDash(1,this_k,this_s);
 		});
 		$('.sell-btn').click(function(){
 			var this_k = $(this).attr('this-href');
 			var this_s = $(this).attr('this-slug');
-			requestwsj.user_auth(1,this_k,this_s);
+			ShowDash(1,this_k,this_s);
 		});
 		$('.m-top-nav').click(function(){
 			var this_k = $(this).attr('this-href');
-			requestwsj.user_auth(2,this_k);
+			ShowDash(2,this_k);
 		});
 		$('.m-top-nav-sb').click(function(){
 			var this_k = $(this).attr('this-href');
 			var this_s = $(this).attr('this-slug');
-			requestwsj.user_auth(1,this_k,this_s);
+			ShowDash(1,this_k,this_s);
 		});
+
+        $(document).on('click','.upload-img',function(){
+        	var this_id = $(this).parents('tr:first').attr('this-id');
+        	var hours = $(this).parents('tr:first').attr('timer');
+
+        	var _ref = $(this).parents('tr:first').attr('this-ref');
+        	var _wal_ad = $(this).parents('tr:first').attr('wal-ad');
+        	var cad = $(this).parents('tr:first').attr('this-date');
+        	var _total = $(this).parents('tr:first').attr('this-total');
+        	var _o_s = $(this).parents('tr:first').attr('this-status');
+
+
+			var hms = hours;   // your input string
+			var a = hms.split(':'); // split it at the colons
+			// minutes are worth 60 seconds. Hours are worth 60 minutes.
+			var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+
+			var data_a = {};
+			data_a['ref'] = _ref;
+			data_a['wal_ad'] = _wal_ad;
+			data_a['total'] = _total;
+			data_a['os'] = _o_s;
+			data_a['cad'] = cad;
+
+        	pumf(this_id,seconds,data_a);
+        });
+
+
 		$('#upd-profile').click(function(){
 			var wallet_add = $('#profile_wa').val();
 			if (!$.isBlank(wallet_add)) {
@@ -301,19 +318,20 @@ requestwsj = {
 				var status = result.status;
 				var all_bs = result.all_bs;
 				var hours = result.hours;
-				var hours = result.hours;
 				var this_id = result.this_id;
+				var p_data = result.p_data;
+
 				switch(status) {
 					case 200: // Approved
 						alert('Successfully Purchased. Please verify the payment within next '+hours+' hours.');
 						$('#verfication_table').html(all_bs);
 
-						var form_html = '<form id="form-'+this_id+'" this-id="'+this_id+'"  row_id="'+this_id+'" class="var-form" action="" method="post" enctype="multipart/form-data">'+
-											'<input  type="file" class="pen-file" name="file" id="file" required />'+
-											'<button type="submit" class="pen-btn pull-left btn btn-info">submit</button>'+
-										'</form>';
-						$('#modal_form_holder').html(form_html);
-						$('#upload-modal').modal('show');
+						var hms = hours;   // your input string
+						var a = hms.split(':'); // split it at the colons
+						// minutes are worth 60 seconds. Hours are worth 60 minutes.
+						var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+			        	pumf(this_id,seconds,p_data);
+
 					break;				
 					case 400: // Approved
 					break;
@@ -566,46 +584,115 @@ function view_errors(data)
  		};
 
 }
-		function removeHash() {
-		    var scrollV, scrollH, loc = window.location;
-		    if ('replaceState' in history) {
-		        history.replaceState('', document.title, loc.pathname + loc.search);
-		    } else {
-		        // Prevent scrolling by storing the page's current scroll offset
-		        scrollV = document.body.scrollTop;
-		        scrollH = document.body.scrollLeft;
+function removeHash() {
+    var scrollV, scrollH, loc = window.location;
+    if ('replaceState' in history) {
+        history.replaceState('', document.title, loc.pathname + loc.search);
+    } else {
+        // Prevent scrolling by storing the page's current scroll offset
+        scrollV = document.body.scrollTop;
+        scrollH = document.body.scrollLeft;
 
-		        loc.hash = '';
+        loc.hash = '';
 
-		        // Restore the scroll offset, should be flicker free
-		        document.body.scrollTop = scrollV;
-		        document.body.scrollLeft = scrollH;
-		    }
-		}
-		function addCommas(val) {
+        // Restore the scroll offset, should be flicker free
+        document.body.scrollTop = scrollV;
+        document.body.scrollLeft = scrollH;
+    }
+}
+function addCommas(val) {
 
-			while (/(\d+)(\d{3})/.test(val.toString())){
-			      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
-			    }
-			    return val;
-		}
-		function buyverify() {
-			$('#sam').addClass('hide');
-			$('#min-buy').addClass('hide');
-			var e_buy = parseInt($('#eur-buy').val());
-			var met = $('#bms').find('option:selected').val();
-		    if (met == 0) {
-		    	$('#sam').removeClass('hide');
-		    	return false;
-		    } else if(e_buy == '' || e_buy<60 || $.isBlank(e_buy)){
-		    	$('#min-buy').removeClass('hide');
-		    	return false;
-		    }else{
-		    	return true;
-		    }
-		}
+	while (/(\d+)(\d{3})/.test(val.toString())){
+	      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+	    }
+	    return val;
+}
+function buyverify() {
+	$('#sam').addClass('hide');
+	$('#min-buy').addClass('hide');
+	var e_buy = parseInt($('#eur-buy').val());
+	var met = $('#bms').find('option:selected').val();
+    if (met == 0) {
+    	$('#sam').removeClass('hide');
+    	return false;
+    } else if(e_buy == '' || e_buy<60 || $.isBlank(e_buy)){
+    	$('#min-buy').removeClass('hide');
+    	return false;
+    }else{
+    	return true;
+    }
+}
 (function($){
   $.isBlank = function(obj){
     return(!obj || $.trim(obj) === "");
   };
 })(jQuery);
+
+function ShowDash(type,kind,slug) {
+	var _auth = parseInt($('#_auth').attr('data'));
+	if (_auth == 1) {
+		$('#dashboard-modal').modal('show');
+		switch(type){
+			case 1:
+				$('.msections').addClass('hide');
+				$('#'+kind).removeClass('hide');
+
+				$('.d-tl').removeClass('active');
+				$('#'+slug+'-tl').addClass('active');
+
+				$('.m-tp').removeClass('in');
+				$('.m-tp').removeClass('active');
+				$('#'+slug).addClass('in')
+				$('#'+slug).addClass('active');
+			break;
+			case 2:
+				$('.msections').addClass('hide');
+				$('#'+kind).removeClass('hide');
+			break;
+		}
+	} else {
+		alert('You must be logged in in order to continue');
+		$('#login-modal').modal('show');
+	}
+}
+
+function pumf(this_id,this_timer,p_data) {
+	var form_html = '<form id="form-'+this_id+'" this-id="'+this_id+'" row_id="'+this_id+'" class="var-form" action="" method="post" enctype="multipart/form-data">'+
+						'<input  type="file" class="pen-file" name="file" id="file" required />'+
+						'<button type="submit" class="pen-btn pull-left btn btn-info">submit</button>'+
+					'</form>';
+	$('#modal_form_holder').html(form_html);
+
+	set_uploadmodal_data(p_data);
+	var count = this_timer;
+	    for (var i = 1; i < 9999; i++)
+	    {
+	    	window.clearInterval(i);
+	    }
+        
+	var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
+
+	function timer() {
+	    count = count - 1;
+	    if (count == -1) {
+	        clearInterval(counter);
+	        return;
+	    }
+	    var seconds = count % 60;
+	    var minutes = Math.floor(count / 60);
+	    var hours = Math.floor(minutes / 60);
+	    minutes %= 60;
+	    hours %= 60;
+	    document.getElementById("timer").innerHTML = hours + ":" + minutes + ":" + seconds + " seconds left!"; // watch for spelling
+	}
+	$('#upload-modal').modal('show');
+
+}
+
+function set_uploadmodal_data(p_data) {
+	$('#m_ref').text(p_data['ref']);
+	$('#m_wa').text(p_data['wal_ad']);
+	$('#m_os').text(p_data['os']);
+	$('#m_tot').text(p_data['total']);
+	$('#m_odate').text(p_data['cad']);
+}

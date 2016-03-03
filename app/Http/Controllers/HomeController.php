@@ -90,7 +90,7 @@ class HomeController extends Controller
             //prepare pending table
             $pending_table = '';
             Buysell::UpdateAllTimers(Buysell::where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
-            $all_bs = Buysell::PreparePendingTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
+            // $all_bs = Buysell::PreparePendingTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->where('status',1)->orWhere('status',2)->get());
             $all_orders = Buysell::PrepareOrdersTable(Buysell::orderBy('id', 'desc')->where('user_id',Auth::user()->id)->get());
 
         }
@@ -99,7 +99,6 @@ class HomeController extends Controller
         $articles = Article::PrepareArticlesForHome(Article::orderBy('id', 'desc')->get());
 
         // ----
-        
         $buy = 0;
         $sell = 0;
         // your api credentials
@@ -121,8 +120,6 @@ class HomeController extends Controller
         if (isset($res['result']['XXBTZEUR']['b'])) {
             $sell = $res['result']['XXBTZEUR']['b']['0'];
         }
-
-
 
 
         $layout_title = 'layouts.customize';
