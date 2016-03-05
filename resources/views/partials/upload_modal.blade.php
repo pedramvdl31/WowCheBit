@@ -34,6 +34,13 @@
     		margin: 0 !important;
     	}  
     }
+    /*-----------*/
+    .dropzone {
+    border: 2px dashed #0087F7;
+    border-radius: 5px;
+    background: white;
+    min-height: 150px;
+    }
 
 </style>
 
@@ -71,15 +78,14 @@
 					<div class="col-md-6">
 						<h4 style="color: black">Upload Verification Image Now or Later</h4>
 						<span id="timer"></span>
-						<div  style="position: absolute; left: 50%;">
-							<div id="modal_form_holder" style="padding: 30px;position: relative;left: -21%;
-							top: 76px;">
-							</div>
-						</div>
-
-						<div href="#" class="thumbnail">
-					      <img src="{!!DIRECTORY_SEPARATOR!!}assets{!!DIRECTORY_SEPARATOR!!}images{!!DIRECTORY_SEPARATOR!!}placeholder.png" alt="...">
-					    </div>
+		                <div id="dropzone">
+		                    <form action="/upload-ads" class="dropzone needsclick dz-clickable" id="post_upload_zone">
+		                      <div class="dz-message needsclick">
+		                        Drop images and videos here or click to upload.<br>
+		                        <span class="note needsclick">(Only Images (.png,.jpg), max size<strong>10mb</strong>.)</span>
+		                      </div>
+		                    </form>
+		                </div>  
 						
 
 					</div>

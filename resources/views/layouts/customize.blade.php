@@ -34,6 +34,7 @@
     <link href="/assets/css/pages/website_pages/landing-page.css" rel="stylesheet">
     <!-- Templates core CSS -->
     <link href="/assets/css/application.css" rel="stylesheet">
+    <link rel="stylesheet" href="/packages/dropzone/dropzone.css" />
     {!! Html::style('/assets/css/layouts/customize.css') !!}
     <!-- {!! Html::style('/assets/css/login_modal.css') !!} -->
     {!! Html::style('/assets/css/general.css') !!}
@@ -402,5 +403,6 @@
     <script src="/assets/js/application.js"></script>
     <script src="/assets/js/layouts/customize.js"></script>
     <script src="/packages/scroll_style/jquery.slimscroll.min.js"></script>
+    <script src="/packages/dropzone/dropzone.js"></script>
   </body>
 </html>

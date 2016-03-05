@@ -25,6 +25,17 @@
     		margin: 0 !important;
     	}  
     }
+    /*-----------*/
+    .dropzone {
+    border: 2px dashed #0087F7;
+    border-radius: 5px;
+    background: white;
+    min-height: 150px;
+    }
+	dt{
+		font-size: 22px;
+		color:black;
+	}
 </style>
 
 <div class="modal fade" id="dashboard-modal">
@@ -40,15 +51,11 @@
 				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="orders"><i class="glyphicon glyphicon-list-alt"></i>&nbspOrders</a>
 				<span class="pull-right">&nbsp-&nbsp</span>
 				<a class="top-cats pull-right" style="color: white;cursor: pointer;" this-href="dashboard"><i class="glyphicon glyphicon-cog"></i>&nbspDashboard</a>
-				
-
-
-
 			</div>
-			<div class="modal-body" style="background:white">
+			<div class="modal-body" style="background:white;padding-top: 0">
 
 
-				<div class="top-contents msections" id="dashboard">
+				<div class="top-contents msections" id="dashboard" style="margin-top: 15px;">
 
 					<div class="inner-bgs">
 						<div class="container" style="width:100% !important">
@@ -137,7 +144,7 @@
 													<textarea class="hide" id="bps_ta" rows="4" cols="50" style="resize: none;"></textarea>
 												</div>	
 												<p><strong>Total:&nbsp&nbsp</strong> €<span id="buy-total" price="">0</span></p>
-												<a id="bbtn" class="btn pull-right modal-btn bd btn-primary">Order</a>
+												<a id="bbtn" class="btn pull-right modal-btn bd btn-primary">Order <img style="margin-left: 9px;margin-top: -3px;" class="hide" id="buy-wait" src="/assets/images/icons/gif/loading1.gif" width="20px"></a>
 											</div>
 										</div> 
 										<div role="tabpanel" class="tab-pane m-tp fade" id="sell" aria-labelledby="sell-tab"> 
@@ -200,6 +207,41 @@
 							</div>
 						</div>				
 					</div>				
+				</div>
+
+				<div class="top-contents hide" id="varf-page" this-id="">
+					<div class="inner-bgs" style="padding: 15px">
+						<div class="container" style="width:100% !important">
+							<div class="col-md-6">
+								<dl>
+								  <dt>Reference No:</dt>
+								  <dd id="m_ref"></dd>
+								  <dt>Wallet Address:</dt>
+								  <dd id="m_wa"></dd>
+								  <dt>Order Status:</dt>
+								  <dd id="m_os"></dd>
+								  <dt>Total:</dt>
+								  <dd id="m_tot"></dd>
+								  <dt>Order Date:</dt>
+								  <dd id="m_odate"></dd>
+								</dl>
+							</div>
+							<div class="col-md-6">
+								<h4 style="color: black">Upload Verification Image Now or Later</h4>
+								<span id="timer"></span>
+				                <div id="dropzone">
+				                    <form action="/upload-ads" class="dropzone needsclick dz-clickable" id="post_upload_zone">
+				                      <div class="dz-message needsclick">
+				                        Drop images and videos here or click to upload.<br>
+				                        <span class="note needsclick">(Only Images (.png or .jpg), max size<strong>2mb</strong>.)</span>
+				                      </div>
+				                    </form>
+				                </div>  
+							</div>
+						</div>				
+					</div>				
+
+
 				</div>
 
 			</div>

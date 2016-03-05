@@ -16,59 +16,94 @@ cust_layout = {
 		$('#NewsContainer').slimScroll({
         	height: '355px'
     	});
-
-	},
-	events: function() {
-		var files;
-		$(document).on('change', '.pen-file', function() {
-		  files = event.target.files;
-		});
-		$(document).on("submit", ".var-form", function (event) {
-		  	event.stopPropagation(); // Stop stuff happening
-		    event.preventDefault(); // Totally stop stuff happening
-		    var this_id = $(this).attr('this-id');
-		    // Create a formdata object and add the files
-		    var data = new FormData();
-		    $.each(files, function(key, value)
-		    {
-		        data.append(key, value);
-		    });
-
-		    data.append('this_id',this_id);
-		    $.ajax({
-		        url: '/upload-varification',
-		        type: 'POST',
-		        data: data,
-		        cache: false,
-		        dataType: 'json',
-		        processData: false, // Don't process the files
-		        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-		        success: function(data, textStatus, jqXHR)
-		        {	
-		        	$('#upload-modal').modal('hide');
-		        	var status = data.status;
-		        	var all_bs = data.all_bs;
-					switch(status) {
-						case 200: // Approved
-						$('#upload-modal').modal('show');
+			Dropzone.autoDiscover = false;
+		  $('#post_upload_zone').dropzone({ 
+		    url: "/upload-varification",
+		    paramName: "file",
+		    maxFilesize: 2,
+		    maxFiles: 3,
+		    acceptedFiles: "image/jpeg,image/png",
+		    init: function() {
+    			this.on("sending", function(file, xhr, formData){
+    				var this_id = $('#varf-page').attr('this-id');
+	                formData.append("this_id", this_id)
+	            }),
+				 this.on('success', function(file, json) {
+		        	var status = json.status;
+		        	var all_bs = json.all_bs;
+					if (status == 200) {
 						alert('Successfully Uploaded! Please wait while we reviewing the verification.');
 						$('#verfication_table').html(all_bs);
-						break;				
-						case 400: // Approved
-						break;
-						default:
-						break;
+						//show new page
+						$('.msections').addClass('hide');
+						$('#orders').removeClass('hide');
+						$('#varf-page').addClass('hide');
 					}
-		        },
-		        error: function(jqXHR, textStatus, errorThrown)
-		        {
-		        	alert('e');
-		            // Handle errors here
-		            console.log('ERRORS: ' + textStatus);
-		            // STOP LOADING SPINNER
-		        }
-		    });
-		});
+
+				 });
+				  
+				 this.on('addedfile', function(file) {
+				 });
+				  
+				 this.on('drop', function(file) {
+				 });
+
+				this.on("removedfile", function(file) {
+				}); 
+		    }
+		  });
+	},
+	events: function() {
+		// var files;
+		// $(document).on('change', '.pen-file', function() {
+		//   files = event.target.files;
+		// });
+		// $(document).on("submit", ".var-form", function (event) {
+		//   	event.stopPropagation(); // Stop stuff happening
+		//     event.preventDefault(); // Totally stop stuff happening
+		//     var this_id = $(this).attr('this-id');
+		//     // Create a formdata object and add the files
+		//     var data = new FormData();
+		//     $.each(files, function(key, value)
+		//     {
+		//         data.append(key, value);
+		//     });
+
+		//     data.append('this_id',this_id);
+		//     $.ajax({
+		//         url: '/upload-varification',
+		//         type: 'POST',
+		//         data: data,
+		//         cache: false,
+		//         dataType: 'json',
+		//         processData: false, // Don't process the files
+		//         contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+		//         success: function(data, textStatus, jqXHR)
+		//         {	
+		//         	$('#upload-modal').modal('hide');
+		//         	var status = data.status;
+		//         	var all_bs = data.all_bs;
+		// 			switch(status) {
+		// 				case 200: // Approved
+		// 				$('#upload-modal').modal('show');
+		// 				alert('Successfully Uploaded! Please wait while we reviewing the verification.');
+		// 				$('#verfication_table').html(all_bs);
+		// 				break;				
+		// 				case 400: // Approved
+		// 				break;
+		// 				default:
+		// 				break;
+		// 			}
+		//         },
+		//         error: function(jqXHR, textStatus, errorThrown)
+		//         {
+		//         	alert('e');
+		//             // Handle errors here
+		//             console.log('ERRORS: ' + textStatus);
+		//             // STOP LOADING SPINNER
+		//         }
+		//     });
+		// });
 		$( "#bms" ).change(function() {
 			var option = $('option:selected', this).attr('des');
 			var v = parseInt($('option:selected', this).val());
@@ -167,6 +202,7 @@ cust_layout = {
 			}
 		});
 		$('.top-cats').click(function(){
+			$('#varf-page').addClass('hide');
 			var this_href = $(this).attr('this-href');
 			$('.msections').addClass('hide');
 			$('#'+this_href).removeClass('hide');
@@ -308,6 +344,7 @@ requestwsj = {
 	},
 	buy: function(d_a) {
 		var token = $('meta[name=csrf-token]').attr('content');
+		$('#buy-wait').removeClass('hide');
 		$.post(
 			'admins/buysells/buy',
 			{
@@ -320,7 +357,7 @@ requestwsj = {
 				var hours = result.hours;
 				var this_id = result.this_id;
 				var p_data = result.p_data;
-
+				$('#buy-wait').addClass('hide');
 				switch(status) {
 					case 200: // Approved
 						alert('Successfully Purchased. Please verify the payment within next '+hours+' hours.');
@@ -629,6 +666,7 @@ function buyverify() {
 })(jQuery);
 
 function ShowDash(type,kind,slug) {
+	$('#varf-page').addClass('hide');
 	var _auth = parseInt($('#_auth').attr('data'));
 	if (_auth == 1) {
 		$('#dashboard-modal').modal('show');
@@ -657,11 +695,9 @@ function ShowDash(type,kind,slug) {
 }
 
 function pumf(this_id,this_timer,p_data) {
-	var form_html = '<form id="form-'+this_id+'" this-id="'+this_id+'" row_id="'+this_id+'" class="var-form" action="" method="post" enctype="multipart/form-data">'+
-						'<input  type="file" class="pen-file" name="file" id="file" required />'+
-						'<button type="submit" class="pen-btn pull-left btn btn-info">submit</button>'+
-					'</form>';
-	$('#modal_form_holder').html(form_html);
+	Dropzone.forElement("#post_upload_zone").removeAllFiles(true);
+
+	$('#varf-page').attr('this-id',this_id);
 
 	set_uploadmodal_data(p_data);
 	var count = this_timer;
@@ -685,7 +721,9 @@ function pumf(this_id,this_timer,p_data) {
 	    hours %= 60;
 	    document.getElementById("timer").innerHTML = hours + ":" + minutes + ":" + seconds + " seconds left!"; // watch for spelling
 	}
-	$('#upload-modal').modal('show');
+	//show new page
+	$('.msections').addClass('hide');
+	$('#varf-page').removeClass('hide');
 
 }
 

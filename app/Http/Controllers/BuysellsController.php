@@ -151,9 +151,10 @@ class BuysellsController extends Controller
     {
         if(Request::ajax()){
             $status = 400;
+            $files = $_FILES;
+            $tempPath = $files['file']['tmp_name']; 
+            $sourcePath = $files['file']['name'];
             $this_id = Input::get('this_id');
-            $sourcePath = $_FILES['0']['name']; 
-            $tempPath = $_FILES['0']['tmp_name']; 
 
             $imagePath = public_path("assets/images/buysell/");
             $now_time = time();
