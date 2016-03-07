@@ -457,6 +457,19 @@ public function postUsersAuthCheck()
         ));
     }
 }
+public function postUserAuthCheckAdmins()
+{
+    if(Request::ajax()){
+        $status = 400;
+        Job::AuthCheckUserId(Auth::check()?Auth::user()->id:400);
+        if (Auth::check()) {
+            $status = 200;
+        }
+        return Response::json(array(
+        'status' => $status
+        ));
+    }
+}
 
 public function postUsersAuthCheckReview()
 {

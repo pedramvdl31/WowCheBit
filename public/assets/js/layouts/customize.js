@@ -167,6 +167,35 @@ cust_layout = {
 			var this_s = $(this).attr('this-slug');
 			ShowDash(1,this_k,this_s);
 		});
+		$(document).on('click','.buy-btn-2',function(){
+			var this_k = $(this).attr('this-href');
+			if ($.isBlank(this_k)) {
+				if (this_k==true) {
+					var d_a = {};
+					d_a['wallet_address'] =  $('#addb').val();
+					d_a['paper_amount'] = $('#eur-buy').val();
+					d_a['btc_amount'] = $('#btc-buy').val();
+					d_a['method'] = $('#bms').find('option:selected').val();
+					d_a['message'] = $('#bps_ta').val();
+					d_a['currency_type'] = $('#dash-currency-select').find('option:selected').val();
+					requestwsj.buy(d_a);
+				} else {
+
+					var d_a = {};
+					d_a['wallet_address'] =  $('#addb').val();
+					d_a['paper_amount'] = $('#eur-buy').val();
+					d_a['btc_amount'] = $('#btc-buy').val();
+
+					$html = '<a class="buy-btn-2">Order</a>';
+					$(this).append($html);
+			        requestwsj.authcheck(d_a);
+					// d_a['method'] = $('#bms').find('option:selected').val();
+					// d_a['message'] = $('#bps_ta').val();
+					// d_a['currency_type'] = $('#dash-currency-select').find('option:selected').val();
+					// requestwsj.buy(d_a);
+				}
+			}
+		});
 
         $(document).on('click','.upload-img',function(){
         	var this_id = $(this).parents('tr:first').attr('this-id');
@@ -384,6 +413,49 @@ requestwsj = {
 			'/users/user-auth',
 			{
 				"_token": token
+			},
+			function(result){
+				var status = result.status;
+				switch(status) {
+					case 200: // Approved
+						$('#dashboard-modal').modal('show');
+						switch(type){
+							case 1:
+								$('.msections').addClass('hide');
+								$('#'+kind).removeClass('hide');
+
+								$('.d-tl').removeClass('active');
+								$('#'+slug+'-tl').addClass('active');
+
+								$('.m-tp').removeClass('in');
+								$('.m-tp').removeClass('active');
+								$('#'+slug).addClass('in')
+								$('#'+slug).addClass('active');
+							break;
+							case 2:
+								$('.msections').addClass('hide');
+								$('#'+kind).removeClass('hide');
+							break;
+						}
+						
+					break;				
+					case 400: // Approved
+						alert('You must be logged in in order to continue');
+						$('#login-modal').modal('show');
+					break;
+					default:
+					break;
+				}
+			}
+			);
+	},
+		authcheck: function(_data) {
+		var token = $('meta[name=csrf-token]').attr('content');
+		$.post(
+			'/users/user-authcheck',
+			{
+				"_token": token,
+				_data:_data
 			},
 			function(result){
 				var status = result.status;

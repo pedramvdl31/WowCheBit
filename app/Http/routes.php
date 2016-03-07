@@ -49,6 +49,7 @@ Route::group(['middleware' => 'beforeFilter'], function () {
 		Route::get('profile/{username}',  ['as'=>'users_profile','uses' => 'UsersController@getProfile', function ($username) {}]);
 		Route::post('profile',  ['as'=>'users_profile_post','uses' => 'UsersController@postProfile']);
 		Route::post('user-auth', ['uses'=>'UsersController@postUserAuth']);
+		Route::post('user-authcheck', ['uses'=>'UsersController@postUserAuthCheckAdmins']);
 		Route::post('send-file', ['uses'=>'UsersController@postSendFile']);
 		Route::post('validate', ['uses'=>'UsersController@postValidate']);
 		Route::post('validate-sales', ['uses'=>'UsersController@postValidateSales']);
