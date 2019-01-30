@@ -4,7 +4,7 @@
     <strong>Stack: </strong>
     <span>PHP Laravel 5, MySQL, HTML, CSS(Bootstrap 3), JavaScript & JQuery</span>
 </p>
-<h1>What Did I learned</h1>  
+<h1>What Did I learn?</h1>  
 <ul>
   <li>Laravel 5</li>
   <li>MVC Programming</li>
